@@ -8,11 +8,13 @@
 - The user interface allows the user to perform CRUD operations on individual ToDo items
 
 # Additional Features
-- Categorization
+- **Categorization**
   - Assign one or multiple categories to a ToDo
-- Profile Management
+- **Profile Management**
   - Allow the creation of profiles and associate ToDo with profiles
   - Add organizations, which profiles can join and associate ToDos to organizations
+- **Design**
+  - Add the possibility to switch designs - maybe to dark mode?
 
 ## Contributors
 - [Margareta Karaqi](https://github.com/mkfhnw)
