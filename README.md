@@ -8,11 +8,16 @@
 - The user interface allows the user to perform CRUD operations on individual ToDo items
 
 # Additional Features
-- **Categorization**
-  - Assign one or multiple categories to a ToDo
-- **Profile Management**
-  - Allow the creation of profiles and associate ToDo with profiles
-  - Add organizations, which profiles can join and associate ToDos to organizations
+- **Functionality**
+  - **Categorization**
+    - Assign one or multiple categories to a ToDo
+  - **Profile Management**
+    - Allow the creation of profiles and associate ToDo with profiles
+    - Add organizations, which profiles can join and associate ToDos to organizations
+  - **Status**
+    - Add functionality to display ToDo's that are up for today
+  - **Database**
+    - Store data in a local, [SQLite](https://www.sqlite.org/index.html) database
 - **Design**
   - Add the possibility to switch designs - maybe to dark mode?
 
