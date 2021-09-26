@@ -23,5 +23,5 @@
 
 ## Contributors
 - [Margareta Karaqi](https://github.com/mkfhnw)
-- Nico Sträuli
+- [Nico Sträuli](https://github.com/nicSt12)
 - [Joel Läubin](https://github.com/Joel-Laeubin) / [MadMowgli](https://github.com/MadMowgli/MadMowgli)
