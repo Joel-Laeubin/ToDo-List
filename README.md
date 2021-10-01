@@ -15,9 +15,11 @@
     - Allow the creation of profiles and associate ToDo with profiles
     - Add organizations, which profiles can join and associate ToDos to organizations
   - **Status**
-    - Add functionality to display ToDo's that are up for today
+    - Add functionality to display ToDo's that are up for today (is also a design feature)
   - **Database**
     - Store data in a local, [SQLite](https://www.sqlite.org/index.html) database
+  - **Basic Functionality**
+    - Create a searchbar (Also a design feature)
 - **Design**
   - Add the possibility to switch designs - maybe to dark mode?
 
