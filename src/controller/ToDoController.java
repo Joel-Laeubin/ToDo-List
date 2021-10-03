@@ -21,9 +21,9 @@ public class ToDoController {
 
     // ------- CRUD-Methods
     /* Create method
-     * Creates a new ToDo and appends it to the ToDoList
+     * Parses the inputs of the user required for a new ToDoInstance, creates the instance and stores it.
      */
-    public void createToDo(ToDo toDo) {
+    public void createToDo(String title, String message, LocalDateTime dateOfCreation, LocalDateTime dueDate,) {
 
     }
 
