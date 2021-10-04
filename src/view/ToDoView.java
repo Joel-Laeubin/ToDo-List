@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 
 public class ToDoView extends BorderPane {
 	
-	// control elements for this container
+	// control elements for "this" container
 	
 	private Menu menuSave;
 	private Menu menuBack;
@@ -40,7 +40,7 @@ public class ToDoView extends BorderPane {
 	private TabView tabView;
 	
 	/*
-	 * instantiates all necessary control elements
+	 * instantiates all control elements
 	 * and adds them to the container
 	 */
 	

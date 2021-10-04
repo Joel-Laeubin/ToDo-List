@@ -15,10 +15,10 @@ public class ToDoApp extends Application {
 	
 	public void start(Stage stage) {
 		
-		// 1. instantiate the root
+		// 1. instantiates the root
 		ToDoView root = new ToDoView();
 		
-		// 2. pass the root to the scene
+		// 2. passes the root to the scene
 		Scene scene = new Scene(root);
 		
 		// 3. shows scene in a window (object stage)
