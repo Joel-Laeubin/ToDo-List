@@ -2,16 +2,18 @@ package view;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import rep5.TabView;
 
 public class ToDoView extends BorderPane {
 	
-	// control elements for "this" container
+	// control elements for this container
 	
 	private Menu menuSave;
 	private Menu menuBack;
@@ -22,11 +24,6 @@ public class ToDoView extends BorderPane {
 	private VBox vBox;
 	private SplitPane splitPane;
 	private Label name;
-	private Button important;
-	private Button planned;
-	private Button done;
-	private Button deleted;
-	private Button newFolder;
 	
 	private Label importantTitle;
 	private Label plannedTitle;
@@ -40,7 +37,7 @@ public class ToDoView extends BorderPane {
 	private TabView tabView;
 	
 	/*
-	 * instantiates all control elements
+	 * instantiates all necessary control elements
 	 * and adds them to the container
 	 */
 	
@@ -55,34 +52,29 @@ public class ToDoView extends BorderPane {
 		
 		this.setTop(this.menuBar);
 		
-		this.name = new Label("xxx");
-		this.important = new Button("Wichtig");
-		this.planned = new Button("Geplant");
-		this.done = new Button("erledigt");
-		this.deleted = new Button("Papierkorb");
-		this.newFolder = new Button("neuer Ordner");
-		
+		ListView<String> listView = new ListView<>();
+		listView.getItems().addAll(
+				"Wichtig",
+				"Geplant",
+				"Erledigt",
+				"Papierkorb",
+				"Neuer Ordner");
+					
 		this.vBox = new VBox();
-		this.vBox.getChildren().addAll(
-				this.name, 
-				this.important, 
-				this.planned, 
-				this.done, 
-				this.deleted, 
-				this.newFolder);
+		this.vBox.getChildren().addAll(listView);
 		this.setLeft(this.vBox);
-		
+				
 		this.searchField = new TextField();
 		this.createToDo = new Button("+");
 		this.hBox = new HBox();
 		this.hBox.getChildren().addAll(this.searchField, this.createToDo);
 		this.setCenter(this.hBox);
-
+		
 		this.splitPane = new SplitPane();
 		this.splitPane.getItems().addAll(vBox, hBox);
 		this.setCenter(splitPane);
-	}
 	
+	}
 	
 
 }
