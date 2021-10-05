@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class ToDoView extends BorderPane {
+public class ToDoView<TabView> extends BorderPane {
 	
 	// control elements for this container
 	
@@ -110,7 +110,6 @@ public class ToDoView extends BorderPane {
 			 * creates a VBox in the BorderPane
 			 * and includes the listView
 			 */
-			
 			this.vBox = new VBox();
 			this.vBox.getChildren().addAll(listView);
 			this.setLeft(this.vBox);
