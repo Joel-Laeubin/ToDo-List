@@ -38,7 +38,6 @@ public class ToDoView extends BorderPane {
 		private Button createToDo;
 		
 		private HBox hBox;
-		private TabView tabView;
 		
 		/*
 		 * instantiates all necessary control elements
