@@ -27,5 +27,9 @@ public class ToDoList {
 	public void addToDo(ToDo toDo) {
 		this.toDoList.add(toDo);
 	}
-	public void removeToDo(ToDo toDo) { this.toDoList.remove(toDo); }
+	public void removeToDo(ToDo toDo) { 
+		this.toDoList.remove(toDo); 
+		ToDo.globalToDoId -= 1;
+			
+	}
 }
