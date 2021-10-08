@@ -2,6 +2,7 @@ package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import view.ToDoView;
 
@@ -26,6 +27,11 @@ public class ToDoApp extends Application {
 		stage.setScene(scene);
 		stage.setTitle("ToDo-App");
 		stage.show();
+		
+		// adds an icon to the window
+		Image doneImage = new Image("/icons/doneIcon.png");
+		stage.getIcons().add(doneImage);
+		
 		
 	}
 
