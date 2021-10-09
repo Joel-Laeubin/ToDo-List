@@ -1,5 +1,22 @@
 package view;
 
-public class DoneBarView {
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 
+public class DoneBarView extends MainBarView {
+
+	@Override
+	public Image setIcon() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Label setLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	
 }

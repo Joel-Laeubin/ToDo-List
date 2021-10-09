@@ -2,12 +2,20 @@ package view;
 
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 
-public class GarbageBarView {
+public class GarbageBarView  extends MainBarView {
+
+	@Override
+	public Image setIcon() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Label setLabel() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
-	protected VBox vbox;
-	protected Image icon;
-	protected Label label; 
 
 }
