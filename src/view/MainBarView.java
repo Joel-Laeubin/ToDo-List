@@ -42,9 +42,9 @@ public abstract class MainBarView extends VBox {
 		tableView.setEditable(true);
 		TableColumn checkbox = new TableColumn("Erledigt");
 		TableColumn task = new TableColumn("Aufgabe");
-		TableColumn deadline = new TableColumn("Termin");
+		TableColumn dueDate = new TableColumn("Termin");
 		TableColumn important = new TableColumn("Wichtig");
-		tableView.getColumns().addAll(checkbox, task, deadline, important);
+		tableView.getColumns().addAll(checkbox, task, dueDate, important);
 		this.getChildren().addAll(tableView);
 		return tableView;
 	}
