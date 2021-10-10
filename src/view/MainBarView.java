@@ -7,6 +7,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 
 public abstract class MainBarView extends VBox {
@@ -14,15 +15,15 @@ public abstract class MainBarView extends VBox {
 	// control elements for this container
 	protected Image icon;
 	protected Label label;
-	protected Image lupe;
+	protected ImageView lupe;
 	protected TextField searchField;
 	protected Button createButton;
 	protected TableView tableView;
 	protected ScrollPane scrollPane;
 	
 	
-	public Image getLupe() {
-		this.lupe = new Image("/icons/lupe.png");
+	public ImageView getLupe() {
+		this.lupe = new ImageView("/icons/lupe.png");
 		this.getChildren().add(lupe);
 		return this.lupe;
 	}
