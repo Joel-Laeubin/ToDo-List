@@ -12,7 +12,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-public class ToDoView<TabView> extends BorderPane {
+public class ToDoView extends BorderPane {
 	
 	// control elements for this container
 	
