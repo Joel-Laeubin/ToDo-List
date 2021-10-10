@@ -11,11 +11,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
-public class ToDoView<TabView> extends BorderPane {
-	
-	// control elements for this container
-	
+public class ToDoView extends BorderPane {
+
+
+		// control elements for this container
 		private Menu menuSave;
 		private Menu menuBack;
 		private Menu menuFurther;
@@ -36,7 +38,7 @@ public class ToDoView<TabView> extends BorderPane {
 		private Button createToDo;
 		
 		private HBox hBox;
-		
+
 		/*
 		 * instantiates all necessary control elements
 		 * and adds them to the container
@@ -44,15 +46,47 @@ public class ToDoView<TabView> extends BorderPane {
 		
 		public ToDoView() {
 			
+			// creating icons to be used on menu
+			Image saveIcon = new Image(getClass().getResourceAsStream("speichern.png"));
+			ImageView saveView = new ImageView(saveIcon);
+			saveView.setFitWidth(15);
+			saveView.setFitHeight(15);
+			
+			Image backIcon = new Image(getClass().getResourceAsStream("zurück.png"));
+			ImageView backView = new ImageView(backIcon);
+			backView.setFitWidth(15);
+			backView.setFitHeight(15);
+			
+			Image furtherIcon = new Image(getClass().getResourceAsStream("wiederholen.png"));
+			ImageView furtherView = new ImageView(furtherIcon);
+			furtherView.setFitWidth(15);
+			furtherView.setFitHeight(15);
+			
+			Image plusIcon = new Image(getClass().getResourceAsStream("plus.png"));
+			ImageView plusView = new ImageView(plusIcon);
+			plusView.setFitWidth(15);
+			plusView.setFitHeight(15);
+			
+			Image settingsIcon = new Image(getClass().getResourceAsStream("settings.png"));
+			ImageView settingsView = new ImageView(settingsIcon);
+			settingsView.setFitWidth(15);
+			settingsView.setFitHeight(15);
+			
+			// creating menus incl. icons
 			this.menuSave = new Menu();
+			this.menuSave.setGraphic(saveView);
 			
 			this.menuBack = new Menu();
-						
+			this.menuBack.setGraphic(backView);
+			
 			this.menuFurther = new Menu();
+			this.menuFurther.setGraphic(furtherView);
 			
 			this.menuPlus = new Menu();
+			this.menuPlus.setGraphic(plusView);
 			
 			this.menuSettings = new Menu();
+			this.menuSettings.setGraphic(settingsView);
 			
 			// set the menus to the menubar
 			this.menuBar = new MenuBar();

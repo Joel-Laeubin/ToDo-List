@@ -43,7 +43,7 @@ public class ToDoController {
      * Gets a specific ToDo based on its ID, updated the contents and stores it again.
      * Maybe pass in an ToDo as parameter?
      */
-    public void updateToDo(int ID, String title, String message, LocalDateTime dueDate, LocalDateTime dateOfCreation) {
+    public void updateToDo(int ID, String title, String message, LocalDateTime dueDate) {
 
         // Fetch item & old status
         ToDo itemToUpdate = this.toDoList.getToDo(ID);
