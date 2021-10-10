@@ -5,20 +5,14 @@ import javafx.scene.image.Image;
 
 public class PlannedBarView  extends MainBarView {
 	
-	public PlannedBarView() {
-		super.label = label;
+	public void setIcon() {
+		Image plannedIcon = new Image("/icons/plannedIcon.png");
 	}
 
-	@Override
-	public Image setIcon() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Label setLabel() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void setLabel() {
+		Label plannedLabel = new Label("Geplant");
+		
 	}
 	
 

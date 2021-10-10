@@ -5,17 +5,18 @@ import javafx.scene.image.Image;
 
 public class GarbageBarView  extends MainBarView {
 
-	@Override
-	public Image setIcon() {
-		// TODO Auto-generated method stub
-		return null;
+	public void setIcon() {
+		Image garbageIcon = new Image("/icons/garbageIcon.png");
 	}
 
-	@Override
-	public Label setLabel() {
-		// TODO Auto-generated method stub
-		return null;
+	
+	public void setLabel() {
+		Label garbageLabel = new Label("Papierkorb");
+		
 	}
+
+
+
 	
 
 }

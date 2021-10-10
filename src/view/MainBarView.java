@@ -3,6 +3,7 @@ package view;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -13,58 +14,53 @@ public abstract class MainBarView extends VBox {
 	// control elements for this container
 	protected Image icon;
 	protected Label label;
-	protected final Image LUPE;
+	protected Image lupe;
 	protected TextField searchField;
 	protected Button createButton;
 	protected TableView tableView;
 	protected ScrollPane scrollPane;
-
-	// setter	
-	public void setLupe() {
-		this.LUPE = new Image("/icons/lupe.png");
-	}
 	
-	public void setSearchField() {
+	
+	public Image getLupe() {
+		this.lupe = new Image("/icons/lupe.png");
+		this.getChildren().add(lupe);
+		return this.lupe;
+	}
+	public TextField getSearchField() {
 		this.searchField = new TextField();
+		this.getChildren().add(searchField);
+		return this.searchField;
 	}
-	
-	public void setCreateButton() {
+	public Button getCreateButton() {
 		this.createButton = new Button("+");
+		this.getChildren().add(createButton);
+		return createButton;
 	}
-	
-	public void setTableView() {
-		this.tableView = new TableView();
-		this.getChildren().add(tableView);
+	public TableView getTableView() {
+		TableView tableView = new TableView();
+		tableView.setEditable(true);
+		TableColumn checkbox = new TableColumn("Erledigt");
+		TableColumn task = new TableColumn("Aufgabe");
+		TableColumn deadline = new TableColumn("Termin");
+		TableColumn important = new TableColumn("Wichtig");
+		tableView.getColumns().addAll(checkbox, task, deadline, important);
+		this.getChildren().addAll(tableView);
+		return tableView;
 	}
-	
-	public void setScrollPane() {
-		this.scrollPane = new ScrollPane();
+	public ScrollPane getScrollPane() {
+		ScrollPane scrollpane = new ScrollPane();
+		scrollPane.setFitToWidth(true);
+		scrollPane.setFitToHeight(true);
+		scrollPane.setPrefSize(500,  200);
 		this.getChildren().add(scrollPane);
+		return scrollPane;
 	}
 	
-		
-	/*
-	 * Abstract methods (have to be formulated
-	 * in the subclass
-	 */
-	
-	public abstract Image setIcon();
+	public abstract void setIcon();
 	
 	
-	public abstract Label setLabel();
+	public abstract void setLabel();
 	
-
-	{
-	this.getChildren().add(this.LUPE);
-	
-	
-	
-	
-	}
-
 }
-
-
-	
 	
 
