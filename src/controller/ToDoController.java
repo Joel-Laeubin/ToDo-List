@@ -3,7 +3,7 @@ package controller;
 import model.ToDo;
 import model.ToDoList;
 import view.ToDoView;
-
+import javafx.event.*;
 import java.time.LocalDateTime;
 
 public class ToDoController {
@@ -78,5 +78,10 @@ public class ToDoController {
         ToDo itemToRemove = this.toDoList.getToDo(ID);
         this.toDoList.removeToDo(itemToRemove);
     }
-
+    
+    
+    public void setToDoOnDone(Event event) {
+    	this.toDo.setDone(true);
+    }
+    
 }
