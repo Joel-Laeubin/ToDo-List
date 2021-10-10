@@ -1,6 +1,5 @@
-package view;
+package client;
 
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 

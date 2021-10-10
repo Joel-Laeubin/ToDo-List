@@ -1,4 +1,4 @@
-package view;
+package client;
 
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -38,7 +38,10 @@ public class AddToDoDialogPane extends DialogPane {
         this.getButtonTypes().add(new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE));
         this.getButtonTypes().add(new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE));
 
+        // Instantiate
+        this.root = new BorderPane();
 
+        this.setContent(root);
 
     }
 

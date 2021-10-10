@@ -1,49 +1,52 @@
-package view;
+package client;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.ToDo;
+import model.ToDoList;
 
 public class ToDoView extends BorderPane {
 	
 	// control elements for this container
 	
-		private Menu menuSave;
-		private Menu menuBack;
-		private Menu menuFurther;
-		private Menu menuPlus;
-		private Menu menuSettings;
-		private MenuBar menuBar;
+		protected Menu menuSave;
+		protected Menu menuBack;
+		protected Menu menuFurther;
+		protected Menu menuPlus;
+		protected Menu menuSettings;
+		protected MenuBar menuBar;
 		
-		private VBox vBox;
-		private SplitPane splitPane;
-		private Label name;
+		protected VBox vBox;
+		protected SplitPane splitPane;
+		protected Label name;
 		
-		private Label importantTitle;
-		private Label plannedTitle;
-		private Label doneTitle;
-		private Label deletedTitle;
+		protected Label importantTitle;
+		protected Label plannedTitle;
+		protected Label doneTitle;
+		protected Label deletedTitle;
 		
-		private TextField searchField;
-		private Button createToDo;
+		protected TextField searchField;
+		protected Button createToDo;
 		
-		private HBox hBox;
+		protected HBox hBox;
+
+		protected Dialog<ButtonType> addToDoDialog;
+
+		protected ToDo toDoModel;
+		protected ToDoList toDoListModel;
 		
 		/*
 		 * instantiates all necessary control elements
 		 * and adds them to the container
 		 */
 		
-		public ToDoView() {
-			
+		public ToDoView(ToDo toDoModel, ToDoList toDoListModel) {
+
+			this.toDoModel = toDoModel;
+			this.toDoListModel = toDoListModel;
+
 			this.menuSave = new Menu();
 			
 			this.menuBack = new Menu();
@@ -93,6 +96,10 @@ public class ToDoView extends BorderPane {
 			this.splitPane = new SplitPane();
 			this.splitPane.getItems().addAll(vBox, hBox);
 			this.setCenter(splitPane);
+
+			// Customize Dialog
+			this.addToDoDialog = new Dialog<ButtonType>();
+			this.addToDoDialog.setDialogPane(new AddToDoDialogPane());
 		
 		}
 		

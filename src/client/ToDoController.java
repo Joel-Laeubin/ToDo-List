@@ -1,10 +1,13 @@
-package controller;
+package client;
 
+import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import model.ToDo;
 import model.ToDoList;
-import view.ToDoView;
+import client.ToDoView;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 public class ToDoController {
 
@@ -19,9 +22,11 @@ public class ToDoController {
         this.toDo = toDo;
         this.toDoList = toDoList;
 
-        // Register CRUD-events
+        // Register buttons
+        this.toDoView.createToDo.setOnMouseClicked(this::createToDoDialog);
 
     }
+
 
     // ------- CRUD-Methods
     /* Create method
@@ -77,6 +82,20 @@ public class ToDoController {
         // Fetch ToDo item
         ToDo itemToRemove = this.toDoList.getToDo(ID);
         this.toDoList.removeToDo(itemToRemove);
+    }
+
+    // Dialog box method
+    public void createToDoDialog(MouseEvent e) {
+
+        // Show dialog
+        Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
+
+        // Parse result
+
+        // Create toDo
+
+        // Add ToDo
+
     }
 
 }
