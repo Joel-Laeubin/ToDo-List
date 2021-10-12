@@ -28,7 +28,6 @@ public class ToDoView extends BorderPane {
 		protected Label deletedTitle;
 		
 		protected TextField searchField;
-		protected Button createToDo;
 		
 		protected HBox hBox;
 
@@ -82,17 +81,6 @@ public class ToDoView extends BorderPane {
 			this.vBox = new VBox();
 			this.vBox.getChildren().addAll(listView);
 			this.setLeft(this.vBox);
-			
-			/*
-			 * creates a TextField and a Button
-			 * in a HBox, which is in the Center of the
-			 * BorderPane					
-			 */
-			this.searchField = new TextField();
-			this.createToDo = new Button("+");
-			this.hBox = new HBox();
-			this.hBox.getChildren().addAll(this.searchField, this.createToDo);
-			this.setCenter(this.hBox);
 			
 			// creates a SplitPane between the vBox and HBox
 			this.splitPane = new SplitPane();

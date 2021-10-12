@@ -23,7 +23,7 @@ public class ToDoController {
         this.toDoList = toDoList;
 
         // Register buttons
-        this.toDoView.createToDo.setOnMouseClicked(this::createToDoDialog);
+
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
     }
 
@@ -102,6 +102,8 @@ public class ToDoController {
 	private void changeCenterBar(MouseEvent e) {
 		switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
 		case 0:
+			ImportantBarView important = new ImportantBarView();
+	        important.createToDo.setOnMouseClicked(this::createToDoDialog);
 			toDoView.setCenter(new ImportantBarView());
 			break;
 		case 1:

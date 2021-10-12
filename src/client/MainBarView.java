@@ -18,7 +18,7 @@ public abstract class MainBarView extends VBox {
 	protected Label label;
 	protected ImageView lupe;
 	protected TextField searchField;
-	protected Button createButton;
+	protected Button createToDo;
 	protected TableView tableView;
 	protected ScrollPane scrollPane;
 	protected HBox header;
@@ -28,15 +28,18 @@ public abstract class MainBarView extends VBox {
 		
 		this.header = new HBox();
 		this.getChildren().add(header);
+		
 		this.lupe = new ImageView("/icons/lupe.png");
+		
 		this.searchField = new TextField();
 		this.getChildren().add(searchField);
-		this.createButton = new Button("+");
-		this.getChildren().add(createButton);
+		
+		this.createToDo = new Button("+");
+		this.getChildren().add(createToDo);
+		
 		this.tableView = new TableView();
 		tableView.setEditable(true);
 		TableColumn checkbox = new TableColumn("Erledigt");
-		
 		TableColumn task = new TableColumn("Aufgabe");
 		TableColumn dueDate = new TableColumn("Termin");
 		TableColumn important = new TableColumn("Wichtig");
@@ -57,8 +60,8 @@ public abstract class MainBarView extends VBox {
 	public TextField getSearchField() {
 		return this.searchField;
 	}
-	public Button getCreateButton() {
-		return createButton;
+	public Button getCreateToDo() {
+		return createToDo;
 	}
 	public TableView getTableView() {
 		return tableView;
