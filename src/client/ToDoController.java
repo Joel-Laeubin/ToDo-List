@@ -1,6 +1,7 @@
 package client;
 
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import model.ToDo;
 import model.ToDoList;
@@ -97,27 +98,35 @@ public class ToDoController {
         // Add ToDo
 
     }
-
+    
 
 	private void changeCenterBar(MouseEvent e) {
 		switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
 		case 0:
 			ImportantBarView important = new ImportantBarView();
 	        important.createToDo.setOnMouseClicked(this::createToDoDialog);
-			toDoView.setCenter(new ImportantBarView());
+	        toDoView.borderPane.setCenter(important);
 			break;
 		case 1:
-			toDoView.setCenter(new PlannedBarView());
+			PlannedBarView planned = new PlannedBarView();
+			planned.createToDo.setOnMouseClicked(this::createToDoDialog);
+			toDoView.borderPane.setCenter(planned);
 			break;
 		case 2:
-			toDoView.setCenter(new DoneBarView());
+			DoneBarView done = new DoneBarView();
+			done.createToDo.setOnMouseClicked(this::createToDoDialog);
+			toDoView.borderPane.setCenter(done);
 			break;
 		case 3:
-			toDoView.setCenter(new GarbageBarView());
+			GarbageBarView garbage = new GarbageBarView();
+			garbage.createToDo.setOnMouseClicked(this::createToDoDialog);
+			toDoView.borderPane.setCenter(garbage);
+		}
 		}
 		
+
 	}
     
     
 
-}
+

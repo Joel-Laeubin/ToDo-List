@@ -24,7 +24,7 @@ public class AddToDoDialogPane extends DialogPane {
 
     protected TextField titleTextfield;
 
-    protected ComboBox categoryComboBox;
+    protected ComboBox<String> categoryComboBox;
 
     protected DatePicker datePicker;
 
