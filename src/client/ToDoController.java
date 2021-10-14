@@ -37,12 +37,13 @@ public class ToDoController {
      * Parses the inputs of the user required for a new ToDoInstance, creates the instance and stores it.
      * Needs input from ToDoView
      */
-    public void createToDo(String title, String message, LocalDateTime dateOfCreation, LocalDate dueDate) {
-
+    public void createToDo(String title, String message, LocalDate dueDate, String category) {
+        this.toDoList.addToDo(new ToDo(title, message, dueDate, category));
+        System.out.println("Added new ToDo to the arrayList");
     }
 
     /* Read method
-    * Returns a ToDo based on its ID
+     * Returns a ToDo based on its ID
      */
     public ToDo getToDo(int ID) {
         return this.toDoList.getToDo(ID);
@@ -69,9 +70,15 @@ public class ToDoController {
         boolean dueDateChanged = oldDueDate == dueDate;
 
         // Make changes
-        if (titleChanged) { itemToUpdate.setTitle(title); }
-        if (messageChanged) { itemToUpdate.setMessage(message); }
-        if (dueDateChanged) { itemToUpdate.setDueDate(dueDate); }
+        if (titleChanged) {
+            itemToUpdate.setTitle(title);
+        }
+        if (messageChanged) {
+            itemToUpdate.setMessage(message);
+        }
+        if (dueDateChanged) {
+            itemToUpdate.setDueDate(dueDate);
+        }
 
         // Insert changed item into ArrayList
         this.toDoList.addToDo(itemToUpdate);
@@ -87,6 +94,31 @@ public class ToDoController {
         this.toDoList.removeToDo(itemToRemove);
     }
 
+    /* Validate user input method
+     *
+     */
+    private boolean validateUserInput(String title, String message, String dueDate, String category) {
+
+        // Validate easy inputs first
+        boolean titleIsValid = title.length() < 50;
+        boolean messageIsValid = message.length() < 300;
+        boolean categoryIsValid = this.toDoView.listView.getItems().contains(category);
+
+        // Validate date
+        boolean dateIsValid = false;
+        String[] dateArray = dueDate.split("-");
+
+        if(dateArray.length == 3) {
+            int year = Integer.parseInt(dateArray[0]);
+            int month = Integer.parseInt(dateArray[1]);
+            int day = Integer.parseInt(dateArray[2]);
+            if (year <= LocalDate.now().getYear() && month < 23 && day < 32) { dateIsValid = true; }
+        }
+
+        return (titleIsValid && messageIsValid && categoryIsValid && dateIsValid);
+
+    }
+
     /* Dialog creation method
      * Shows the dialog to get input from the user required for a new ToDO
      * After user has made his input, controller parses out the data and creates a new ToDo
@@ -98,36 +130,24 @@ public class ToDoController {
         Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
 
         // Parse only positive result, ignore CANCEL_CLOSE
-        if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+        if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
 
             // Create new ToDo out of user input
             String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
             String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
             String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
-            LocalDate dueDate = this.toDoView.toDoDialogPane.datePicker.getValue();
-            
-			ToDo toDo = new ToDo(title, message, dueDate, category);
+            String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
 
-            // Add ToDO to ToDoList
-            this.toDoList.addToDo(toDo);
-
-            // DEBUG: Print to console
-            System.out.println(toDo.getID());
-            System.out.println(toDo.getTitle());
-            System.out.println(toDo.getCategory());
-            System.out.println(toDo.getDateOfCreation().toString());
-            System.out.println(toDo.getDueDate().toString());
-            System.out.println(toDo.getMessage());
+            // Validate user input
+            if (this.validateUserInput(title, message, dueDateString, category)) {
+                this.createToDo(title, message, LocalDate.parse(dueDateString), category);
+            }
 
             // Clear out dialogPane
             this.toDoView.toDoDialogPane.clearPane();
 
         }
 
-
-    
-        
-        
     }
 
     /* Method to change center view of GUI
@@ -135,31 +155,31 @@ public class ToDoController {
      * On a click, we parse out which item was clicked by it's index
      * Based on which item was clicked, we swap out the center of the main borderPane
      */
-	private void changeCenterBar(MouseEvent e) {
-		switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
-		case 0:
-			ImportantBarView important = new ImportantBarView();
-	        important.createToDo.setOnMouseClicked(this::createToDoDialog);
-	        toDoView.borderPane.setCenter(important);
-			break;
-		case 1:
-			PlannedBarView planned = new PlannedBarView();
-			planned.createToDo.setOnMouseClicked(this::createToDoDialog);
-			toDoView.borderPane.setCenter(planned);
-			break;
-		case 2:
-			DoneBarView done = new DoneBarView();
-			done.createToDo.setOnMouseClicked(this::createToDoDialog);
-			toDoView.borderPane.setCenter(done);
-			break;
-		case 3:
-			GarbageBarView garbage = new GarbageBarView();
-			garbage.createToDo.setOnMouseClicked(this::createToDoDialog);
-			toDoView.borderPane.setCenter(garbage);
-		}
-		}
+    private void changeCenterBar(MouseEvent e) {
+        switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
+            case 0:
+                ImportantBarView important = new ImportantBarView();
+                important.createToDo.setOnMouseClicked(this::createToDoDialog);
+                toDoView.borderPane.setCenter(important);
+                break;
+            case 1:
+                PlannedBarView planned = new PlannedBarView();
+                planned.createToDo.setOnMouseClicked(this::createToDoDialog);
+                toDoView.borderPane.setCenter(planned);
+                break;
+            case 2:
+                DoneBarView done = new DoneBarView();
+                done.createToDo.setOnMouseClicked(this::createToDoDialog);
+                toDoView.borderPane.setCenter(done);
+                break;
+            case 3:
+                GarbageBarView garbage = new GarbageBarView();
+                garbage.createToDo.setOnMouseClicked(this::createToDoDialog);
+                toDoView.borderPane.setCenter(garbage);
+        }
+    }
 
-	}
+}
     
     
 
