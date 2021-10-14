@@ -9,6 +9,7 @@ import client.ToDoView;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.time.LocalDate;
 
 public class ToDoController {
 
@@ -34,7 +35,7 @@ public class ToDoController {
      * Parses the inputs of the user required for a new ToDoInstance, creates the instance and stores it.
      * Needs input from ToDoView
      */
-    public void createToDo(String title, String message, LocalDateTime dateOfCreation, LocalDateTime dueDate) {
+    public void createToDo(String title, String message, LocalDateTime dateOfCreation, LocalDate dueDate) {
 
     }
 
@@ -49,13 +50,13 @@ public class ToDoController {
      * Gets a specific ToDo based on its ID, updated the contents and stores it again.
      * Maybe pass in an ToDo as parameter?
      */
-    public void updateToDo(int ID, String title, String message, LocalDateTime dueDate) {
+    public void updateToDo(int ID, String title, String message, LocalDate dueDate) {
 
         // Fetch item & old status
         ToDo itemToUpdate = this.toDoList.getToDo(ID);
         String oldTitle = itemToUpdate.getTitle();
         String oldMessage = itemToUpdate.getMessage();
-        LocalDateTime oldDueDate = itemToUpdate.getDueDate();
+        LocalDate oldDueDate = itemToUpdate.getDueDate();
 
         // Delete old item from arrayList
         this.toDoList.getToDoList().remove(itemToUpdate);

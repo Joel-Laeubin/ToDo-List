@@ -15,11 +15,11 @@ public class AddToDoDialogPane extends DialogPane {
     protected HBox categoryBar;
     protected HBox dueDateBar;
 
-    protected Label newTask;
-    protected Label title;
-    protected Label category;
-    protected Label dueDate;
-    protected Label message;
+    protected Label newTaskLabel;
+    protected Label titleLabel;
+    protected Label categoryLabel;
+    protected Label dueDateLabel;
+    protected Label messageLabel;
 
     protected TextField titleTextfield;
 
@@ -29,20 +29,68 @@ public class AddToDoDialogPane extends DialogPane {
 
     protected TextArea messageTextArea;
 
+    // Fields
+    private final int SPACING_CATEGORYBAR = 15;
+    private final int SPACING_TITLEBAR = 43;
+    private final int SPACING_DUEDATEBAR = 28;
+
 
     // Constructor
     public AddToDoDialogPane() {
+
+        // Instantiate components
+        root = new BorderPane();
+        leftPane = new VBox();
+        rightPane = new VBox();
+        titleBar = new HBox(SPACING_TITLEBAR);
+        categoryBar = new HBox(SPACING_CATEGORYBAR);
+        dueDateBar = new HBox(SPACING_DUEDATEBAR);
+
+        newTaskLabel = new Label("Neue Aufgabe");
+        titleLabel = new Label("Titel");
+        categoryLabel = new Label("Kategorie");
+        dueDateLabel = new Label("Termin");
+        messageLabel = new Label("Beschreibung");
+
+        titleTextfield = new TextField();
+        categoryComboBox = new ComboBox<>();
+        datePicker = new DatePicker();
+        messageTextArea = new TextArea();
+
+        // Fill controls into containers
+        titleBar.getChildren().addAll(titleLabel, titleTextfield);
+        categoryBar.getChildren().addAll(categoryLabel, categoryComboBox);
+        dueDateBar.getChildren().addAll(dueDateLabel, datePicker);
+
+        leftPane.getChildren().addAll(titleBar, categoryBar, dueDateBar);
+        rightPane.getChildren().addAll(messageLabel, messageTextArea);
+
+        // Set containers
+        root.setTop(newTaskLabel);
+        root.setLeft(leftPane);
+        root.setRight(rightPane);
+
+        // Add CSS styling
+        newTaskLabel.setId("titleLabel");
+        leftPane.setId("contentPanes");
+        rightPane.setId("contentPanes");
+        this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
 
         // Add buttonTypes
         this.getButtonTypes().add(new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE));
         this.getButtonTypes().add(new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE));
 
-        // Instantiate
-        this.root = new BorderPane();
-
+        // Set content
         this.setContent(root);
-        
 
+    }
+
+    // Clearing method
+    public void clearPane() {
+        this.titleTextfield.clear();
+        this.categoryComboBox.getEditor().clear();
+        this.datePicker.getEditor().clear();
+        this.messageTextArea.clear();
     }
 
 }
