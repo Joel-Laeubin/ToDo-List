@@ -102,9 +102,11 @@ public class ToDoController {
 
             // Create new ToDo out of user input
             String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+            String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
             String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
             LocalDate dueDate = this.toDoView.toDoDialogPane.datePicker.getValue();
-            ToDo toDo = new ToDo(title, message, dueDate);
+            
+			ToDo toDo = new ToDo(title, message, dueDate, category);
 
             // Add ToDO to ToDoList
             this.toDoList.addToDo(toDo);
@@ -112,6 +114,7 @@ public class ToDoController {
             // DEBUG: Print to console
             System.out.println(toDo.getID());
             System.out.println(toDo.getTitle());
+            System.out.println(toDo.getCategory());
             System.out.println(toDo.getDateOfCreation().toString());
             System.out.println(toDo.getDueDate().toString());
             System.out.println(toDo.getMessage());
@@ -122,6 +125,9 @@ public class ToDoController {
         }
 
 
+    
+        
+        
     }
 
 	private void changeCenterBar(MouseEvent e) {

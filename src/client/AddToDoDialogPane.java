@@ -54,6 +54,8 @@ public class AddToDoDialogPane extends DialogPane {
 
         titleTextfield = new TextField();
         categoryComboBox = new ComboBox<>();
+        categoryComboBox.getItems().add("Arbeit");
+        categoryComboBox.getItems().add("Privat");
         datePicker = new DatePicker();
         messageTextArea = new TextArea();
 

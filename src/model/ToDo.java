@@ -6,7 +6,7 @@ public class ToDo {
 
 	// Fields
 	public final int ID;
-	public static int globalToDoId; //counts how many ToDo's have been created
+	public static int globalToDoId;
 	private String title;
 	private String message;
 	private LocalDate dateOfCreation;
@@ -20,18 +20,7 @@ public class ToDo {
 		this.ID = globalToDoId + 1;
 		
 	}
-	
-
-	public ToDo(String title, String message, LocalDate dueDate) {
-		this.ID = globalToDoId + 1;
-		this.title = title;
-		this.message = message;
-		this.dateOfCreation = LocalDate.now();
-		this.dueDate = dueDate;
-		this.isDone = false;
 		
-				
-	}
 	
 	public ToDo(String title, String message, LocalDate dueDate, String category) {
 		this.ID = globalToDoId + 1;
