@@ -3,6 +3,7 @@ package client;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import model.ToDo;
 import model.ToDoList;
 
@@ -19,6 +20,7 @@ public class ToDoView extends BorderPane {
 		protected SplitPane splitPane;
 		
 		protected Dialog<ButtonType> addToDoDialog;
+		protected AddToDoDialogPane toDoDialogPane;
 
 		
 		/*
@@ -59,7 +61,8 @@ public class ToDoView extends BorderPane {
 
 			// Customize Dialog
 			this.addToDoDialog = new Dialog<ButtonType>();
-			this.addToDoDialog.setDialogPane(new AddToDoDialogPane());
+			this.toDoDialogPane = new AddToDoDialogPane();
+			this.addToDoDialog.setDialogPane(toDoDialogPane);
 		
 		}
 		

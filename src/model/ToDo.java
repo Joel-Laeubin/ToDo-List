@@ -1,6 +1,6 @@
 package model;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ToDo {
 
@@ -9,8 +9,8 @@ public class ToDo {
 	public static int globalToDoId;
 	private String title;
 	private String message;
-	private LocalDateTime dateOfCreation;
-	private LocalDateTime dueDate;
+	private LocalDate dateOfCreation;
+	private LocalDate dueDate;
 	private boolean isDone;
 	
 	
@@ -20,11 +20,11 @@ public class ToDo {
 		
 	}
 	
-	public ToDo(String title, String message, LocalDateTime dueDate) {
+	public ToDo(String title, String message, LocalDate dueDate) {
 		this.ID = globalToDoId + 1;
 		this.title = title;
 		this.message = message;
-		this.dateOfCreation = LocalDateTime.now();
+		this.dateOfCreation = LocalDate.now();
 		this.dueDate = dueDate;
 		this.isDone = false;
 				
@@ -43,10 +43,10 @@ public class ToDo {
 	public String getMessage() {
 		return this.message;
 	}
-	public LocalDateTime getDateOfCreation() {
+	public LocalDate getDateOfCreation() {
 		return this.dateOfCreation;		
 	}
-	public LocalDateTime getDueDate() {
+	public LocalDate getDueDate() {
 		return this.dueDate;
 	}
 	public boolean getIsDone() {
@@ -60,7 +60,7 @@ public class ToDo {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public void setDueDate(LocalDateTime dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 	public void setDone(boolean isDone) {
