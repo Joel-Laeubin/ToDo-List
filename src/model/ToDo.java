@@ -6,12 +6,13 @@ public class ToDo {
 
 	// Fields
 	public final int ID;
-	public static int globalToDoId;
+	public static int globalToDoId; //counts how many ToDo's have been created
 	private String title;
 	private String message;
 	private LocalDateTime dateOfCreation;
 	private LocalDateTime dueDate;
 	private boolean isDone;
+	private String category;
 	
 	
 	//Constructors
@@ -20,13 +21,15 @@ public class ToDo {
 		
 	}
 	
-	public ToDo(String title, String message, LocalDateTime dueDate) {
+	public ToDo(String title, String message, LocalDateTime dueDate, String category) {
 		this.ID = globalToDoId + 1;
 		this.title = title;
 		this.message = message;
 		this.dateOfCreation = LocalDateTime.now();
 		this.dueDate = dueDate;
 		this.isDone = false;
+		this.category = category;
+		ToDoList.categoryList.add(category);
 				
 	}
 	
@@ -53,6 +56,10 @@ public class ToDo {
 		return this.isDone;
 	}
 	
+	public String getCategory() {
+		return this.category;
+	}
+	
 	// Setters
 	public void setTitle(String title) {
 		this.title = title;
@@ -66,6 +73,11 @@ public class ToDo {
 	public void setDone(boolean isDone) {
 		this.isDone = isDone;
 	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	
 
 
