@@ -15,11 +15,11 @@ public class AddToDoDialogPane extends DialogPane {
     protected HBox categoryBar;
     protected HBox dueDateBar;
 
-    protected Label newTask;
-    protected Label title;
-    protected Label category;
-    protected Label dueDate;
-    protected Label message;
+    protected Label newTaskLabel;
+    protected Label titleLabel;
+    protected Label categoryLabel;
+    protected Label dueDateLabel;
+    protected Label messageLabel;
 
     protected TextField titleTextfield;
 
@@ -33,13 +33,43 @@ public class AddToDoDialogPane extends DialogPane {
     // Constructor
     public AddToDoDialogPane() {
 
+        // Instantiate components
+        root = new BorderPane();
+        leftPane = new VBox();
+        rightPane = new VBox();
+        titleBar = new HBox();
+        categoryBar = new HBox();
+        dueDateBar = new HBox();
+
+        newTaskLabel = new Label("Neue Aufgabe");
+        titleLabel = new Label("Titel");
+        categoryLabel = new Label("Kategorie");
+        dueDateLabel = new Label("Termin");
+        messageLabel = new Label("Beschreibung");
+
+        titleTextfield = new TextField();
+        categoryComboBox = new ComboBox<>();
+        datePicker = new DatePicker();
+        messageTextArea = new TextArea();
+
+        // Fill controls into containers
+        titleBar.getChildren().addAll(titleLabel, titleTextfield);
+        categoryBar.getChildren().addAll(categoryLabel, categoryComboBox);
+        dueDateBar.getChildren().addAll(dueDateLabel, datePicker);
+
+        leftPane.getChildren().addAll(titleBar, categoryBar, dueDateBar);
+        rightPane.getChildren().addAll(messageLabel, messageTextArea);
+
+        // Set containers
+        root.setTop(newTaskLabel);
+        root.setLeft(leftPane);
+        root.setRight(rightPane);
+
         // Add buttonTypes
         this.getButtonTypes().add(new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE));
         this.getButtonTypes().add(new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE));
 
-        // Instantiate
-        this.root = new BorderPane();
-
+        // Set content
         this.setContent(root);
         
 
