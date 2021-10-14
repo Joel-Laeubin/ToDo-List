@@ -1,12 +1,15 @@
 package client;
 
+import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.SplitPane;
 import javafx.scene.input.MouseEvent;
 import model.ToDo;
 import model.ToDoList;
 import client.ToDoView;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import java.time.LocalDate;
@@ -28,7 +31,6 @@ public class ToDoController {
 
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
     }
-
 
     // ------- CRUD-Methods
     /* Create method
@@ -77,7 +79,6 @@ public class ToDoController {
 
     /* Delete method
      * Gets a specific ToDo based on its ID and deletes it.
-     * Maybe pass in an ToDo as parameter?
      */
     public void deleteToDo(int ID) {
 
@@ -86,21 +87,42 @@ public class ToDoController {
         this.toDoList.removeToDo(itemToRemove);
     }
 
-    // Dialog box method
+    /* Dialog creation method
+     * Shows the dialog to get input from the user required for a new ToDO
+     * After user has made his input, controller parses out the data and creates a new ToDo
+     * After the new ToDo is created, it wipes the inputs form the dialog pane so we can set up a clean, new dialog
+     */
     public void createToDoDialog(MouseEvent e) {
 
         // Show dialog
-
         Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
 
-        // Parse result
+        // Parse only positive result, ignore CANCEL_CLOSE
+        if(result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
 
-        // Create toDo
+            // Create new ToDo out of user input
+            String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+            String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
+            LocalDate dueDate = this.toDoView.toDoDialogPane.datePicker.getValue();
+            ToDo toDo = new ToDo(title, message, dueDate);
 
-        // Add ToDo
+            // Add ToDO to ToDoList
+            this.toDoList.addToDo(toDo);
+
+            // DEBUG: Print to console
+            System.out.println(toDo.getID());
+            System.out.println(toDo.getTitle());
+            System.out.println(toDo.getDateOfCreation().toString());
+            System.out.println(toDo.getDueDate().toString());
+            System.out.println(toDo.getMessage());
+
+            // Clear out dialogPane
+            this.toDoView.toDoDialogPane.clearPane();
+
+        }
+
 
     }
-    
 
 	private void changeCenterBar(MouseEvent e) {
 		switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
@@ -125,7 +147,6 @@ public class ToDoController {
 			toDoView.borderPane.setCenter(garbage);
 		}
 		}
-		
 
 	}
     

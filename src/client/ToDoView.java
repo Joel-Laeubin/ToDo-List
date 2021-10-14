@@ -40,12 +40,10 @@ public class ToDoView extends BorderPane {
 					"Wichtig",
 					"Geplant",
 					"Erledigt",
-					"Papierkorb");			
-			
-			/*
-			 * creates a VBox in the BorderPane
-			 * and includes the listView
-			 */
+					"Papierkorb");
+			listView.getSelectionModel().select(1);
+
+			// creates a VBox in the BorderPane and includes the listView
 			this.vBox = new VBox();
 			this.vBox.getChildren().addAll(listView);
 			this.setLeft(this.vBox);
