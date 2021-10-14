@@ -1,5 +1,6 @@
 package client;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -36,7 +37,7 @@ public class AddToDoDialogPane extends DialogPane {
 
 
     // Constructor
-    public AddToDoDialogPane() {
+    public AddToDoDialogPane(ObservableList<String> listViewItems) {
 
         // Instantiate components
         root = new BorderPane();
@@ -54,8 +55,7 @@ public class AddToDoDialogPane extends DialogPane {
 
         titleTextfield = new TextField();
         categoryComboBox = new ComboBox<>();
-        categoryComboBox.getItems().add("Arbeit");
-        categoryComboBox.getItems().add("Privat");
+        categoryComboBox.setItems(listViewItems);
         datePicker = new DatePicker();
         messageTextArea = new TextArea();
 

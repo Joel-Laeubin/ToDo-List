@@ -59,7 +59,7 @@ public class ToDoView extends BorderPane {
 
 			// Customize Dialog
 			this.addToDoDialog = new Dialog<ButtonType>();
-			this.toDoDialogPane = new AddToDoDialogPane();
+			this.toDoDialogPane = new AddToDoDialogPane(listView.getItems());
 			this.addToDoDialog.setDialogPane(toDoDialogPane);
 		
 		}
