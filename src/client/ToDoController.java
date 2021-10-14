@@ -10,8 +10,9 @@ import model.ToDoList;
 import client.ToDoView;
 
 import java.time.LocalDate;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Optional;
+import java.time.LocalDate;
 
 public class ToDoController {
 
@@ -27,6 +28,7 @@ public class ToDoController {
         this.toDoList = toDoList;
 
         // Register buttons
+
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
     }
 
@@ -35,7 +37,7 @@ public class ToDoController {
      * Parses the inputs of the user required for a new ToDoInstance, creates the instance and stores it.
      * Needs input from ToDoView
      */
-    public void createToDo(String title, String message, LocalDate dateOfCreation, LocalDate dueDate) {
+    public void createToDo(String title, String message, LocalDateTime dateOfCreation, LocalDate dueDate) {
 
     }
 

@@ -1,16 +1,23 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public class ToDoList {
 
 	// Fields
 	private ArrayList <ToDo> toDoList = new ArrayList<>();
+	protected static ArrayList<String> categoryList = new ArrayList<>(); //contains all categorys of active ToDo's
+	
+	//potential list to separate categorys between done ToDo-Objects and undone
+	//protected static ArrayList<String> categoryListDoneObjects = new ArrayList<>();
 
-	// Methods
+	// getter
 	public ArrayList <ToDo> getToDoList(){
 		return this.toDoList;
 	}
+	
+	//retrieves a specific ToDo object from the toDoList
 	public ToDo getToDo(int ID) {
 		ToDo returnVal = null;
 
@@ -27,9 +34,23 @@ public class ToDoList {
 	public void addToDo(ToDo toDo) {
 		this.toDoList.add(toDo);
 	}
+		
+	
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo); 
 		ToDo.globalToDoId -= 1;
-			
+		ToDoList.categoryList.remove(toDo.getCategory());
+		
 	}
+	
+	
+	public int getNumberOfCategoryTypes() {
+		HashSet<String> uniqueValues = new HashSet<>(ToDoList.categoryList);
+		int uniqueTypes = uniqueValues.size();
+		return uniqueTypes;
+		
+	}
+	
+	
+	
 }
