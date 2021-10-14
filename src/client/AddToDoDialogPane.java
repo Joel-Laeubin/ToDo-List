@@ -29,6 +29,11 @@ public class AddToDoDialogPane extends DialogPane {
 
     protected TextArea messageTextArea;
 
+    // Fields
+    private final int SPACING_CATEGORYBAR = 15;
+    private final int SPACING_TITLEBAR = 43;
+    private final int SPACING_DUEDATEBAR = 28;
+
 
     // Constructor
     public AddToDoDialogPane() {
@@ -37,9 +42,9 @@ public class AddToDoDialogPane extends DialogPane {
         root = new BorderPane();
         leftPane = new VBox();
         rightPane = new VBox();
-        titleBar = new HBox();
-        categoryBar = new HBox();
-        dueDateBar = new HBox();
+        titleBar = new HBox(SPACING_TITLEBAR);
+        categoryBar = new HBox(SPACING_CATEGORYBAR);
+        dueDateBar = new HBox(SPACING_DUEDATEBAR);
 
         newTaskLabel = new Label("Neue Aufgabe");
         titleLabel = new Label("Titel");
@@ -64,6 +69,12 @@ public class AddToDoDialogPane extends DialogPane {
         root.setTop(newTaskLabel);
         root.setLeft(leftPane);
         root.setRight(rightPane);
+
+        // Add CSS styling
+        newTaskLabel.setId("titleLabel");
+        leftPane.setId("contentPanes");
+        rightPane.setId("contentPanes");
+        this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
 
         // Add buttonTypes
         this.getButtonTypes().add(new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE));

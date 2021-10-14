@@ -1,0 +1,9 @@
+#contentPanes {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+#titleLabel {
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+}
