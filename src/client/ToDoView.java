@@ -9,7 +9,7 @@ import model.ToDoList;
 
 public class ToDoView extends BorderPane {
 	
-	// control elements for this container
+	// Control elements for this container
 	
 		protected ToDo toDoModel;
 		protected ToDoList toDoListModel;
@@ -24,17 +24,17 @@ public class ToDoView extends BorderPane {
 
 		
 		/*
-		 * instantiates all necessary control elements
+		 * Instantiates all necessary control elements
 		 * and adds them to the container
 		 */
 		
 		public ToDoView(ToDo toDoModel, ToDoList toDoListModel) {
 			
-			// instantiates our classes
+			// Instantiates our classes
 			this.toDoModel = toDoModel;
 			this.toDoListModel = toDoListModel;
 			
-			// creates a ListView with items
+			// Creates a ListView with items
 			this.listView = new ListView<String>();
 			listView.getItems().addAll(
 					"Wichtig",
@@ -43,16 +43,24 @@ public class ToDoView extends BorderPane {
 					"Papierkorb");
 			listView.getSelectionModel().select(1);
 
-			// creates a VBox in the BorderPane and includes the listView
+			// Creates a VBox in the BorderPane and includes the listView
 			this.vBox = new VBox();
 			this.vBox.getChildren().addAll(listView);
 			this.setLeft(this.vBox);
 			
+			/*
+			 * Creates a BorderPane in a BorderPane
+			 * This is for the view on the right side
+			 */
 			this.borderPane = new BorderPane();
 			this.setCenter(borderPane);
 			this.borderPane.setPrefSize(1000, 900);
 
-			// creates a SplitPane between the vBox and HBox
+			/*
+			 * Creates a SplitPane between vBox and borderPane
+			 * This SplitPane should divide the GUI in two
+			 * main views (List on the left, View on the right)
+			 */
 			this.splitPane = new SplitPane();
 			this.splitPane.getItems().addAll(vBox, borderPane);
 			this.setLeft(splitPane);

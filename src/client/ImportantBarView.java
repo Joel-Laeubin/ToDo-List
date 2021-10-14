@@ -9,7 +9,14 @@ import javafx.scene.layout.HBox;
 public class ImportantBarView  extends MainBarView {
 	
 	public ImportantBarView() {
+		
+		/*
+		 * Inherits defined elements from super class MainBarView,
+		 * which are needed to change the SideBar in the GUI
+		 */
 		super();
+		
+		// Individual icons and labels for this view
 		this.icon = new ImageView("/icons/starIcon.png");
 		this.label = new Label("Wichtig");
 		this.icon.setFitHeight(25);

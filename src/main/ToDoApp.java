@@ -17,30 +17,30 @@ public class ToDoApp extends Application {
 	private ToDoView toDoView;
 	private ToDoController toDoController;
 
-	// starts the JavaFX application
+	// Starts the JavaFX application
 	public static void main(String[] args) {
 		launch(args);
 	}
 	
-	// shows a GUI for the ToDo-App
+	// Shows a GUI for the ToDo-App
 	
 	public void start(Stage stage) {
 		
-		// 1. instantiates the root todoView
+		// 1. Instantiates the root todoView
 		this.todoModel = new ToDo();
 		this.toDoList = new ToDoList();
 		this.toDoView = new ToDoView(todoModel, toDoList);
 		this.toDoController = new ToDoController(this.toDoView, this.todoModel, toDoList);
 		
-		// 2. passes the root to the scene
+		// 2. Passes the root to the scene
 		Scene scene = new Scene(toDoView);
 		
-		// 3. shows scene in a window (object stage)
+		// 3. Shows scene in a window (object stage)
 		stage.setScene(scene);
 		stage.setTitle("ToDo-App");
 		stage.show();
 		
-		// adds an icon to the window
+		// Adds an icon to the window
 		Image doneImage = new Image("/icons/doneIcon.png");
 		stage.getIcons().add(doneImage);
 		

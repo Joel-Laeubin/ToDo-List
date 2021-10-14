@@ -7,7 +7,14 @@ import javafx.scene.image.ImageView;
 public class PlannedBarView  extends MainBarView {
 	
 	public PlannedBarView() {
+		
+		/*
+		 * Inherits defined elements from super class MainBarView,
+		 * which are needed to change the SideBar in the GUI
+		 */
 		super();
+		
+		// Individual icons and labels for this view
 		this.icon = new ImageView("/icons/plannedIcon.png");
 		this.label = new Label("Geplant");
 		this.icon.setFitHeight(25);
