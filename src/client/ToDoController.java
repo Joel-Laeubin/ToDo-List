@@ -130,6 +130,11 @@ public class ToDoController {
         
     }
 
+    /* Method to change center view of GUI
+     * We set up a clickListener on the listView and listen on any click
+     * On a click, we parse out which item was clicked by it's index
+     * Based on which item was clicked, we swap out the center of the main borderPane
+     */
 	private void changeCenterBar(MouseEvent e) {
 		switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
 		case 0:
