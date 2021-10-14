@@ -51,15 +51,12 @@ public class ToDoView extends BorderPane {
 			this.borderPane = new BorderPane();
 			this.setCenter(borderPane);
 			this.borderPane.setPrefSize(1000, 900);
-			
-			
-			
+
 			// creates a SplitPane between the vBox and HBox
 			this.splitPane = new SplitPane();
 			this.splitPane.getItems().addAll(vBox, borderPane);
 			this.setLeft(splitPane);
-					
-			
+
 			// Customize Dialog
 			this.addToDoDialog = new Dialog<ButtonType>();
 			this.addToDoDialog.setDialogPane(new AddToDoDialogPane());

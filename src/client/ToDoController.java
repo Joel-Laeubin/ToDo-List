@@ -89,6 +89,7 @@ public class ToDoController {
     public void createToDoDialog(MouseEvent e) {
 
         // Show dialog
+
         Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
 
         // Parse result

@@ -16,6 +16,5 @@ public class ImportantBarView  extends MainBarView {
 		this.icon.setFitWidth(25);
 		this.header.getChildren().addAll(icon, label);
 	
-	
 	}
 }

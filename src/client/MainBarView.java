@@ -22,7 +22,7 @@ public abstract class MainBarView extends VBox {
 	protected ScrollPane scrollPane;
 	protected HBox header;
 	
-	
+	// Constructor
 	public MainBarView() {
 		
 		this.header = new HBox();

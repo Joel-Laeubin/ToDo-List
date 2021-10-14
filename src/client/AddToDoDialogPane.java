@@ -15,7 +15,6 @@ public class AddToDoDialogPane extends DialogPane {
     protected HBox categoryBar;
     protected HBox dueDateBar;
 
-
     protected Label newTask;
     protected Label title;
     protected Label category;
