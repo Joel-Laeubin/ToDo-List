@@ -16,6 +16,10 @@ public class ToDo {
 	
 	
 	//Constructors
+	
+	public ToDo() {
+		this.ID = globalToDoId + 1;
+	}
 		
 	
 	public ToDo(String title, String message, LocalDate dueDate, String category) {
