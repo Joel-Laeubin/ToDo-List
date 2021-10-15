@@ -83,6 +83,15 @@ public class ToDoController {
         // Insert changed item into ArrayList
         this.toDoList.addToDo(itemToUpdate);
     }
+    
+    /*method is used when the user clicks on the "Done-symbol"
+     * on the specific ToDo-object in the specific View
+     */
+    public void setToDoOnDone(MouseEvent e) {
+    	
+    }
+    
+    
 
     /* Delete method
      * Gets a specific ToDo based on its ID and deletes it.
@@ -112,7 +121,7 @@ public class ToDoController {
             int year = Integer.parseInt(dateArray[0]);
             int month = Integer.parseInt(dateArray[1]);
             int day = Integer.parseInt(dateArray[2]);
-            if (year <= LocalDate.now().getYear() && month < 13 && day < 32) { dateIsValid = true; }
+            if (year <= LocalDate.now().getYear() && month < 23 && day < 32) { dateIsValid = true; }
         }
 
         return (titleIsValid && messageIsValid && categoryIsValid && dateIsValid);

@@ -16,14 +16,11 @@ public class ToDo {
 	
 	
 	//Constructors
-	public ToDo() {
-		this.ID = globalToDoId + 1;
-		
-	}
 		
 	
 	public ToDo(String title, String message, LocalDate dueDate, String category) {
 		this.ID = globalToDoId + 1;
+		globalToDoId++;
 		this.title = title;
 		this.message = message;
 		this.dateOfCreation = LocalDate.now();
