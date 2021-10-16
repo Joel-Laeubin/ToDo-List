@@ -17,6 +17,11 @@ public class ToDo {
 	
 	
 	//Constructors
+	public ToDo() {
+		// Empty constructor for passing the model
+		this.ID = -1;
+	}
+
 	public ToDo(String title, String message, LocalDate dueDate, String category) {
 		this.ID = globalToDoId + 1;
 		globalToDoId++;
@@ -36,7 +41,7 @@ public class ToDo {
 		return this.ID;
 	}
 	public int getGlobalToDoId() {
-		return this.globalToDoId;
+		return ToDo.globalToDoId;
 	}
 	public String getTitle() {
 		return this.title;
