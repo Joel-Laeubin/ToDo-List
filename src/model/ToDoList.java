@@ -39,7 +39,7 @@ public class ToDoList {
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo); 
 		ToDo.globalToDoId -= 1;
-		ToDoList.categoryList.remove(toDo.getCategory());
+		ToDoList.categoryList.remove(toDo.getCategories());
 		
 	}
 	

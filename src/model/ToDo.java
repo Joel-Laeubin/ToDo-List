@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class ToDo {
 
@@ -12,16 +13,10 @@ public class ToDo {
 	private LocalDate dateOfCreation;
 	private LocalDate dueDate;
 	private boolean isDone;
-	private String category;
+	private ArrayList<String> categories;
 	
 	
 	//Constructors
-	
-	public ToDo() {
-		this.ID = globalToDoId + 1;
-	}
-		
-	
 	public ToDo(String title, String message, LocalDate dueDate, String category) {
 		this.ID = globalToDoId + 1;
 		globalToDoId++;
@@ -30,9 +25,10 @@ public class ToDo {
 		this.dateOfCreation = LocalDate.now();
 		this.dueDate = dueDate;
 		this.isDone = false;
-		this.category = category;
-		ToDoList.categoryList.add(category);
-		
+		this.categories = new ArrayList<>();
+		this.categories.add("Geplant");
+		this.categories.add(category);
+		ToDoList.categoryList.addAll(this.categories);
 	}
 	
 	// Getters
@@ -57,9 +53,8 @@ public class ToDo {
 	public boolean getIsDone() {
 		return this.isDone;
 	}
-	
-	public String getCategory() {
-		return this.category;
+	public ArrayList<String> getCategories() {
+		return this.categories;
 	}
 	
 	// Setters
@@ -75,9 +70,8 @@ public class ToDo {
 	public void setDone(boolean isDone) {
 		this.isDone = isDone;
 	}
-	
-	public void setCategory(String category) {
-		this.category = category;
+	public void addCategory(String category) {
+		this.categories.add(category);
 	}
 	
 	
