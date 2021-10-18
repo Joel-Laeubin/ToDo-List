@@ -51,6 +51,53 @@ public class ToDoList {
 		
 	}
 	
+	public ToDo getToDoListImportant() {
+		ToDo returnImportant = null;
+		
+		for (ToDo toDo : this.toDoList) {	
+			if (ToDoList.categoryList.contains("Wichtig")) {
+				returnImportant = toDo;
+				break;
+			}
+		}
+		return returnImportant;
+	}
+
+	public ToDo getToDoListPlanned() {
+		ToDo returnPlanned = null;
+		
+		for (ToDo toDo : this.toDoList) {	
+			if (ToDoList.categoryList.contains("Geplant")) {
+				returnPlanned = toDo;
+				break;
+			}
+		}
+		return returnPlanned;
+	}
+	
+	public ToDo getToDoListDone() {
+		ToDo returnDone = null;
+		
+		for (ToDo toDo : this.toDoList) {	
+			if (ToDoList.categoryList.contains("Erledigt")) {
+				returnDone = toDo;
+				break;
+			}
+		}
+		return returnDone;
+	}
+	
+	public ToDo getToDoListGarbage() {
+		ToDo returnGarbage = null;
+		
+		for (ToDo toDo : this.toDoList) {	
+			if (ToDoList.categoryList.contains("Erledigt")) {
+				returnGarbage = toDo;
+				break;
+			}
+		}
+		return returnGarbage;
 	
 	
+	}
 }
