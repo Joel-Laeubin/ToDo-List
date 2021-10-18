@@ -186,6 +186,8 @@ public class ToDoController {
                 garbage.createToDo.setOnMouseClicked(this::createToDoDialog);
                 toDoView.borderPane.setCenter(garbage);
         }
+        
+        
     }
 
 }

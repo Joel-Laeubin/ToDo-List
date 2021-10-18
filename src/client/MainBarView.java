@@ -6,9 +6,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import model.ToDo;
 
 /*
  * This abstract class is the super class
@@ -23,7 +25,11 @@ public abstract class MainBarView extends VBox {
 	protected ImageView lupe;
 	protected TextField searchField;
 	protected Button createToDo;
-	protected TableView tableView;
+	protected TableView<ToDo> tableView;
+	protected TableColumn<ToDo, String> checkBox;
+	protected TableColumn<ToDo, String> task;
+	protected TableColumn<ToDo, String> dueDate;
+	protected TableColumn<ToDo, String> important;
 	protected ScrollPane scrollPane;
 	protected HBox header;
 	
@@ -53,16 +59,30 @@ public abstract class MainBarView extends VBox {
 		this.getChildren().add(createToDo);
 		
 		/*
-		 * TableView shows the tasks
-		 */
-		this.tableView = new TableView();
-		tableView.setEditable(true);
-		TableColumn checkbox = new TableColumn("Erledigt");
-		TableColumn task = new TableColumn("Aufgabe");
-		TableColumn dueDate = new TableColumn("Termin");
-		TableColumn important = new TableColumn("Wichtig");
-		tableView.getColumns().addAll(checkbox, task, dueDate, important);
-		this.getChildren().addAll(tableView);
+         * Creates a TableView with Columns
+         * and includes data from ObservableArrayList.
+         * The setCellValueFactory method specifies a cell factory for each column. 
+         */
+    		this.tableView = new TableView<>();
+    		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+    		this.tableView.setEditable(true);
+    	    
+    		this.checkBox = new TableColumn<>("Erledigt");
+    		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isDone"));
+    	    
+    		this.task = new TableColumn<>("Aufgabe");
+    		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
+    		
+    		this.dueDate = new TableColumn<>("Termin");
+    		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
+
+    		this.important = new TableColumn<>("Wichtig");
+    		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isImportant"));
+    	    
+    	    // Adds Columns to the TableView
+    		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important);
+    	    
+    		this.getChildren().addAll(tableView);
 		
 		/*
 		 * ScrollPane helps to see
