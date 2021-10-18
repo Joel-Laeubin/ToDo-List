@@ -1,8 +1,13 @@
-package client;
+ package client;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import model.ToDo;
+import model.ToDoList;
 
 public class DoneBarView extends MainBarView {
 	
@@ -20,8 +25,14 @@ public class DoneBarView extends MainBarView {
 		this.icon.setFitHeight(25);
 		this.icon.setFitWidth(25);
 		this.header.getChildren().addAll(icon, label);
+		
+    	    // Gets items of ObservableArrayList from method getToDoListImportant
+    		ToDoList toDoList = new ToDoList();
+    		this.tableView.getItems().addAll(toDoList.getToDoListDone());
+		
 	}
 
+	
 
 	
 

@@ -13,6 +13,7 @@ public class ToDo {
 	private LocalDate dateOfCreation;
 	private LocalDate dueDate;
 	private boolean isDone;
+	private String category;
 	private ArrayList<String> categories;
 	
 	
@@ -30,6 +31,7 @@ public class ToDo {
 		this.dateOfCreation = LocalDate.now();
 		this.dueDate = dueDate;
 		this.isDone = false;
+		this.category = category;
 		this.categories = new ArrayList<>();
 		this.categories.add("Geplant");
 		this.categories.add(category);
@@ -58,6 +60,10 @@ public class ToDo {
 	public boolean getIsDone() {
 		return this.isDone;
 	}
+	public String getCategory() {
+		return this.category;
+	}
+		
 	public ArrayList<String> getCategories() {
 		return this.categories;
 	}
@@ -75,6 +81,10 @@ public class ToDo {
 	public void setDone(boolean isDone) {
 		this.isDone = isDone;
 	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
 	public void addCategory(String category) {
 		this.categories.add(category);
 	}

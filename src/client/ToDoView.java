@@ -54,7 +54,7 @@ public class ToDoView extends BorderPane {
 			 */
 			this.borderPane = new BorderPane();
 			this.setCenter(borderPane);
-			this.borderPane.setPrefSize(1000, 900);
+			this.borderPane.setPrefSize(1000, 600);
 
 			/*
 			 * Creates a SplitPane between vBox and borderPane
