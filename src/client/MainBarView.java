@@ -30,6 +30,7 @@ public abstract class MainBarView extends VBox {
 	protected TableColumn<ToDo, String> task;
 	protected TableColumn<ToDo, String> dueDate;
 	protected TableColumn<ToDo, String> important;
+	protected TableColumn<ToDo, String> garbage;
 	protected ScrollPane scrollPane;
 	protected HBox header;
 	
@@ -67,8 +68,8 @@ public abstract class MainBarView extends VBox {
 		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		this.tableView.setEditable(true);
     	    
-		this.checkBox = new TableColumn<>("Erledigt");
-		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isDone"));
+    		this.checkBox = new TableColumn<>("Erledigt");
+    		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));
     	    
 		this.task = new TableColumn<>("Aufgabe");
 		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
@@ -76,11 +77,15 @@ public abstract class MainBarView extends VBox {
 		this.dueDate = new TableColumn<>("Termin");
 		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
 
-		this.important = new TableColumn<>("Wichtig");
-		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isImportant"));
+    		this.important = new TableColumn<>("Wichtig");
+    		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    
-		// Adds Columns to the TableView
-		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important);
+       		this.garbage = new TableColumn<>("Papierkorb");
+    		this.garbage.setCellValueFactory(new PropertyValueFactory<ToDo, String>("garbageButton"));
+
+
+    	    // Adds Columns to the TableView
+    		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
 		

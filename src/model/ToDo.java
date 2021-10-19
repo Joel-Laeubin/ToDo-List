@@ -3,6 +3,8 @@ package model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javafx.scene.control.Button;
+
 public class ToDo {
 
 	// Fields
@@ -15,7 +17,9 @@ public class ToDo {
 	private boolean isDone;
 	private String category;
 	private ArrayList<String> categories;
-	
+	private Button doneButton;
+	private Button importantButton;
+	private Button garbageButton;
 	
 	//Constructors
 	public ToDo() {
@@ -33,6 +37,8 @@ public class ToDo {
 		this.isDone = false;
 		this.category = category;
 		this.categories = new ArrayList<>();
+		this.doneButton = new Button("done");
+		this.importantButton = new Button("Wichtig");
 		this.categories.add("Geplant");
 		this.categories.add(category);
 		ToDoList.categoryList.addAll(this.categories);
@@ -60,6 +66,15 @@ public class ToDo {
 	public boolean getIsDone() {
 		return this.isDone;
 	}
+	public Button getDoneButton() {
+		return this.doneButton;
+	}
+	public Button getImportantButton() {
+		return this.importantButton;
+	}
+	public Button getGarbageButton() {
+		return this.garbageButton;
+	}
 	public String getCategory() {
 		return this.category;
 	}
@@ -84,10 +99,19 @@ public class ToDo {
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	
-	public void addCategory(String category) {
-		this.categories.add(category);
+	public void setDoneButton(Button doneButton) {
+		this.doneButton = doneButton;
 	}
+	public void setImportantButton(Button importantButton) {
+		this.importantButton = importantButton;
+	}
+	public void setGarbageButton(Button garbageButton) {
+		this.garbageButton = garbageButton;
+	}
+		public void addCategory(String category) {
+		this.categories.add(category);	
+	}
+	
 	
 	
 
