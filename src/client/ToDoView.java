@@ -62,6 +62,7 @@ public class ToDoView extends BorderPane {
 			 */
 			this.splitPane = new SplitPane();
 			this.splitPane.getItems().addAll(vBox, borderPane);
+			this.splitPane.setDividerPositions(0.3);
 			this.setLeft(splitPane);
 
 			// Customize Dialog
