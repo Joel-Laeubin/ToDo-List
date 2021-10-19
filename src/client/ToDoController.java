@@ -90,8 +90,7 @@ public class ToDoController {
     public void setToDoOnDone(MouseEvent e) {
     	
     }
-    
-    
+
 
     /* Delete method
      * Gets a specific ToDo based on its ID and deletes it.
@@ -167,22 +166,22 @@ public class ToDoController {
     private void changeCenterBar(MouseEvent e) {
         switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
             case 0:
-                ImportantBarView important = new ImportantBarView();
+                ImportantBarView important = new ImportantBarView(this.toDoList.getToDoListImportant());
                 important.createToDo.setOnMouseClicked(this::createToDoDialog);
                 toDoView.borderPane.setCenter(important);
                 break;
             case 1:
-                PlannedBarView planned = new PlannedBarView();
+                PlannedBarView planned = new PlannedBarView(this.toDoList.getToDoListPlanned());
                 planned.createToDo.setOnMouseClicked(this::createToDoDialog);
                 toDoView.borderPane.setCenter(planned);
                 break;
             case 2:
-                DoneBarView done = new DoneBarView();
+                DoneBarView done = new DoneBarView(this.toDoList.getToDoListDone());
                 done.createToDo.setOnMouseClicked(this::createToDoDialog);
                 toDoView.borderPane.setCenter(done);
                 break;
             case 3:
-                GarbageBarView garbage = new GarbageBarView();
+                GarbageBarView garbage = new GarbageBarView(this.toDoList.getToDoListGarbage());
                 garbage.createToDo.setOnMouseClicked(this::createToDoDialog);
                 toDoView.borderPane.setCenter(garbage);
         }

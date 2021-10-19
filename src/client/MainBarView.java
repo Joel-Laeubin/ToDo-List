@@ -63,26 +63,26 @@ public abstract class MainBarView extends VBox {
          * and includes data from ObservableArrayList.
          * The setCellValueFactory method specifies a cell factory for each column. 
          */
-    		this.tableView = new TableView<>();
-    		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-    		this.tableView.setEditable(true);
+		this.tableView = new TableView<>();
+		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+		this.tableView.setEditable(true);
     	    
-    		this.checkBox = new TableColumn<>("Erledigt");
-    		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isDone"));
+		this.checkBox = new TableColumn<>("Erledigt");
+		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isDone"));
     	    
-    		this.task = new TableColumn<>("Aufgabe");
-    		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
+		this.task = new TableColumn<>("Aufgabe");
+		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
     		
-    		this.dueDate = new TableColumn<>("Termin");
-    		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
+		this.dueDate = new TableColumn<>("Termin");
+		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
 
-    		this.important = new TableColumn<>("Wichtig");
-    		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isImportant"));
+		this.important = new TableColumn<>("Wichtig");
+		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isImportant"));
     	    
-    	    // Adds Columns to the TableView
-    		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important);
+		// Adds Columns to the TableView
+		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important);
     	    
-    		this.getChildren().addAll(tableView);
+		this.getChildren().addAll(tableView);
 		
 		/*
 		 * ScrollPane helps to see

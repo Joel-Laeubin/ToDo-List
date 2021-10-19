@@ -1,5 +1,6 @@
 package client;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -11,7 +12,7 @@ import model.ToDoList;
 
 public class PlannedBarView  extends MainBarView {
 	
-	public PlannedBarView() {
+	public PlannedBarView(ObservableList<ToDo> toDoListPlanned) {
 		
 		/*
 		 * Inherits defined elements from super class MainBarView,
@@ -27,9 +28,8 @@ public class PlannedBarView  extends MainBarView {
 		this.header.getChildren().addAll(icon, label);
 		
 		
-    	    // Gets items of ObservableArrayList from method getToDoListImportant
-    		ToDoList toDoList = new ToDoList();
-    		this.tableView.getItems().addAll(toDoList.getToDoListPlanned());
+		// Gets items of ObservableArrayList from method getToDoListImportant
+		this.tableView.getItems().addAll(toDoListPlanned);
 		
 	}
 	
