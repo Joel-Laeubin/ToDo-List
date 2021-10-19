@@ -1,5 +1,6 @@
 package client;
 
+import javafx.collections.ObservableList;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -20,6 +21,7 @@ import model.ToDo;
 public abstract class MainBarView extends VBox {
 	
 	// control elements for this container
+	protected ObservableList<ToDo> subSet;
 	protected ImageView icon;
 	protected Label label;
 	protected ImageView lupe;
@@ -36,7 +38,10 @@ public abstract class MainBarView extends VBox {
 	
 	// Constructor
 	public MainBarView() {
-		
+
+		// Add data
+		this.subSet = subSet;
+
 		/*
 		 * HBox for the icon and label in the
 		 * GUI-SideBar (items will be set in
@@ -67,9 +72,9 @@ public abstract class MainBarView extends VBox {
 		this.tableView = new TableView<>();
 		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		this.tableView.setEditable(true);
-    	    
-    		this.checkBox = new TableColumn<>("Erledigt");
-    		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));
+
+		this.checkBox = new TableColumn<>("Erledigt");
+		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));
     	    
 		this.task = new TableColumn<>("Aufgabe");
 		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
@@ -77,15 +82,15 @@ public abstract class MainBarView extends VBox {
 		this.dueDate = new TableColumn<>("Termin");
 		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
 
-    		this.important = new TableColumn<>("Wichtig");
-    		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
+		this.important = new TableColumn<>("Wichtig");
+		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    
-       		this.garbage = new TableColumn<>("Papierkorb");
-    		this.garbage.setCellValueFactory(new PropertyValueFactory<ToDo, String>("garbageButton"));
+		this.garbage = new TableColumn<>("Papierkorb");
+		this.garbage.setCellValueFactory(new PropertyValueFactory<ToDo, String>("garbageButton"));
 
 
-    	    // Adds Columns to the TableView
-    		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important, this.garbage);
+		// Adds Columns to the TableView
+		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
 		

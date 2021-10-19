@@ -3,7 +3,6 @@ package client;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.util.Callback;
 import model.ToDo;
 import model.ToDoList;
 

@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Button;
 
 public class ToDoList {
 
@@ -38,6 +39,19 @@ public class ToDoList {
 		return returnVal;
 	}
 
+	// Additional getToDo method based on the button of the ToDo
+	// Used in controller to link mouseClickEvents
+	public ToDo getToDo(Button button) {
+		ToDo returnVal = null;
+
+		for(ToDo toDo : this.toDoList) {
+			if(toDo.getDoneButton() == button) { returnVal = toDo; break; }
+			if(toDo.getGarbageButton() == button) { returnVal = toDo; break; }
+			if(toDo.getImportantButton() == button) { returnVal = toDo; break; }
+		}
+
+		return returnVal;
+	}
 
 	public void addToDo(ToDo toDo) {
 		this.toDoList.add(toDo);
@@ -58,6 +72,27 @@ public class ToDoList {
 		}
 
 	}
+
+	/* Method to refresh the contents of each
+	 *
+	 */
+	public void updateSublists() {
+
+		this.importantList.clear();
+		this.plannedList.clear();
+		this.doneList.clear();
+		this.garbageList.clear();
+
+		for(ToDo toDo : this.toDoList) {
+			switch (toDo.getCategory()) {
+				case "Wichtig" -> { this.importantList.add(toDo); this.plannedList.add(toDo); }
+				case "Geplant" -> this.plannedList.add(toDo);
+				case "Erledigt" -> this.doneList.add(toDo);
+				case "Papierkorb" -> this.garbageList.add(toDo);
+			}
+		}
+	}
+
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo);
 		ToDo.globalToDoId -= 1;

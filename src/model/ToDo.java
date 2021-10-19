@@ -37,7 +37,8 @@ public class ToDo {
 		this.isDone = false;
 		this.category = category;
 		this.categories = new ArrayList<>();
-		this.doneButton = new Button("done");
+		this.doneButton = new Button("Done");
+		this.garbageButton = new Button("Löschen");
 		this.importantButton = new Button("Wichtig");
 		this.categories.add("Geplant");
 		this.categories.add(category);
@@ -82,6 +83,8 @@ public class ToDo {
 	public ArrayList<String> getCategories() {
 		return this.categories;
 	}
+
+
 	
 	// Setters
 	public void setTitle(String title) {
@@ -97,8 +100,20 @@ public class ToDo {
 		this.isDone = isDone;
 	}
 	public void setCategory(String category) {
+
+		// Remove old category
+		String oldCategory = this.getCategory();
+		this.categories.remove(oldCategory);
+
+		// If category is set on 'done' or 'deleted', remove all other categories since those states are absolute
+		if(category.equals("Erledigt") || category.equals("Papierkorb")) {
+			this.categories.clear();
+			this.categories.add(category);
+		}
+
 		this.category = category;
 	}
+
 	public void setDoneButton(Button doneButton) {
 		this.doneButton = doneButton;
 	}
@@ -108,12 +123,8 @@ public class ToDo {
 	public void setGarbageButton(Button garbageButton) {
 		this.garbageButton = garbageButton;
 	}
-		public void addCategory(String category) {
+	public void addCategory(String category) {
 		this.categories.add(category);	
 	}
-	
-	
-	
-
 
 }
