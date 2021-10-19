@@ -68,7 +68,7 @@ public abstract class MainBarView extends VBox {
     		this.tableView.setEditable(true);
     	    
     		this.checkBox = new TableColumn<>("Erledigt");
-    		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isDone"));
+    		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));
     	    
     		this.task = new TableColumn<>("Aufgabe");
     		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
@@ -77,7 +77,7 @@ public abstract class MainBarView extends VBox {
     		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
 
     		this.important = new TableColumn<>("Wichtig");
-    		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("isImportant"));
+    		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    
     	    // Adds Columns to the TableView
     		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important);
