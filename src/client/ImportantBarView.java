@@ -18,8 +18,8 @@ public class ImportantBarView  extends MainBarView {
 		// Individual icons and labels for this view
 		this.icon = new ImageView("/icons/starIcon.png");
 		this.label = new Label("Wichtig");
-		this.icon.setFitHeight(25);
-		this.icon.setFitWidth(25);
+		this.icon.setFitHeight(50);
+		this.icon.setFitWidth(53);
 		this.header.getChildren().addAll(icon, label);
 
 		// Gets items of ObservableArrayList from method getToDoListImportant

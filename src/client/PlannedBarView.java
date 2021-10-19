@@ -19,8 +19,8 @@ public class PlannedBarView  extends MainBarView {
 		// Individual icons and labels for this view
 		this.icon = new ImageView("/icons/plannedIcon.png");
 		this.label = new Label("Geplant");
-		this.icon.setFitHeight(25);
-		this.icon.setFitWidth(25);
+		this.icon.setFitHeight(50);
+		this.icon.setFitWidth(50);
 		this.header.getChildren().addAll(icon, label);
 		
 		

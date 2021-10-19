@@ -19,8 +19,8 @@ public class GarbageBarView  extends MainBarView {
 		// Individual icons and labels for this view
 		this.icon = new ImageView("/icons/garbageIcon.png");
 		this.label = new Label("Papierkorb");
-		this.icon.setFitHeight(25);
-		this.icon.setFitWidth(25);
+		this.icon.setFitHeight(50);
+		this.icon.setFitWidth(50);
 		this.header.getChildren().addAll(icon, label);
 		
 		// Gets items of ObservableArrayList from method getToDoListImportant

@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.text.Font;
 
 public class ToDo {
 
@@ -35,11 +37,17 @@ public class ToDo {
 		this.dateOfCreation = LocalDate.now();
 		this.dueDate = dueDate;
 		this.isDone = false;
+		
 		this.category = category;
 		this.categories = new ArrayList<>();
-		this.doneButton = new Button("Done");
+		
+		this.doneButton = new Button();
+		this.doneButton.setGraphic(new ImageView("/icons/doneIcon2.png"));
 		this.garbageButton = new Button("Löschen");
+		this.garbageButton.setGraphic(new ImageView("/icons/garbageIcon.png"));
 		this.importantButton = new Button("Wichtig");
+		this.importantButton.setGraphic(new ImageView("/icons/starIcon.png"));
+		
 		this.categories.add("Geplant");
 		this.categories.add(category);
 		ToDoList.categoryList.addAll(this.categories);
