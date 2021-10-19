@@ -37,8 +37,26 @@ public class ToDoList {
 
 		return returnVal;
 	}
+
+
 	public void addToDo(ToDo toDo) {
 		this.toDoList.add(toDo);
+
+		// Adding the ToDo to a subset, depending on its category.
+		switch(toDo.getCategory()) {
+			case "Wichtig":
+				this.importantList.add(toDo);
+				break;
+			case "Geplant":
+				this.plannedList.add(toDo);
+				break;
+			case "Erledigt":
+				this.doneList.add(toDo);
+				break;
+			case "Papierkorb":
+				this.garbageList.add(toDo);
+		}
+
 	}
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo);
@@ -54,40 +72,8 @@ public class ToDoList {
 	}
 
 	// Get subsets of toDos
-	public ObservableList<ToDo> getToDoListImportant() {
-		String category = "Wichtig";
-		for (ToDo toDo : this.toDoList) {
-			if (toDo.getCategory().equals(category)) {
-			this.importantList.add(toDo);
-			}
-		}
-		return this.importantList;
-	}
-	public ObservableList<ToDo> getToDoListPlanned() {
-		String category = "Geplant";
-		for (ToDo toDo : this.toDoList) {
-			if (toDo.getCategory().equals(category)) {
-			this.plannedList.add(toDo);
-			}
-		}
-		return this.plannedList;
-	}
-	public  ObservableList<ToDo> getToDoListDone() {
-		String category = "Erledigt";
-		for (ToDo toDo : this.toDoList) {
-			if (toDo.getCategory().equals(category)) {
-			this.doneList.add(toDo);
-			}
-		}
-		return this.doneList;
-	}
-	public  ObservableList<ToDo> getToDoListGarbage() {
-		String category = "Papierkorb";
-		for (ToDo toDo : this.toDoList) {
-			if (toDo.getCategory().equals(category)) {
-			this.garbageList.add(toDo);
-			}
-		}
-		return this.garbageList;
-	}
+	public ObservableList<ToDo> getToDoListImportant() { return this.importantList; }
+	public ObservableList<ToDo> getToDoListPlanned() { return this.plannedList; }
+	public  ObservableList<ToDo> getToDoListDone() { return this.doneList; }
+	public  ObservableList<ToDo> getToDoListGarbage() { return this.garbageList; }
 }
