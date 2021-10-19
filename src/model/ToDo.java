@@ -19,7 +19,7 @@ public class ToDo {
 	private ArrayList<String> categories;
 	private Button doneButton;
 	private Button importantButton;
-	
+	private Button garbageButton;
 	
 	//Constructors
 	public ToDo() {
@@ -69,10 +69,12 @@ public class ToDo {
 	public Button getDoneButton() {
 		return this.doneButton;
 	}
-	public Button getImportanteButton() {
+	public Button getImportantButton() {
 		return this.importantButton;
 	}
-	
+	public Button getGarbageButton() {
+		return this.garbageButton;
+	}
 	public String getCategory() {
 		return this.category;
 	}
@@ -102,6 +104,9 @@ public class ToDo {
 	}
 	public void setImportantButton(Button importantButton) {
 		this.importantButton = importantButton;
+	}
+	public void setGarbageButton(Button garbageButton) {
+		this.garbageButton = garbageButton;
 	}
 		public void addCategory(String category) {
 		this.categories.add(category);	

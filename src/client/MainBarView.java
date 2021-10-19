@@ -30,6 +30,7 @@ public abstract class MainBarView extends VBox {
 	protected TableColumn<ToDo, String> task;
 	protected TableColumn<ToDo, String> dueDate;
 	protected TableColumn<ToDo, String> important;
+	protected TableColumn<ToDo, String> garbage;
 	protected ScrollPane scrollPane;
 	protected HBox header;
 	
@@ -79,8 +80,12 @@ public abstract class MainBarView extends VBox {
     		this.important = new TableColumn<>("Wichtig");
     		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    
+       		this.garbage = new TableColumn<>("Papierkorb");
+    		this.garbage.setCellValueFactory(new PropertyValueFactory<ToDo, String>("garbageButton"));
+    	    
+    		
     	    // Adds Columns to the TableView
-    		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important);
+    		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important, this.garbage);
     	    
     		this.getChildren().addAll(tableView);
 		
