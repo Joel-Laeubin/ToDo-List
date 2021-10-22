@@ -11,7 +11,7 @@ public class ToDoList {
 
 	// Fields
 	private ArrayList <ToDo> toDoList = new ArrayList<>();
-	protected static ArrayList<String> categoryList = new ArrayList<>(); //contains all categorys of active ToDo's
+	public static ArrayList<String> categoryList = new ArrayList<>(); //contains all categorys of active ToDo's
 	private ObservableList<ToDo> importantList = FXCollections.observableArrayList();
 	private ObservableList<ToDo> plannedList = FXCollections.observableArrayList();
 	private ObservableList<ToDo> doneList = FXCollections.observableArrayList();
@@ -104,6 +104,16 @@ public class ToDoList {
 		int uniqueTypes = uniqueValues.size();
 		return uniqueTypes;
 		
+	}
+		
+	public int getDoneNumber() {
+		int doneCount = 0;		
+		for (String category : ToDoList.categoryList) {
+			if(category.equals("Erledigt")) {
+				doneCount++;
+			}
+		}
+		return doneCount;		
 	}
 
 	// Get subsets of toDos
