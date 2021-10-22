@@ -105,6 +105,23 @@ public abstract class MainBarView extends VBox {
 		scrollPane.setPrefSize(500,  200);
 		this.getChildren().add(scrollPane);
 		
+		// Add CSS styling
+		this.getStylesheets().add(getClass().getResource("MainBarView.css").toExternalForm());
+		this.getStyleClass().add("view");
+		this.getStyleClass().add("mainBarView");
+		this.lupe.getStyleClass().add("lupe");
+		this.searchField.getStyleClass().add("searchField");
+		this.createToDo.getStyleClass().add("createToDo");
+        this.tableView.getStyleClass().add("tableView");    
+        this.checkBox.getStyleClass().add("checkBox");
+        this.task.getStyleClass().add("task");
+        this.dueDate.getStyleClass().add("dueDate");
+        this.important.getStyleClass().add("important");
+        this.garbage.getStyleClass().add("garbage");
+        this.scrollPane.getStyleClass().add("scrollPane");
+        this.header.getStyleClass().add("header");
+      
+		
 		
 		
 	}
