@@ -1,5 +1,9 @@
 package client;
 
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -20,6 +24,12 @@ public class ToDoView extends BorderPane {
 		
 		protected Dialog<ButtonType> addToDoDialog;
 		protected AddToDoDialogPane toDoDialogPane;
+		
+		final static String done = "Done";
+		final static String undone = "Undone";	
+		private CategoryAxis xAxis;
+		private NumberAxis yAxis;
+		protected BarChart<String, Number> bc;
 
 		
 		/*
@@ -69,9 +79,66 @@ public class ToDoView extends BorderPane {
 			this.addToDoDialog = new Dialog<ButtonType>();
 			this.toDoDialogPane = new AddToDoDialogPane(listView.getItems());
 			this.addToDoDialog.setDialogPane(toDoDialogPane);
-		
+			
+			
+			//Creating the BarChart to show the done and undone ToDo's
+			this.xAxis = new CategoryAxis();
+			this.yAxis = new NumberAxis();
+			this.bc = new BarChart<String, Number>(xAxis, yAxis);
+			bc.setTitle("Status Overview");
+			xAxis.setLabel("Category");
+			yAxis.setLabel("Number");
+			
+			XYChart.Series serie1 = new XYChart.Series();
+			serie1.setName(done);
+			serie1.getData().add(new XYChart.Data(done, 8));
+			
+			XYChart.Series serie2 = new XYChart.Series<>();
+			serie2.setName(undone);
+			serie2.getData().add(new XYChart.Data(undone, 10));
+			bc.getData().addAll(serie1, serie2);
+			
+			this.vBox.getChildren().add(bc);
+			
+			
+			// Add CSS styling
 			this.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
+			this.getStyleClass().add("view");
+			this.listView.getStyleClass().add("listView");
+			this.vBox.getStyleClass().add("vBox");
+			this.borderPane.getStyleClass().add("borderPane");
+			this.splitPane.getStyleClass().add("splitPane");
+			this.bc.getStyleClass().add("barChart");
+			
+			
 		}
 		
+		private int getUndoneData() {
+			int undoneCount = 0;
+			for(String category : ToDoList.categoryList) {
+				if(category.equals("Geplant")) {
+					undoneCount++;
+				if(category.equals("Wichtig")) {
+					undoneCount++;
+				}
+				}
+			}
+			return undoneCount;
+		}
 
-}
+		private int getDoneData() {
+			int doneCount = 0;		
+			for (String category : ToDoList.categoryList) {
+				if(category.equals("Erledigt")) {
+					doneCount++;
+				}
+			}
+			return doneCount;
+		}
+	
+		
+		
+		
+		
+
+		}
