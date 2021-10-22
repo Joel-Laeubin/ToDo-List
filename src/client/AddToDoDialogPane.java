@@ -73,10 +73,15 @@ public class AddToDoDialogPane extends DialogPane {
         root.setRight(rightPane);
 
         // Add CSS styling
-        newTaskLabel.setId("titleLabel");
-        leftPane.setId("contentPanes");
-        rightPane.setId("contentPanes");
         this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
+        newTaskLabel.setId("titleLabel");
+        root.getStyleClass().add("borderPane");
+        this.leftPane.getStyleClass().add("leftPane");
+        this.rightPane.getStyleClass().add("rightPane");
+        this.messageTextArea.getStyleClass().add("messageTextArea");
+        this.getStyleClass().add("view");
+        
+        
 
         // Add buttonTypes
         this.getButtonTypes().add(new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE));
