@@ -25,6 +25,12 @@ public class DoneBarView extends MainBarView {
 		// Gets items of ObservableArrayList from method getToDoListImportant
 		this.tableView.getItems().addAll(toDoListDone);
 		
+		// Add CSS styling
+		this.getStylesheets().add(getClass().getResource("CategoryViewStyle.css").toExternalForm());
+		this.icon.getStyleClass().add("icon");
+		this.label.getStyleClass().add("label");
+		this.header.getStyleClass().add("header");
+		
 	}
 
 	
