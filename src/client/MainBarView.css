@@ -1,0 +1,52 @@
+.view {
+ 	-fx-background-color: LightSteelBlue;
+}
+.mainBarView {
+ 	-fx-background-color: LightSteelBlue;
+}
+.lupe {
+ 	-fx-background-color: LightSteelBlue;
+	-fx-spacing: 10px;
+}
+.searchField{
+	-fx-spacing: 10px;
+}
+.createToDo{
+	-fx-spacing: 100px;
+}
+.tableView {
+ 	-fx-background-color: LightSteelBlue;
+}
+.checkBox {
+    	-fx-background-color: LightSteelBlue;
+	-fx-border: 2px;
+	-fx-border-radius: 5px;
+}
+.task {
+    	-fx-background-color: LightSteelBlue;
+	-fx-border: 2px;
+	-fx-border-radius: 5px;
+}
+.dueDate {
+    	-fx-background-color: LightSteelBlue;
+	-fx-border: 2px;
+	-fx-border-radius: 5px;
+}
+.important {
+    	-fx-background-color: LightSteelBlue;
+	-fx-border: 2px;
+	-fx-border-radius: 5px;
+	
+}
+.garbage {
+ 	-fx-background-color: LightSteelBlue;
+	-fx-border: 2px;
+	-fx-border-radius: 5px;
+}
+.scrollPane {
+ 	-fx-background-color: LightSteelBlue;
+}
+.header{
+ 	-fx-background-color: LightSteelBlue;
+}
+
