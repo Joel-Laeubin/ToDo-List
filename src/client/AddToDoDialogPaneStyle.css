@@ -1,9 +1,28 @@
-#contentPanes {
+#titleLabel {
+    -fx-font-size: 20px;
+    -fx-padding: 10px;
+}
+
+.borderPane {
+    -fx-background-color: LightSteelBlue;
+}
+
+.leftPane {
+    -fx-background-color: LightSteelBlue;
     -fx-padding: 10px;
     -fx-spacing: 10px;
 }
 
-#titleLabel {
-    -fx-font-size: 20px;
+.rightPane {
+    -fx-background-color: LightSteelBlue;
     -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+
+.messageTextArea {
+    -fx-background-color: LightGray;
+}
+
+.view {
+    -fx-background-color: LightSteelBlue;
 }
