@@ -1,3 +1,21 @@
-.BorderPane {
-    -fx-background-color: MediumSeaGreen;
+.view {
+    -fx-background-color: LightSteelBlue;
+}
+.listView .list-cell:even {
+    -fx-background-color: LightSteelBlue;
+}
+.listView .list-cell: odd {
+    -fx-background-color: LightSteelBlue;
+}
+.vBox {
+    -fx-background-color: LightSteelBlue;
+}
+.borderPane{
+    -fx-background-color: LightSteelBlue;
+}
+.splitPane{
+    -fx-background-color: LightSteelBlue;
+}
+.barChart{
+    -fx-background-color: LightSteelBlue;
 }
