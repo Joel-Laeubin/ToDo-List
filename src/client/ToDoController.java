@@ -96,6 +96,7 @@ public class ToDoController {
         toDo.setCategory("Erledigt");
         toDo.setDone(true);
         this.updateInstancedSublists();
+        
     }
 
     /* Method to mark ToDo as important
