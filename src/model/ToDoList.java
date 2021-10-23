@@ -93,6 +93,20 @@ public class ToDoList {
 		}
 	}
 
+	/* Method to search for items via the searchbar
+	 * Looks into title & message of each item
+	 */
+	public ArrayList<ToDo> searchItem(String searchString) {
+
+		ArrayList<ToDo> returnList = new ArrayList<>();
+		for(ToDo toDo : this.toDoList) {
+			if (toDo.getTitle().contains(searchString) || toDo.getMessage().contains(searchString)) {
+				returnList.add(toDo);
+			}
+		}
+		return returnList;
+	}
+
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo);
 		ToDo.globalToDoId -= 1;
@@ -121,4 +135,6 @@ public class ToDoList {
 	public ObservableList<ToDo> getToDoListPlanned() { return this.plannedList; }
 	public ObservableList<ToDo> getToDoListDone() { return this.doneList; }
 	public ObservableList<ToDo> getToDoListGarbage() { return this.garbageList; }
+
+
 }
