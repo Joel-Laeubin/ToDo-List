@@ -172,7 +172,6 @@ public class ToDoController {
             dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
         } catch (NullPointerException e) {
             // Setting default date to today
-//            this.toDoView.toDoDialogPane.datePicker.getEditor().setText(LocalDate.now().toString());
             this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
             dueDateString = LocalDate.now().toString();
         }
