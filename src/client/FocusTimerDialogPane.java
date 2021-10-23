@@ -87,6 +87,37 @@ public class FocusTimerDialogPane extends JFrame {
 				this.add(stop);
 				this.add(restart);	
 				
+	}
+	/*
+	 * Counts minute and seconds
+	 * from 25 minutes backwards
+	 */
+	
+	public void focusTimer() {
+		
+		this.timer = new Timer(1500, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				second--;
+				secondDecimalFormat = decimalFormat.format(second);
+				minuteDecimalFormat = decimalFormat.format(minute);	
+				counterLabel.setText(minuteDecimalFormat + ":" + secondDecimalFormat);
+				
+				if (second == -1) {
+					second = 59;
+					minute--;
+					secondDecimalFormat = decimalFormat.format(second);
+					minuteDecimalFormat = decimalFormat.format(minute);	
+					counterLabel.setText(minuteDecimalFormat + ":" + secondDecimalFormat);
+				}
+				if (minute == 0 && second == 0) {
+					timer.stop();
+				}
+			}
+		});		
+	}
 		
 	}
 	
