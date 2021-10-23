@@ -114,13 +114,11 @@ public class ToDo {
 	public String getCategory() {
 		return this.category;
 	}
-		
 	public ArrayList<String> getCategories() {
 		return this.categories;
 	}
+	public ArrayList<String> getTags() { return this.tags; }
 
-
-	
 	// Setters
 	public void setTitle(String title) {
 		this.title = title;
@@ -161,5 +159,6 @@ public class ToDo {
 	public void addCategory(String category) {
 		this.categories.add(category);	
 	}
+	public void setTags(ArrayList<String> tags) { this.tags = tags; }
 
 }
