@@ -47,6 +47,13 @@ public class FocusTimerDialogPane extends JFrame {
 				this.counterFont = new Font("Arial", Font.PLAIN, 60);
 				this.buttonFont = new Font("Arial", Font.PLAIN, 14);
 				
+				// Label settings
+				counterLabel = new JLabel("");
+				counterLabel.setBounds(200, 130, 200, 100);
+				counterLabel.setHorizontalAlignment(JLabel.CENTER);
+				counterLabel.setFont(counterFont);
+				
+				
 				
 		
 	}
