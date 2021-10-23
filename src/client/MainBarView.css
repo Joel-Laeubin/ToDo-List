@@ -1,8 +1,10 @@
 .view {
  	-fx-background-color: LightSteelBlue;
+	-fx-padding: 15px;
 }
 .mainBarView {
  	-fx-background-color: LightSteelBlue;
+	-fx-padding: 15px;
 }
 .lupe {
  	-fx-background-color: LightSteelBlue;

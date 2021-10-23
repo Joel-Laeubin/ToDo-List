@@ -43,7 +43,7 @@ public class ToDoView extends BorderPane {
 			this.toDoModel = toDoModel;
 			this.toDoListModel = toDoListModel;
 			
-			// Creates a ListView with items
+			// Creates a ListView with items and sets the active item
 			this.listView = new ListView<String>();
 			listView.getItems().addAll(
 					"Wichtig",
@@ -99,6 +99,7 @@ public class ToDoView extends BorderPane {
 			bc.getData().addAll(serie1, serie2);
 			
 			this.vBox.getChildren().add(bc);
+
 			
 			
 			// Add CSS styling

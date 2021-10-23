@@ -26,6 +26,7 @@ public abstract class MainBarView extends VBox {
 	protected Label label;
 	protected ImageView lupe;
 	protected TextField searchField;
+	protected Button searchButton;
 	protected Button createToDo;
 	protected TableView<ToDo> tableView;
 	protected TableColumn<ToDo, String> checkBox;
@@ -35,6 +36,7 @@ public abstract class MainBarView extends VBox {
 	protected TableColumn<ToDo, String> garbage;
 	protected ScrollPane scrollPane;
 	protected HBox header;
+	protected HBox searchBar;
 	
 	// Constructor
 	public MainBarView() {
@@ -54,15 +56,18 @@ public abstract class MainBarView extends VBox {
 		this.lupe = new ImageView("/icons/lupe.png");
 		this.lupe.setFitHeight(25);
 		this.lupe.setFitWidth(40);
-		this.getChildren().add(lupe);
-		
-		this.searchField = new TextField();
-		this.getChildren().add(searchField);
-		this.searchField.setMaxWidth(200);
-		
-		// Button for a new task
+//		this.getChildren().add(lupe);
+
+		// SearchBar and button for creating a new item
 		this.createToDo = new Button("+");
-		this.getChildren().add(createToDo);
+		this.searchBar = new HBox();
+		this.searchField = new TextField();
+		this.searchButton = new Button("Suchen");
+//		searchButton.setGraphic(this.lupe);
+		this.searchBar.getChildren().addAll(createToDo, searchField, searchButton);
+		this.getChildren().add(searchBar);
+		this.searchField.setMaxWidth(200);
+
 		
 		/*
          * Creates a TableView with Columns
@@ -110,7 +115,7 @@ public abstract class MainBarView extends VBox {
 		this.getStyleClass().add("view");
 		this.getStyleClass().add("mainBarView");
 		this.lupe.getStyleClass().add("lupe");
-		this.searchField.getStyleClass().add("searchField");
+		this.searchBar.getStyleClass().add("searchField");
 		this.createToDo.getStyleClass().add("createToDo");
         this.tableView.getStyleClass().add("tableView");    
         this.checkBox.getStyleClass().add("checkBox");

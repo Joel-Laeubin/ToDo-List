@@ -35,6 +35,12 @@ public class ToDoController {
         this.toDo = toDo;
         this.toDoList = toDoList;
 
+        // Set default midPane
+        this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
+        plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+        this.linkTableViewListeners(plannedBarView.tableView.getItems());
+        toDoView.borderPane.setCenter(plannedBarView);
+
         // Register buttons
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
     }
