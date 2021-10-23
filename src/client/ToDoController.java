@@ -48,8 +48,8 @@ public class ToDoController {
         // Register buttons
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
         
-        // Focus Timer button
-        // this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
+        // Focus timer button
+        this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
     }
 
@@ -60,7 +60,6 @@ public class ToDoController {
      */
     public void createToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
         this.toDoList.addToDo(new ToDo(title, message, dueDate, category, tags));
-        System.out.println("Added new ToDo to the arrayList");
     }
 
     /* Read method
@@ -373,9 +372,17 @@ public class ToDoController {
         }
     }
 
+	private void createFocusTimer(MouseEvent e) {
+			this.toDoView.focusDialog = new Dialog<>();
+			this.toDoView.focusTimerDialog = new FocusTimerDialogPane();
+		
+		}
+		
+	}
+
 			
         
-    }
+    
         
            
 

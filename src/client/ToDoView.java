@@ -1,5 +1,6 @@
 package client;
 
+import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -7,6 +8,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import model.ToDo;
 import model.ToDoList;
@@ -32,11 +34,12 @@ public class ToDoView extends BorderPane {
 		private NumberAxis yAxis;
 		protected BarChart<String, Number> bc;
 		
-
-		// ButtonType for eventhandling
-		protected ButtonType focusTimer;
-		protected Dialog<String> focusTimerDialog;
-		
+		protected Dialog<ButtonType> focusDialog;
+		protected FocusTimerDialogPane focusTimerDialog;
+		protected Button openFocusTimer;
+				
+		protected VBox vBoxBottom;
+		protected HBox hBoxBottom;
 		
 		/*
 		 * Instantiates all necessary control elements
@@ -105,6 +108,18 @@ public class ToDoView extends BorderPane {
 			bc.getData().addAll(serie1, serie2);
 			
 			this.vBox.getChildren().add(bc);
+			
+			/*
+			 * Button Focus timer for a focus timer dialog
+			 * on the right side of the bottom of the BorderPane
+			 */
+			this.vBoxBottom = new VBox();
+			this.hBoxBottom = new HBox();
+			this.openFocusTimer = new Button("Fokus Timer");
+			this.hBoxBottom.getChildren().add(openFocusTimer);
+			this.hBoxBottom.setPadding(new Insets(0.0, 0.0, 40.0, 950.0));
+			this.vBoxBottom.getChildren().add(hBoxBottom);
+			this.setBottom(vBoxBottom);
 		    
 			// Add CSS styling
 			this.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
