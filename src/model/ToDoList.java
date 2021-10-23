@@ -119,6 +119,6 @@ public class ToDoList {
 	// Get subsets of toDos
 	public ObservableList<ToDo> getToDoListImportant() { return this.importantList; }
 	public ObservableList<ToDo> getToDoListPlanned() { return this.plannedList; }
-	public  ObservableList<ToDo> getToDoListDone() { return this.doneList; }
-	public  ObservableList<ToDo> getToDoListGarbage() { return this.garbageList; }
+	public ObservableList<ToDo> getToDoListDone() { return this.doneList; }
+	public ObservableList<ToDo> getToDoListGarbage() { return this.garbageList; }
 }

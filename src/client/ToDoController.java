@@ -9,6 +9,9 @@ import client.ToDoView;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 
@@ -40,8 +43,8 @@ public class ToDoController {
      * Parses the inputs of the user required for a new ToDoInstance, creates the instance and stores it.
      * Needs input from ToDoView
      */
-    public void createToDo(String title, String message, LocalDate dueDate, String category) {
-        this.toDoList.addToDo(new ToDo(title, message, dueDate, category));
+    public void createToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
+        this.toDoList.addToDo(new ToDo(title, message, dueDate, category, tags));
         System.out.println("Added new ToDo to the arrayList");
     }
 
@@ -157,12 +160,14 @@ public class ToDoController {
     /* Validate user input method
      *
      */
-    private boolean validateUserInput(String title, String message, String dueDate, String category) {
+    private boolean validateUserInput(String title, String message, String dueDate, String category, String tags) {
 
         // Validate easy inputs first
         boolean titleIsValid = title.length() < 50;
         boolean messageIsValid = message.length() < 300;
         boolean categoryIsValid = this.toDoView.listView.getItems().contains(category);
+        boolean tagsAreValid;
+        String[] tagArray;
 
         // Validate date
         boolean dateIsValid = false;
@@ -175,10 +180,25 @@ public class ToDoController {
             if (year <= LocalDate.now().getYear() && month < 23 && day < 32) { dateIsValid = true; }
         }
 
-        return (titleIsValid && messageIsValid && categoryIsValid && dateIsValid);
+        // Validate tags
+        // Removes all whitespace and non-visible characters with \\s and splits the string by ;
+        try {
+             tagArray = tags.replaceAll("\\s", "").split(";");
+             if(tagArray.length <= 0) { tagsAreValid = false; }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            tagsAreValid = false;
+        }
+        tagsAreValid = true;
+
+
+        return (titleIsValid && messageIsValid && categoryIsValid && dateIsValid && tagsAreValid);
 
     }
 
+    /* Method to set event handlers for the tableView Items
+     *
+     */
     private void linkTableViewListeners(ObservableList<ToDo> listItems) {
         for(ToDo toDo : listItems) {
             toDo.getDoneButton().setOnMouseClicked(this::setToDoOnDone);
@@ -186,7 +206,6 @@ public class ToDoController {
             toDo.getGarbageButton().setOnMouseClicked(this::setToDoAsGarbage);
         }
     }
-
 
     /* Dialog creation method
      * Shows the dialog to get input from the user required for a new ToDO
@@ -206,10 +225,13 @@ public class ToDoController {
             String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
             String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
             String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+            String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
 
             // Validate user input
-            if (this.validateUserInput(title, message, dueDateString, category)) {
-                this.createToDo(title, message, LocalDate.parse(dueDateString), category);
+            if (this.validateUserInput(title, message, dueDateString, category, tags)) {
+                String[] tagArray = tags.replaceAll("\\s", "").split(";");
+                ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
+                this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
             }
 
             // Clear out dialogPane
