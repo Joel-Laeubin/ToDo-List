@@ -37,6 +37,7 @@ public class AddToDoDialogPane extends DialogPane {
     private final int SPACING_CATEGORYBAR = 15;
     private final int SPACING_TITLEBAR = 43;
     private final int SPACING_DUEDATEBAR = 28;
+    private final int SPACING_TAGSBAR = 40;
 
 
     // Constructor
@@ -49,7 +50,7 @@ public class AddToDoDialogPane extends DialogPane {
         titleBar = new HBox(SPACING_TITLEBAR);
         categoryBar = new HBox(SPACING_CATEGORYBAR);
         dueDateBar = new HBox(SPACING_DUEDATEBAR);
-        tagsBar = new HBox();
+        tagsBar = new HBox(SPACING_TAGSBAR);
 
         newTaskLabel = new Label("Neue Aufgabe");
         titleLabel = new Label("Titel");
