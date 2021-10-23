@@ -43,6 +43,10 @@ public class FocusTimerDialogPane extends JFrame {
 				this.setVisible(true);
 				// this.setResizable(false); -- CHANGE
 				
+				// Fonts for Label and Button
+				this.counterFont = new Font("Arial", Font.PLAIN, 60);
+				this.buttonFont = new Font("Arial", Font.PLAIN, 14);
+				
 				
 		
 	}
