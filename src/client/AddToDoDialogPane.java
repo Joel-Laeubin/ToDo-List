@@ -15,14 +15,17 @@ public class AddToDoDialogPane extends DialogPane {
     protected HBox titleBar;
     protected HBox categoryBar;
     protected HBox dueDateBar;
+    protected HBox tagsBar;
 
     protected Label newTaskLabel;
     protected Label titleLabel;
     protected Label categoryLabel;
     protected Label dueDateLabel;
     protected Label messageLabel;
+    protected Label tagsLabel;
 
     protected TextField titleTextfield;
+    protected TextField tagsTextfield;
 
     protected ComboBox<String> categoryComboBox;
 
@@ -46,14 +49,18 @@ public class AddToDoDialogPane extends DialogPane {
         titleBar = new HBox(SPACING_TITLEBAR);
         categoryBar = new HBox(SPACING_CATEGORYBAR);
         dueDateBar = new HBox(SPACING_DUEDATEBAR);
+        tagsBar = new HBox();
 
         newTaskLabel = new Label("Neue Aufgabe");
         titleLabel = new Label("Titel");
         categoryLabel = new Label("Kategorie");
         dueDateLabel = new Label("Termin");
         messageLabel = new Label("Beschreibung");
+        tagsLabel = new Label("Tags");
 
         titleTextfield = new TextField();
+        tagsTextfield = new TextField();
+
         categoryComboBox = new ComboBox<>();
         categoryComboBox.setItems(listViewItems);
         datePicker = new DatePicker();
@@ -63,8 +70,9 @@ public class AddToDoDialogPane extends DialogPane {
         titleBar.getChildren().addAll(titleLabel, titleTextfield);
         categoryBar.getChildren().addAll(categoryLabel, categoryComboBox);
         dueDateBar.getChildren().addAll(dueDateLabel, datePicker);
+        tagsBar.getChildren().addAll(tagsLabel, tagsTextfield);
 
-        leftPane.getChildren().addAll(titleBar, categoryBar, dueDateBar);
+        leftPane.getChildren().addAll(titleBar, categoryBar, dueDateBar, tagsBar);
         rightPane.getChildren().addAll(messageLabel, messageTextArea);
 
         // Set containers
