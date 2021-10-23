@@ -4,6 +4,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseEvent;
 import model.ToDo;
 import model.ToDoList;
@@ -46,6 +47,9 @@ public class ToDoController {
 
         // Register buttons
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
+        
+        // Focus Timer button
+        // this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
     }
 
@@ -312,6 +316,7 @@ public class ToDoController {
                 this.toDoView.toDoDialogPane.clearPane();
             }
 
+            
 
         }
 
@@ -366,9 +371,12 @@ public class ToDoController {
                 toDoView.borderPane.setCenter(garbageBarView);
             }
         }
-        
-        
     }
 
-}
+			
+        
+    }
+        
+           
+
     

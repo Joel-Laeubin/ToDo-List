@@ -38,6 +38,8 @@ public abstract class MainBarView extends VBox {
 	protected ScrollPane scrollPane;
 	protected HBox header;
 	protected HBox searchBar;
+	protected Button openFocusTimer;
+	protected HBox focus;
 	
 	// Constructor
 	public MainBarView() {
@@ -52,6 +54,14 @@ public abstract class MainBarView extends VBox {
 		 */
 		this.header = new HBox();
 		this.getChildren().add(header);
+		
+		/*
+		 * Focus HBox for the focus timer 
+		 * button
+		 */
+		
+		this.openFocusTimer = new Button("Fokus Timer");
+	    this.getChildren().add(openFocusTimer);
 		
 		// Lupe Icon for the searchField		
 		this.lupe = new ImageView("/icons/lupe.png");

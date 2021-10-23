@@ -5,6 +5,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import model.ToDo;
@@ -31,8 +32,11 @@ public class ToDoView extends BorderPane {
 		private NumberAxis yAxis;
 		protected BarChart<String, Number> bc;
 		
-		protected Button focusTimer;
 
+		// ButtonType for eventhandling
+		protected ButtonType focusTimer;
+		protected Dialog<String> focusTimerDialog;
+		
 		
 		/*
 		 * Instantiates all necessary control elements
@@ -101,9 +105,7 @@ public class ToDoView extends BorderPane {
 			bc.getData().addAll(serie1, serie2);
 			
 			this.vBox.getChildren().add(bc);
-
-			
-			
+		    
 			// Add CSS styling
 			this.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
 			this.getStyleClass().add("view");
@@ -139,7 +141,7 @@ public class ToDoView extends BorderPane {
 			return doneCount;
 		}
 	
-		
+
 		
 		
 		
