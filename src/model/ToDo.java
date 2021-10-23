@@ -18,9 +18,9 @@ public class ToDo {
 	private LocalDate dueDate;
 	private boolean isDone;
 	private String category;
-	private ArrayList<String> categories;
-	private Button doneButton;
+	private ArrayList<String> categories;	
 	private Button importantButton;
+	private Button doneButton;
 	private Button garbageButton;
 	private ArrayList<String> tags;
 	
@@ -42,12 +42,13 @@ public class ToDo {
 		this.category = category;
 		this.categories = new ArrayList<>();
 		
+		this.importantButton = new Button("Wichtig");
+		this.importantButton.setGraphic(new ImageView("/icons/starIcon.png"));
 		this.doneButton = new Button();
 		this.doneButton.setGraphic(new ImageView("/icons/doneIcon2.png"));
 		this.garbageButton = new Button("Löschen");
 		this.garbageButton.setGraphic(new ImageView("/icons/garbageIcon.png"));
-		this.importantButton = new Button("Wichtig");
-		this.importantButton.setGraphic(new ImageView("/icons/starIcon.png"));
+
 		
 		this.categories.add("Geplant");
 		this.categories.add(category);

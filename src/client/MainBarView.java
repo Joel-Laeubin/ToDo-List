@@ -1,6 +1,7 @@
 package client;
 
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -29,10 +30,10 @@ public abstract class MainBarView extends VBox {
 	protected Button searchButton;
 	protected Button createToDo;
 	protected TableView<ToDo> tableView;
-	protected TableColumn<ToDo, String> checkBox;
+	protected TableColumn<ToDo, String> important;
 	protected TableColumn<ToDo, String> task;
 	protected TableColumn<ToDo, String> dueDate;
-	protected TableColumn<ToDo, String> important;
+	protected TableColumn<ToDo, String> checkBox;
 	protected TableColumn<ToDo, String> garbage;
 	protected ScrollPane scrollPane;
 	protected HBox header;
@@ -54,19 +55,22 @@ public abstract class MainBarView extends VBox {
 		
 		// Lupe Icon for the searchField		
 		this.lupe = new ImageView("/icons/lupe.png");
-		this.lupe.setFitHeight(25);
-		this.lupe.setFitWidth(40);
+		this.lupe.setFitHeight(17);
+		this.lupe.setFitWidth(17);
 //		this.getChildren().add(lupe);
 
 		// SearchBar and button for creating a new item
 		this.createToDo = new Button("+");
 		this.searchBar = new HBox();
+		
+		// Puts the Button and Searchfunction to the right side of the view
+		this.searchBar.setPadding(new Insets(0.0, 0.0, 40.0, 760.0));
 		this.searchField = new TextField();
-		this.searchButton = new Button("Suchen");
-//		searchButton.setGraphic(this.lupe);
+		this.searchButton = new Button();
+		this.searchButton.setGraphic(this.lupe);
 		this.searchBar.getChildren().addAll(createToDo, searchField, searchButton);
 		this.getChildren().add(searchBar);
-		this.searchField.setMaxWidth(200);
+		this.searchField.setMaxWidth(250);
 
 		
 		/*
@@ -78,8 +82,8 @@ public abstract class MainBarView extends VBox {
 		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		this.tableView.setEditable(true);
 
-		this.checkBox = new TableColumn<>("Erledigt");
-		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));
+		this.important = new TableColumn<>("Wichtig");
+		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    
 		this.task = new TableColumn<>("Aufgabe");
 		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
@@ -87,15 +91,15 @@ public abstract class MainBarView extends VBox {
 		this.dueDate = new TableColumn<>("Termin");
 		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
 
-		this.important = new TableColumn<>("Wichtig");
-		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
-    	    
+		this.checkBox = new TableColumn<>("Erledigt");
+		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));
+		
 		this.garbage = new TableColumn<>("Papierkorb");
 		this.garbage.setCellValueFactory(new PropertyValueFactory<ToDo, String>("garbageButton"));
 
 
 		// Adds Columns to the TableView
-		this.tableView.getColumns().addAll(this.checkBox, this.task, this.dueDate, this.important, this.garbage);
+		this.tableView.getColumns().addAll(this.important, this.task, this.dueDate, this.checkBox, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
 		

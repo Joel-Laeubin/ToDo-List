@@ -30,6 +30,8 @@ public class ToDoView extends BorderPane {
 		private CategoryAxis xAxis;
 		private NumberAxis yAxis;
 		protected BarChart<String, Number> bc;
+		
+		protected Button focusTimer;
 
 		
 		/*
