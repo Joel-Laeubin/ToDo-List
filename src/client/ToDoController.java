@@ -1,6 +1,7 @@
 package client;
 
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import model.ToDo;
@@ -160,18 +161,32 @@ public class ToDoController {
     /* Validate user input method
      *
      */
-    private boolean validateUserInput(String title, String message, String dueDate, String category, String tags) {
+    private boolean validateUserInput() {
+
+        // Parse out data
+        String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+        String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
+        String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
+        String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+        String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
+
+        // Clear graphical validation
+        this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.datePicker.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
 
         // Validate easy inputs first
         boolean titleIsValid = title.length() < 50;
         boolean messageIsValid = message.length() < 300;
         boolean categoryIsValid = this.toDoView.listView.getItems().contains(category);
-        boolean tagsAreValid;
+        boolean tagsAreValid = false;
         String[] tagArray;
 
         // Validate date
         boolean dateIsValid = false;
-        String[] dateArray = dueDate.split("-");
+        String[] dateArray = dueDateString.split("-");
 
         if(dateArray.length == 3) {
             int year = Integer.parseInt(dateArray[0]);
@@ -184,13 +199,34 @@ public class ToDoController {
         // Removes all whitespace and non-visible characters with \\s and splits the string by ;
         try {
              tagArray = tags.replaceAll("\\s", "").split(";");
-             if(tagArray.length <= 0) { tagsAreValid = false; }
+             tagsAreValid = true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             tagsAreValid = false;
         }
-        tagsAreValid = true;
 
+        // Give graphical feedback
+        if (!titleIsValid) {
+            this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().add("notOk");
+            this.toDoView.toDoDialogPane.titleTextfield.setTooltip(this.toDoView.toDoDialogPane.titleToolTip);
+            // TODO: Tooltip won't be shown. CSS gets applied & event.consume() triggers, but tooltip won't show.
+        }
+        if (!messageIsValid) {
+            this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().add("notOk");
+            this.toDoView.toDoDialogPane.messageTextArea.setTooltip(this.toDoView.toDoDialogPane.messageToolTip);
+        }
+        if (!categoryIsValid) {
+            this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().add("notOk");
+            this.toDoView.toDoDialogPane.categoryComboBox.setTooltip(this.toDoView.toDoDialogPane.categoryToolTip);
+        }
+        if (!dateIsValid) {
+            this.toDoView.toDoDialogPane.datePicker.getStyleClass().add("notOk");
+            this.toDoView.toDoDialogPane.datePicker.setTooltip(this.toDoView.toDoDialogPane.dateToolTip);
+        }
+        if (!tagsAreValid) {
+            this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().add("notOk");
+            this.toDoView.toDoDialogPane.titleTextfield.setTooltip(this.toDoView.toDoDialogPane.titleToolTip);
+        }
 
         return (titleIsValid && messageIsValid && categoryIsValid && dateIsValid && tagsAreValid);
 
@@ -214,28 +250,35 @@ public class ToDoController {
      */
     public void createToDoDialog(MouseEvent e) {
 
+        // Set up event filter on OK-button to prevent dialog from closing when user input is not valid
+        Button okButton = (Button) this.toDoView.toDoDialogPane.lookupButton(this.toDoView.toDoDialogPane.okButtonType);
+        okButton.addEventFilter(ActionEvent.ACTION,
+                event -> { if(!validateUserInput()) { event.consume(); }});
+
         // Show dialog
         Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
 
         // Parse only positive result, ignore CANCEL_CLOSE
         if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
 
-            // Create new ToDo out of user input
-            String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
-            String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
-            String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
-            String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
-            String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
-
             // Validate user input
-            if (this.validateUserInput(title, message, dueDateString, category, tags)) {
+            if (this.validateUserInput()) {
+
+                // Parse out data
+                String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+                String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
+                String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
+                String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+                String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
+
                 String[] tagArray = tags.replaceAll("\\s", "").split(";");
                 ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
                 this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+
+                // Clear out dialogPane
+                this.toDoView.toDoDialogPane.clearPane();
             }
 
-            // Clear out dialogPane
-            this.toDoView.toDoDialogPane.clearPane();
 
         }
 

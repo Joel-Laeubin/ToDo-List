@@ -27,11 +27,20 @@ public class AddToDoDialogPane extends DialogPane {
     protected TextField titleTextfield;
     protected TextField tagsTextfield;
 
+    protected Tooltip titleToolTip;
+    protected Tooltip messageToolTip;
+    protected Tooltip categoryToolTip;
+    protected Tooltip dateToolTip;
+    protected Tooltip tagsToolTip;
+
     protected ComboBox<String> categoryComboBox;
 
     protected DatePicker datePicker;
 
     protected TextArea messageTextArea;
+
+    // Custom button type for eventhandling
+    ButtonType okButtonType;
 
     // Fields
     private final int SPACING_CATEGORYBAR = 15;
@@ -62,6 +71,12 @@ public class AddToDoDialogPane extends DialogPane {
         titleTextfield = new TextField();
         tagsTextfield = new TextField();
 
+        titleToolTip = new Tooltip("Your title must be > 50 characters.");
+        messageToolTip = new Tooltip("Your title must be > 300 characters.");
+        categoryToolTip = new Tooltip("Your category must be a value contained in the dropdown.");
+        dateToolTip = new Tooltip("Your date must be in format DD.MM.YYYY and lie ahead in time.");
+        tagsToolTip = new Tooltip("Your tags must be single words separated with a semicolon (;).");
+
         categoryComboBox = new ComboBox<>();
         categoryComboBox.setItems(listViewItems);
         datePicker = new DatePicker();
@@ -89,12 +104,11 @@ public class AddToDoDialogPane extends DialogPane {
         this.rightPane.getStyleClass().add("rightPane");
         this.messageTextArea.getStyleClass().add("messageTextArea");
         this.getStyleClass().add("view");
-        
-        
 
         // Add buttonTypes
+        okButtonType = new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE);
         this.getButtonTypes().add(new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE));
-        this.getButtonTypes().add(new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE));
+        this.getButtonTypes().add(okButtonType);
 
         // Set content
         this.setContent(root);

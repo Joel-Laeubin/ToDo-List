@@ -26,3 +26,7 @@
 .view {
     -fx-background-color: LightSteelBlue;
 }
+
+.notOk {
+    -fx-border-color: red;
+}
