@@ -63,6 +63,30 @@ public class FocusTimerDialogPane extends JFrame {
 				focusTimer();
 				timer.start();	
 				
+				// Buttons
+				this.start = new JButton("Start");
+				this.start.setLayout(null);
+				this.start.setBounds(100, 250, 300, 250);
+				this.start.setHorizontalAlignment(JLabel.CENTER);
+				this.start.setFont(buttonFont);
+				
+				this.stop = new JButton("Stop");
+				this.stop.setLayout(null);
+				this.start.setBounds(200, 250, 200, 250);
+				this.start.setHorizontalAlignment(JLabel.CENTER);
+				this.start.setFont(buttonFont);
+				
+				this.restart = new JButton("Restart");
+				this.restart.setLayout(null);
+				this.restart.setBounds(300, 250, 100, 250);
+				this.restart.setHorizontalAlignment(JLabel.CENTER);
+				this.restart.setFont(buttonFont);
+				
+				// Add buttons to JFrame
+				this.add(start);
+				this.add(stop);
+				this.add(restart);	
+				
 		
 	}
 	
