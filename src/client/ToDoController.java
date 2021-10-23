@@ -167,7 +167,16 @@ public class ToDoController {
         String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
         String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
         String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
-        String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+        String dueDateString = "";
+        try {
+            dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+        } catch (NullPointerException e) {
+            // Setting default date to today
+//            this.toDoView.toDoDialogPane.datePicker.getEditor().setText(LocalDate.now().toString());
+            this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
+            dueDateString = LocalDate.now().toString();
+        }
+
         String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
 
         // Clear graphical validation
@@ -178,7 +187,7 @@ public class ToDoController {
         this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
 
         // Validate easy inputs first
-        boolean titleIsValid = title.length() < 50;
+        boolean titleIsValid = title.length() < 50 && title.length() > 0;
         boolean messageIsValid = message.length() < 300;
         boolean categoryIsValid = this.toDoView.listView.getItems().contains(category);
         boolean tagsAreValid = false;
@@ -186,14 +195,8 @@ public class ToDoController {
 
         // Validate date
         boolean dateIsValid = false;
-        String[] dateArray = dueDateString.split("-");
-
-        if(dateArray.length == 3) {
-            int year = Integer.parseInt(dateArray[0]);
-            int month = Integer.parseInt(dateArray[1]);
-            int day = Integer.parseInt(dateArray[2]);
-            if (year <= LocalDate.now().getYear() && month < 23 && day < 32) { dateIsValid = true; }
-        }
+        LocalDate paneDate = LocalDate.parse(dueDateString);
+        if(paneDate.compareTo(LocalDate.now()) >= 0) { dateIsValid = true; }
 
         // Validate tags
         // Removes all whitespace and non-visible characters with \\s and splits the string by ;
@@ -208,24 +211,18 @@ public class ToDoController {
         // Give graphical feedback
         if (!titleIsValid) {
             this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().add("notOk");
-            this.toDoView.toDoDialogPane.titleTextfield.setTooltip(this.toDoView.toDoDialogPane.titleToolTip);
-            // TODO: Tooltip won't be shown. CSS gets applied & event.consume() triggers, but tooltip won't show.
         }
         if (!messageIsValid) {
             this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().add("notOk");
-            this.toDoView.toDoDialogPane.messageTextArea.setTooltip(this.toDoView.toDoDialogPane.messageToolTip);
         }
         if (!categoryIsValid) {
             this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().add("notOk");
-            this.toDoView.toDoDialogPane.categoryComboBox.setTooltip(this.toDoView.toDoDialogPane.categoryToolTip);
         }
         if (!dateIsValid) {
             this.toDoView.toDoDialogPane.datePicker.getStyleClass().add("notOk");
-            this.toDoView.toDoDialogPane.datePicker.setTooltip(this.toDoView.toDoDialogPane.dateToolTip);
         }
         if (!tagsAreValid) {
             this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().add("notOk");
-            this.toDoView.toDoDialogPane.titleTextfield.setTooltip(this.toDoView.toDoDialogPane.titleToolTip);
         }
 
         return (titleIsValid && messageIsValid && categoryIsValid && dateIsValid && tagsAreValid);

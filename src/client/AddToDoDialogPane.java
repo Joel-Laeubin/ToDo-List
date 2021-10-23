@@ -71,6 +71,7 @@ public class AddToDoDialogPane extends DialogPane {
         titleTextfield = new TextField();
         tagsTextfield = new TextField();
 
+        // Instantiate tooltips
         titleToolTip = new Tooltip("Your title must be > 50 characters.");
         messageToolTip = new Tooltip("Your title must be > 300 characters.");
         categoryToolTip = new Tooltip("Your category must be a value contained in the dropdown.");
@@ -95,6 +96,13 @@ public class AddToDoDialogPane extends DialogPane {
         root.setTop(newTaskLabel);
         root.setLeft(leftPane);
         root.setRight(rightPane);
+
+        // Associate tooltips
+        titleLabel.setTooltip(titleToolTip);
+        messageLabel.setTooltip(messageToolTip);
+        categoryLabel.setTooltip(categoryToolTip);
+        dueDateLabel.setTooltip(dateToolTip);
+        tagsLabel.setTooltip(tagsToolTip);
 
         // Add CSS styling
         this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
