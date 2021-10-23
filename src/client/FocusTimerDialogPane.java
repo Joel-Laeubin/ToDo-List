@@ -53,7 +53,15 @@ public class FocusTimerDialogPane extends JFrame {
 				counterLabel.setHorizontalAlignment(JLabel.CENTER);
 				counterLabel.setFont(counterFont);
 				
+				// Add Label to JFrame
+				this.add(counterLabel);
 				
+				// Countdown timer
+				counterLabel.setText("25:00");
+				second = 0;
+				minute = 25;
+				focusTimer();
+				timer.start();	
 				
 		
 	}
