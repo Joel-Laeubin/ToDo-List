@@ -118,6 +118,46 @@ public class FocusTimerDialogPane extends JFrame {
 			}
 		});		
 	}
+	
+	public void startJButton() {
+		this.start.addActionListener(new ActionListener() {
+			
+			@Override
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				timer.start();
+			}
+		});
+	}
+	
+	public void stopJButton() {
+		this.start.addActionListener(new ActionListener() {
+			
+			@Override
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				timer.stop();
+				
+			}
+		});
+	}
+		
+	public void restartJButton() {
+		this.start.addActionListener(new ActionListener() {
+			
+			@Override
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				timer.restart();
+			}
+		});
+	
+}		
+
+			
 		
 	}
 	
