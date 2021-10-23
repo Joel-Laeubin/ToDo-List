@@ -158,7 +158,4 @@ public class FocusTimerDialogPane extends JFrame {
 }		
 
 			
-		
-	}
-	
 }
