@@ -37,6 +37,13 @@ public class FocusTimerDialogPane extends JFrame {
 
 	public FocusTimerDialogPane() {
 		
+		// JFrame settings
+				this.setSize(600, 450);
+				this.setLayout(null);
+				this.setVisible(true);
+				// this.setResizable(false); -- CHANGE
+				
+				
 		
 	}
 	
