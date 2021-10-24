@@ -17,6 +17,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
+import client.FocusTimer;
 
 public class ToDoController {
 
@@ -373,11 +374,11 @@ public class ToDoController {
     }
 
 	private void createFocusTimer(MouseEvent e) {
-			this.toDoView.focusDialog = new Dialog<>();
-			this.toDoView.focusTimerDialog = new FocusTimerDialogPane();
-		
-		}
-		
+			this.toDoView.focusTimerDialog = new FocusTimer();
+	}
+
+	
+	
 	}
 
 			

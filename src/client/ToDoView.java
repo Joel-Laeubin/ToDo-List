@@ -35,7 +35,7 @@ public class ToDoView extends BorderPane {
 		protected BarChart<String, Number> bc;
 		
 		protected Dialog<ButtonType> focusDialog;
-		protected FocusTimerDialogPane focusTimerDialog;
+		protected FocusTimer focusTimerDialog;
 		protected Button openFocusTimer;
 				
 		protected VBox vBoxBottom;
