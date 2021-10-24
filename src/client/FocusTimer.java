@@ -16,6 +16,7 @@ import javafx.scene.layout.VBox;
 
 public class FocusTimer extends JFrame {
 	
+	// Elements
 	JLabel counterLabel;
 	Font counterFont;	
 	Timer timer;	
@@ -36,63 +37,67 @@ public class FocusTimer extends JFrame {
 	public FocusTimer() {
 		
 		// JFrame settings
-				this.setSize(600, 450);
-				this.setLayout(null);
-				this.setResizable(false);
-				this.revalidate();
+		this.setSize(600, 450);
+		this.setLayout(null);
+		this.setResizable(false);
+		this.revalidate();
 				
-				// Fonts for Label
-				this.counterFont = new Font("Arial", Font.PLAIN, 60);
+		// Fonts for Label
+		this.counterFont = new Font("Arial", Font.PLAIN, 60);
 				
-				// Label settings
-				this.counterLabel = new JLabel("Fokus Timer");
-				this.counterLabel.setBounds(200, 130, 200, 100);
-				this.counterLabel.setHorizontalAlignment(JLabel.CENTER);
-				this.counterLabel.setFont(counterFont);
+		// Label settings
+		this.counterLabel = new JLabel("Fokus Timer");
+		this.counterLabel.setBounds(200, 130, 200, 100);
+		this.counterLabel.setHorizontalAlignment(JLabel.CENTER);
+		this.counterLabel.setFont(counterFont);
 				
-				// Add Label to JFrame
-				this.add(counterLabel);
+		// Add Label to JFrame
+		this.add(counterLabel);
 				
-				// Countdown timer
-				this.counterLabel.setText("25:00");
-				this.second = 0;
-				this.minute = 25;
-				focusTimer();
-				//timer.start();	
+		// Countdown starts with 25 minutes
+		this.counterLabel.setText("25:00");
+		this.second = 0;
+		this.minute = 25;
+		focusTimer();	
 				
-				// Buttons
-				this.startIcon = new ImageIcon(getClass().getResource("/icons/startIcon.png"));
-				this.startIcon.setImage(this.startIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-				this.start = new JButton(startIcon);
-				this.start.setLayout(null);
-				this.start.setLocation(180, 280);
-				this.start.setSize(30, 30);
-				startButton();
+		/*
+		 * Creates three buttons (start, stop, restart).
+		 * Included icons for buttons and set size, location
+		 * and method for eventhandling
+		 */
+		this.startIcon = new ImageIcon(getClass().getResource("/icons/startIcon.png"));
+		this.startIcon.setImage(this.startIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+		this.start = new JButton(startIcon);
+		this.start.setLayout(null);
+		this.start.setLocation(180, 280);
+		this.start.setSize(30, 30);
+		startButton();
 				
-				this.stopIcon = new ImageIcon(getClass().getResource("/icons/stopIcon.png"));
-				this.stopIcon.setImage(this.stopIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-				this.stop = new JButton(stopIcon);
-				this.stop.setLayout(null);
-				this.stop.setLocation(280, 280);
-				this.stop.setSize(30, 30);
-				stopButton();
+		this.stopIcon = new ImageIcon(getClass().getResource("/icons/stopIcon.png"));
+		this.stopIcon.setImage(this.stopIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+		this.stop = new JButton(stopIcon);
+		this.stop.setLayout(null);
+		this.stop.setLocation(280, 280);
+		this.stop.setSize(30, 30);
+		stopButton();
 				
-				this.restartIcon = new ImageIcon(getClass().getResource("/icons/restartIcon.png"));
-				this.restartIcon.setImage(this.restartIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
-				this.restart = new JButton(restartIcon);
-				this.restart.setLayout(null);
-				this.restart.setLocation(380, 280);
-				this.restart.setSize(30, 30);
-				restartButton();
+		this.restartIcon = new ImageIcon(getClass().getResource("/icons/restartIcon.png"));
+		this.restartIcon.setImage(this.restartIcon.getImage().getScaledInstance(30, 30, Image.SCALE_DEFAULT));
+		this.restart = new JButton(restartIcon);
+		this.restart.setLayout(null);
+		this.restart.setLocation(380, 280);
+		this.restart.setSize(30, 30);
+		restartButton();
 
 				
-				// Add buttons to JFrame
-				this.add(start);
-				this.add(stop);
-				this.add(restart);	
-				
-				this.setVisible(true);
+		// Add buttons to JFrame
+		this.add(start);
+		this.add(stop);
+		this.add(restart);	
+		
+		this.setVisible(true);
 	} 
+	
 	/*
 	 * Counts minute and seconds
 	 * from 25 minutes backwards
@@ -125,6 +130,11 @@ public class FocusTimer extends JFrame {
 		
 	}
 		
+	/*
+	 * Eventhandling for the start button.
+	 * If the user clicks on the start button,
+	 * the timer will start.
+	 */
 	public void startButton() {
 		this.start.addActionListener(new ActionListener() {
 			
@@ -136,29 +146,42 @@ public class FocusTimer extends JFrame {
 		
 	}
 	
-		public void stopButton() {
-			this.stop.addActionListener(new ActionListener() {
+	/*
+	 * Eventhandling for the stop button.
+	 * If the user clicks on the stop button,
+	 * the timer will stop.
+	 */
+	public void stopButton() {
+		this.stop.addActionListener(new ActionListener() {
 				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					timer.stop();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				timer.stop();
 				}
 			});	
 }
-		public void restartButton() {
-			this.restart.addActionListener(new ActionListener() {
+	
+	/*
+	 * Eventhandling for the restart button.
+	 * If the user clicks on the restart button,
+	 * the timer will be set on 25 minutes and
+	 * is ready for a new start.
+	 */
+	public void restartButton() {
+		this.restart.addActionListener(new ActionListener() {
 				
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					counterLabel.setText("25:00");
-					second = 0;
-					minute = 25;
-					focusTimer();
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				counterLabel.setText("25:00");
+				second = 0;
+				minute = 25;
+				focusTimer();
 				}
 			});
 			
 		}
 
+		//Getters
 		public JLabel getCounterLabel() {
 			return counterLabel;
 		}
