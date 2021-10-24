@@ -377,7 +377,7 @@ public class ToDoController {
 			this.toDoView.focusTimerDialog = new FocusTimer();
 	}
 
-	
+
 	
 	}
 
