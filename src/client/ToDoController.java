@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Optional;
 import java.time.LocalDate;
 import client.FocusTimer;
+import client.MainBarView;
 
 public class ToDoController {
 
@@ -52,6 +53,7 @@ public class ToDoController {
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
+        
     }
 
     // ------- CRUD-Methods
@@ -377,9 +379,15 @@ public class ToDoController {
 			this.toDoView.focusTimerDialog = new FocusTimer();
 	}
 
+	private void changeCombo(ActionEvent event) {
+		
+
+	}
+		
+	}
 
 	
-	}
+	
 
 			
         

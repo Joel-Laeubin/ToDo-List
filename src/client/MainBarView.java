@@ -1,8 +1,10 @@
 package client;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
@@ -38,6 +40,8 @@ public abstract class MainBarView extends VBox {
 	protected ScrollPane scrollPane;
 	protected HBox header;
 	protected HBox searchBar;
+	protected ObservableList<String> filter;
+	protected ComboBox<String> comboBox;
 	
 	// Constructor
 	public MainBarView() {
@@ -59,12 +63,27 @@ public abstract class MainBarView extends VBox {
 		this.lupe.setFitWidth(17);
 //		this.getChildren().add(lupe);
 
+				
+		
 		// SearchBar and button for creating a new item
 		this.createToDo = new Button("+");
 		this.searchBar = new HBox();
 		
+		/*
+		 * A ComboBox for a ToDo filter
+		 * helps to see what kind of tasks the user has today,
+		 * this week or this month
+		 */
+		this.filter = FXCollections.observableArrayList(
+				"Heute",
+				"diese Woche",
+				"diesen Monat"
+				);
+		this.comboBox = new ComboBox<>(filter);
+		this.searchBar.getChildren().add(comboBox);		
+		
 		// Puts the Button and Searchfunction to the right side of the view
-		this.searchBar.setPadding(new Insets(0.0, 0.0, 40.0, 760.0));
+		this.searchBar.setPadding(new Insets(0.0, 0.0, 30.0, 650.0));
 		this.searchField = new TextField();
 		this.searchButton = new Button();
 		this.searchButton.setGraphic(this.lupe);
@@ -72,7 +91,6 @@ public abstract class MainBarView extends VBox {
 		this.getChildren().add(searchBar);
 		this.searchField.setMaxWidth(250);
 
-		
 		/*
          * Creates a TableView with Columns
          * and includes data from ObservableArrayList.
@@ -129,13 +147,15 @@ public abstract class MainBarView extends VBox {
         this.garbage.getStyleClass().add("garbage");
         this.scrollPane.getStyleClass().add("scrollPane");
         this.header.getStyleClass().add("header");
-      
-		
-		
-		
+      		
 	}
 
+	public ComboBox<String> getComboBox() {
+		return comboBox;
+	}
 
+	
+	
 }
 	
 
