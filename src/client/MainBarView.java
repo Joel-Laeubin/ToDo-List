@@ -98,6 +98,7 @@ public abstract class MainBarView extends VBox {
 		this.tableView = new TableView<>();
 		this.tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 		this.tableView.setEditable(true);
+		this.tableView.setPrefHeight(600);
 
 		this.important = new TableColumn<>("Wichtig");
 		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
@@ -119,6 +120,8 @@ public abstract class MainBarView extends VBox {
 		this.tableView.getColumns().addAll(this.important, this.task, this.dueDate, this.checkBox, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
+		
+		this.setPrefHeight(600);
 		
 		/*
 		 * ScrollPane helps to see
