@@ -1,5 +1,6 @@
 package client;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
@@ -31,6 +32,7 @@ public class ToDoController {
     private GarbageBarView garbageBarView;
     private PlannedBarView plannedBarView;
     private DoneBarView doneBarView;
+    private SearchBarView searchBarView;
 
 
     // Constructor
@@ -45,15 +47,13 @@ public class ToDoController {
         this.linkTableViewListeners(plannedBarView.tableView.getItems());
         toDoView.borderPane.setCenter(plannedBarView);
 
-        this.plannedBarView.searchButton.setOnMouseClicked(this::searchItem);
-
         // Register buttons
+        this.plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
         
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
-        
     }
 
     // ------- CRUD-Methods
@@ -120,7 +120,7 @@ public class ToDoController {
     }
 
     /* Method to mark ToDo as important
-     * ToDo gets deleted from preceding sublist via the
+     * ToDo gets deleted from preceding sublist via the .setCategory method.
      */
     private void setToDoAsImportant(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
@@ -128,6 +128,9 @@ public class ToDoController {
         this.updateInstancedSublists();
     }
 
+    /* Method to mark ToDo as garbage
+     * ToDo gets deleted from preceding sublist via the .setCategory method.
+     */
     private void setToDoAsGarbage(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
         toDo.setCategory("Papierkorb");
@@ -191,6 +194,30 @@ public class ToDoController {
 
         // Populate list
         ((MainBarView) this.getActiveMidView()).tableView.getItems().addAll(searchList);
+
+    }
+
+    private void searchItemAndGenerateView(MouseEvent e) {
+        // Clear pane
+        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
+
+        // Fetch input
+        MainBarView midView = (MainBarView) this.getActiveMidView();
+        String searchString = midView.searchField.getText();
+
+        // Search items
+        ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
+        ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
+
+        // Generate new searchView
+        this.searchBarView = new SearchBarView(observableSearchList);
+        this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+        this.linkTableViewListeners(searchBarView.tableView.getItems());
+        this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
+
+        // Put it on main view
+        toDoView.borderPane.setCenter(this.searchBarView);
+        System.out.println(toDoView.borderPane.getCenter());
 
     }
 
@@ -346,7 +373,7 @@ public class ToDoController {
                 // Add listeners
                 this.importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 this.linkTableViewListeners(importantBarView.tableView.getItems());
-                this.importantBarView.searchButton.setOnMouseClicked(this::searchItem);
+                this.importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
 
                 // Put it on main view
                 toDoView.borderPane.setCenter(importantBarView);
@@ -354,21 +381,21 @@ public class ToDoController {
             case 1 -> {
                 this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
                 plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                plannedBarView.searchButton.setOnMouseClicked(this::searchItem);
+                plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
                 this.linkTableViewListeners(plannedBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(plannedBarView);
             }
             case 2 -> {
                 this.doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
                 doneBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                doneBarView.searchButton.setOnMouseClicked(this::searchItem);
+                doneBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
                 this.linkTableViewListeners(doneBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(doneBarView);
             }
             case 3 -> {
                 this.garbageBarView = new GarbageBarView(this.toDoList.getToDoListGarbage());
                 garbageBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                garbageBarView.searchButton.setOnMouseClicked(this::searchItem);
+                garbageBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
                 this.linkTableViewListeners(garbageBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(garbageBarView);
             }

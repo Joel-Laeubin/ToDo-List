@@ -22,8 +22,7 @@ public class PlannedBarView  extends MainBarView {
 		this.icon.setFitHeight(50);
 		this.icon.setFitWidth(50);
 		this.header.getChildren().addAll(icon, label);
-		
-		
+
 		// Gets items of ObservableArrayList from method getToDoListImportant
 		this.tableView.getItems().addAll(toDoListPlanned);
 		

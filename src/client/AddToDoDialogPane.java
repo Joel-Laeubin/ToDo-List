@@ -126,9 +126,10 @@ public class AddToDoDialogPane extends DialogPane {
     // Clearing method
     public void clearPane() {
         this.titleTextfield.clear();
-        this.categoryComboBox.getEditor().clear();
+        this.categoryComboBox.valueProperty().setValue(null);
         this.datePicker.getEditor().clear();
         this.messageTextArea.clear();
+        this.tagsTextfield.clear();
     }
 
 }

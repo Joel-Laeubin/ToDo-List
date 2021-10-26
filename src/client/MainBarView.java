@@ -62,7 +62,6 @@ public abstract class MainBarView extends VBox {
 		this.lupe.setFitHeight(17);
 		this.lupe.setFitWidth(17);
 //		this.getChildren().add(lupe);
-
 				
 		
 		// SearchBar and button for creating a new item
