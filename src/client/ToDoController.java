@@ -178,7 +178,7 @@ public class ToDoController {
     }
 
     /* Method that is linked to the searchButton
-     *
+     * Does not generate a new view and is only used by searchItemAndGenerateView
      */
     private void searchItem(MouseEvent e) {
 
@@ -197,6 +197,9 @@ public class ToDoController {
 
     }
 
+    /* Method that is linked to the searchButton
+     * Generates a new view and sets it to the center
+     */
     private void searchItemAndGenerateView(MouseEvent e) {
         // Clear pane
         ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
@@ -254,6 +257,13 @@ public class ToDoController {
         this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().remove("notOk");
         this.toDoView.toDoDialogPane.datePicker.getStyleClass().remove("notOk");
         this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
+
+        // Set default category if none is choosen
+        // Note that we need to update the stored variable as it is used for the validity check later
+        if(category == null) {
+            this.toDoView.toDoDialogPane.categoryComboBox.setValue("Geplant");
+            category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
+        }
 
         // Validate easy inputs first
         boolean titleIsValid = title.length() < 50 && title.length() > 0;
