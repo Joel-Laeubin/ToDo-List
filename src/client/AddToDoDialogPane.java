@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 public class AddToDoDialogPane extends DialogPane {
 
@@ -16,8 +17,10 @@ public class AddToDoDialogPane extends DialogPane {
     protected HBox categoryBar;
     protected HBox dueDateBar;
     protected HBox tagsBar;
+    protected VBox headerBar;
 
     protected Label newTaskLabel;
+    protected Label tippLabel;
     protected Label titleLabel;
     protected Label categoryLabel;
     protected Label dueDateLabel;
@@ -47,6 +50,8 @@ public class AddToDoDialogPane extends DialogPane {
     private final int SPACING_TITLEBAR = 43;
     private final int SPACING_DUEDATEBAR = 28;
     private final int SPACING_TAGSBAR = 40;
+    private final int SPACING_HEADERBAR = -10;
+    private final Duration DURATION_UNTIL_SHOW = Duration.seconds(0.4);
 
 
     // Constructor
@@ -60,6 +65,7 @@ public class AddToDoDialogPane extends DialogPane {
         categoryBar = new HBox(SPACING_CATEGORYBAR);
         dueDateBar = new HBox(SPACING_DUEDATEBAR);
         tagsBar = new HBox(SPACING_TAGSBAR);
+        headerBar = new VBox(SPACING_HEADERBAR);
 
         newTaskLabel = new Label("Neue Aufgabe");
         titleLabel = new Label("Titel");
@@ -67,6 +73,7 @@ public class AddToDoDialogPane extends DialogPane {
         dueDateLabel = new Label("Termin");
         messageLabel = new Label("Beschreibung");
         tagsLabel = new Label("Tags");
+        tippLabel = new Label("Bewegen Sie Ihren Mauszeiger über einen Schriftzug!");
 
         titleTextfield = new TextField();
         tagsTextfield = new TextField();
@@ -78,6 +85,14 @@ public class AddToDoDialogPane extends DialogPane {
         dateToolTip = new Tooltip("Your date must be in format DD.MM.YYYY and lie ahead in time.");
         tagsToolTip = new Tooltip("Your tags must be single words separated with a semicolon (;).");
 
+        // Change tooltip timers
+        titleToolTip.setShowDelay(DURATION_UNTIL_SHOW);
+        messageToolTip.setShowDelay(DURATION_UNTIL_SHOW);
+        categoryToolTip.setShowDelay(DURATION_UNTIL_SHOW);
+        dateToolTip.setShowDelay(DURATION_UNTIL_SHOW);
+        tagsToolTip.setShowDelay(DURATION_UNTIL_SHOW);
+
+        // Instantiate the rest of the items
         categoryComboBox = new ComboBox<>();
         categoryComboBox.setItems(listViewItems);
         datePicker = new DatePicker();
@@ -88,12 +103,13 @@ public class AddToDoDialogPane extends DialogPane {
         categoryBar.getChildren().addAll(categoryLabel, categoryComboBox);
         dueDateBar.getChildren().addAll(dueDateLabel, datePicker);
         tagsBar.getChildren().addAll(tagsLabel, tagsTextfield);
+        headerBar.getChildren().addAll(newTaskLabel, tippLabel);
 
         leftPane.getChildren().addAll(titleBar, categoryBar, dueDateBar, tagsBar);
         rightPane.getChildren().addAll(messageLabel, messageTextArea);
 
         // Set containers
-        root.setTop(newTaskLabel);
+        root.setTop(headerBar);
         root.setLeft(leftPane);
         root.setRight(rightPane);
 
@@ -107,6 +123,7 @@ public class AddToDoDialogPane extends DialogPane {
         // Add CSS styling
         this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
         newTaskLabel.setId("titleLabel");
+        tippLabel.setId("titleMessage");
         root.getStyleClass().add("borderPane");
         this.leftPane.getStyleClass().add("leftPane");
         this.rightPane.getStyleClass().add("rightPane");
