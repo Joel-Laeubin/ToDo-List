@@ -44,7 +44,7 @@ public class ToDoView extends BorderPane {
 		protected XYChart.Series serie2;
 		
 		protected Dialog<ButtonType> focusDialog;
-		protected FocusTimer focusTimerDialog;
+		protected FocusTimerDialogPane focusTimerDialog;
 		protected Button openFocusTimer;
 				
 		protected VBox vBoxBottom;
