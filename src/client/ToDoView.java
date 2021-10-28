@@ -105,24 +105,12 @@ public class ToDoView extends BorderPane {
 			yAxis.setLabel("Number");
 			bc.setAnimated(false);
 			
-			XYChart.Series serie1 = new XYChart.Series();
+			this.serie1 = new XYChart.Series();
 			serie1.setName(done);
-			XYChart.Series serie2 = new XYChart.Series<>();
-			serie2.setName(undone);
+			this.serie2 = new XYChart.Series<>();
+			serie2.setName(undone);	
 			
 			
-			
-			Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent event) {
-					serie1.getData().clear();
-					serie2.getData().clear();
-					serie1.getData().add(new XYChart.Data<String, Number>(done, doneNumber));
-					serie2.getData().add(new XYChart.Data<String, Number>(undone, undoneNumber));
-				}
-			}));
-			Updater.setCycleCount(Timeline.INDEFINITE);
-			Updater.play();			
-			bc.getData().addAll(serie1, serie2);
 			
 			this.vBox.getChildren().add(bc);
 			
