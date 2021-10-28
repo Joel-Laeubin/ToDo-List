@@ -1,5 +1,9 @@
 package client;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -10,6 +14,7 @@ import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import model.ToDo;
 import model.ToDoList;
 
@@ -29,10 +34,15 @@ public class ToDoView extends BorderPane {
 		protected AddToDoDialogPane toDoDialogPane;
 		
 		final static String done = "Done";
-		final static String undone = "Undone";	
+		final static String undone = "Undone";
+		protected static int doneNumber = 0;
+		protected static int undoneNumber = 0;
+		
 		private CategoryAxis xAxis;
 		private NumberAxis yAxis;
 		protected BarChart<String, Number> bc;
+		protected XYChart.Series serie1;
+		protected XYChart.Series serie2;
 		
 		protected Dialog<ButtonType> focusDialog;
 		protected FocusTimer focusTimerDialog;
@@ -94,17 +104,29 @@ public class ToDoView extends BorderPane {
 			this.xAxis = new CategoryAxis();
 			this.yAxis = new NumberAxis();
 			this.bc = new BarChart<String, Number>(xAxis, yAxis);
+			
 			bc.setTitle("Status Overview");
 			xAxis.setLabel("Category");
 			yAxis.setLabel("Number");
+			bc.setAnimated(false);
 			
 			XYChart.Series serie1 = new XYChart.Series();
 			serie1.setName(done);
-			serie1.getData().add(new XYChart.Data(done, 8));
-			
 			XYChart.Series serie2 = new XYChart.Series<>();
 			serie2.setName(undone);
-			serie2.getData().add(new XYChart.Data(undone, 10));
+			
+			
+			
+			Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
+				public void handle(ActionEvent event) {
+					serie1.getData().clear();
+					serie2.getData().clear();
+					serie1.getData().add(new XYChart.Data<String, Number>(done, doneNumber));
+					serie2.getData().add(new XYChart.Data<String, Number>(undone, undoneNumber));
+				}
+			}));
+			Updater.setCycleCount(Timeline.INDEFINITE);
+			Updater.play();			
 			bc.getData().addAll(serie1, serie2);
 			
 			this.vBox.getChildren().add(bc);
