@@ -100,6 +100,7 @@ public abstract class MainBarView extends VBox {
 		this.tableView.setEditable(true);
 		this.tableView.setPrefHeight(600);
 
+
 		this.important = new TableColumn<>("Wichtig");
 		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    

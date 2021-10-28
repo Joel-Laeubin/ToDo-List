@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import model.ToDo;
 import model.ToDoList;
@@ -92,35 +93,52 @@ public class ToDoController {
      * Gets a specific ToDo based on its ID, updated the contents and stores it again.
      * Maybe pass in an ToDo as parameter?
      */
-    public void updateToDo(int ID, String title, String message, LocalDate dueDate) {
+    public void updateToDo(MouseEvent e) {
 
-        // Fetch item & old status
-        ToDo itemToUpdate = this.toDoList.getToDo(ID);
-        String oldTitle = itemToUpdate.getTitle();
-        String oldMessage = itemToUpdate.getMessage();
-        LocalDate oldDueDate = itemToUpdate.getDueDate();
+        // Check for double click
+        if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
 
-        // Delete old item from arrayList
-        this.toDoList.getToDoList().remove(itemToUpdate);
+            // Get clicked item
+            MainBarView activeMidView = (MainBarView) this.getActiveMidView();
+            int index = activeMidView.tableView.getSelectionModel().getSelectedIndex();
+            ObservableList<ToDo> items = activeMidView.tableView.getItems();
+            ToDo itemToUpdate = items.get(index);
 
-        // Compare changes
-        boolean titleChanged = oldTitle.equals(title);
-        boolean messageChanged = oldMessage.equals(message);
-        boolean dueDateChanged = oldDueDate == dueDate;
 
-        // Make changes
-        if (titleChanged) {
-            itemToUpdate.setTitle(title);
+            // Open new dialogPane to make it editable
+            this.toDoView.addToDoDialog = new Dialog<ButtonType>();
+            this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems(), itemToUpdate);
+            this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
+            Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
+
+            // Parse only positive result, ignore CANCEL_CLOSE
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+
+                // Validate user input
+                if (this.validateUserInput()) {
+
+                    // Delete old item from arrayList
+                    this.toDoList.getToDoList().remove(itemToUpdate);
+
+                    // Parse out data
+                    String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+                    String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
+                    String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
+                    String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+                    String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
+
+                    String[] tagArray = tags.replaceAll("\\s", "").split(";");
+                    ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
+                    this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+
+                }
+
+            }
+
         }
-        if (messageChanged) {
-            itemToUpdate.setMessage(message);
-        }
-        if (dueDateChanged) {
-            itemToUpdate.setDueDate(dueDate);
-        }
 
-        // Insert changed item into ArrayList
-        this.toDoList.addToDo(itemToUpdate);
+        // Update lists
+        this.updateInstancedSublists();
     }
     
     /* Method to set a ToDo on done ("Erledigt") whenever the button is clicked.
@@ -168,21 +186,25 @@ public class ToDoController {
         if(this.importantBarView != null) {
             this.importantBarView.tableView.getItems().clear();
             this.importantBarView.tableView.getItems().addAll(this.toDoList.getToDoListImportant());
+            this.linkTableViewListeners(this.importantBarView.tableView.getItems());
         }
 
         if(this.garbageBarView != null) {
             this.garbageBarView.tableView.getItems().clear();
             this.garbageBarView.tableView.getItems().addAll(this.toDoList.getToDoListGarbage());
+            this.linkTableViewListeners(this.garbageBarView.tableView.getItems());
         }
 
         if(this.plannedBarView != null) {
             this.plannedBarView.tableView.getItems().clear();
             this.plannedBarView.tableView.getItems().addAll(this.toDoList.getToDoListPlanned());
+            this.linkTableViewListeners(this.plannedBarView.tableView.getItems());
         }
 
         if(this.doneBarView != null) {
             this.doneBarView.tableView.getItems().clear();
             this.doneBarView.tableView.getItems().addAll(this.toDoList.getToDoListDone());
+            this.linkTableViewListeners(this.doneBarView.tableView.getItems());
         }
     }
 
@@ -201,12 +223,12 @@ public class ToDoController {
      */
     private void searchItem(MouseEvent e) {
 
-        // Clear pane
-        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
-
         // Fetch input
         MainBarView midView = (MainBarView) this.getActiveMidView();
         String searchString = midView.searchField.getText();
+
+        // Clear pane
+        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
 
         // Search items
         ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
@@ -220,27 +242,31 @@ public class ToDoController {
      * Generates a new view and sets it to the center
      */
     private void searchItemAndGenerateView(MouseEvent e) {
-        // Clear pane
-        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
 
         // Fetch input
         MainBarView midView = (MainBarView) this.getActiveMidView();
         String searchString = midView.searchField.getText();
 
-        // Search items
-        ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
-        ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
+        // Only go ahead if input is not empty
+        if(searchString.length() != 0) {
 
-        // Generate new searchView
-        this.searchBarView = new SearchBarView(observableSearchList);
-        this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-        this.linkTableViewListeners(searchBarView.tableView.getItems());
-        this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
+            // Search items
+            ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
+            ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
 
-        // Put it on main view
-        toDoView.borderPane.setCenter(this.searchBarView);
-        System.out.println(toDoView.borderPane.getCenter());
+            // Generate new searchView
+            this.searchBarView = new SearchBarView(observableSearchList);
+            this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+            this.linkTableViewListeners(searchBarView.tableView.getItems());
+            this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
 
+            // Put it on main view
+            toDoView.borderPane.setCenter(this.searchBarView);
+
+        }
+
+        // Otherwise just consume the event
+        e.consume();
     }
 
     /* Method that is used to retrieve the active midView
@@ -262,6 +288,10 @@ public class ToDoController {
         String dueDateString = "";
         try {
             dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+            if(dueDateString.equals("")) {
+                // Setting default date to today
+                this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
+            }
         } catch (NullPointerException e) {
             // Setting default date to today
             this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
@@ -269,13 +299,6 @@ public class ToDoController {
         }
 
         String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
-
-        // Clear graphical validation
-        this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.datePicker.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
 
         // Set default category if none is choosen
         // Note that we need to update the stored variable as it is used for the validity check later
@@ -345,10 +368,22 @@ public class ToDoController {
      */
     public void createToDoDialog(MouseEvent e) {
 
+        // Create & Customize Dialog
+        this.toDoView.addToDoDialog = new Dialog<ButtonType>();
+        this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems());
+        this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
+
         // Set up event filter on OK-button to prevent dialog from closing when user input is not valid
         Button okButton = (Button) this.toDoView.toDoDialogPane.lookupButton(this.toDoView.toDoDialogPane.okButtonType);
         okButton.addEventFilter(ActionEvent.ACTION,
                 event -> { if(!validateUserInput()) { event.consume(); }});
+
+        // Clear graphical validation
+        this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.datePicker.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
 
         // Show dialog
         Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
@@ -370,13 +405,15 @@ public class ToDoController {
                 ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
                 this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
 
-                // Clear out dialogPane
-                this.toDoView.toDoDialogPane.clearPane();
             }
 
-            
-
         }
+
+        // Clear out dialogPane
+        this.toDoView.toDoDialogPane.clearPane();
+
+        // Refresh views
+        this.updateInstancedSublists();
 
     }
 
@@ -403,6 +440,7 @@ public class ToDoController {
                 this.importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 this.linkTableViewListeners(importantBarView.tableView.getItems());
                 this.importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                this.importantBarView.tableView.setOnMouseClicked(this::updateToDo);
 
                 // Put it on main view
                 toDoView.borderPane.setCenter(importantBarView);
@@ -442,13 +480,3 @@ public class ToDoController {
 		
 	}
 
-	
-	
-
-			
-        
-    
-        
-           
-
-    
