@@ -95,6 +95,7 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Instantiate the rest of the items
         categoryComboBox = new ComboBox<>();
+        listViewItems.remove(3);
         categoryComboBox.setItems(listViewItems);
         datePicker = new DatePicker();
         messageTextArea = new TextArea();
