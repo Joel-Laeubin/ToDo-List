@@ -1,5 +1,6 @@
 package client;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
@@ -95,8 +96,10 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Instantiate the rest of the items
         categoryComboBox = new ComboBox<>();
-        listViewItems.remove(3);
-        categoryComboBox.setItems(listViewItems);
+        ObservableList<String> copy = FXCollections.observableArrayList();
+        copy.addAll(listViewItems);
+        copy.remove(3);
+        categoryComboBox.setItems(copy);
         datePicker = new DatePicker();
         messageTextArea = new TextArea();
 

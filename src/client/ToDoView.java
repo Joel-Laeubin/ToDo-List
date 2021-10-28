@@ -2,6 +2,7 @@ package client;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -68,7 +69,7 @@ public class ToDoView extends BorderPane {
 					"Erledigt",
 					"Papierkorb");
 			listView.getSelectionModel().select(1);
-
+			
 			// Creates a VBox in the BorderPane and includes the listView
 			this.vBox = new VBox();
 			this.vBox.getChildren().addAll(listView);
