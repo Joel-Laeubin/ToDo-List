@@ -1,5 +1,6 @@
 package model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -107,6 +108,46 @@ public class ToDoList {
 		return returnList;
 	}
 
+	public ArrayList<ToDo> searchLocalToday(){
+		
+		LocalDate now = LocalDate.now();
+		
+		ArrayList<ToDo> returnTask = new ArrayList<>();
+		for(ToDo toDo : this.toDoList) {
+			if (toDo.getDueDate().equals(now)) {
+				returnTask.add(toDo);
+			}
+		}
+		return returnTask;
+	}
+	
+	public ArrayList<ToDo> searchLocalWeek(){
+		LocalDate now = LocalDate.now();
+		LocalDate inAWeek = LocalDate.now().plusDays(7);
+	
+		ArrayList<ToDo> returnTask1 = new ArrayList<>();
+		for(ToDo toDo : this.toDoList) {
+			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAWeek) == 1) {
+				returnTask1.add(toDo);
+			}
+		}
+			return returnTask1;
+	}
+	
+	public ArrayList<ToDo> searchLocalMonth() {
+		
+		LocalDate now = LocalDate.now();
+		LocalDate inAMonth = LocalDate.now().plusMonths(1);
+		
+		ArrayList<ToDo> returnTask2 = new ArrayList<>();
+		for(ToDo toDo : this.toDoList) {
+			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAMonth) >= 1) {
+				returnTask2.add(toDo);
+			}
+		}
+		return returnTask2;
+	}
+	
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo);
 		ToDo.globalToDoId -= 1;
