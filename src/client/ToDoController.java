@@ -60,7 +60,10 @@ public class ToDoController {
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
         
+        // Selected ComboBox
+        plannedBarView.comboBox.setOnAction(this::changeCombo); 
         
+          
         
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -70,11 +73,12 @@ public class ToDoController {
 				toDoView.serie2.getData().add(new XYChart.Data<String, Number>("Undone", toDoList.getToDoListPlanned().size()));
 			}
 		}));
+        
 		Updater.setCycleCount(Timeline.INDEFINITE);
 		Updater.play();			
 		toDoView.bc.getData().addAll(toDoView.serie1, toDoView.serie2);
+    	}
 
-    }
 
     // ------- CRUD-Methods
     /* Create method
@@ -439,33 +443,37 @@ public class ToDoController {
                 this.importantBarView = new ImportantBarView(this.toDoList.getToDoListImportant());
 
                 // Add listeners
-                this.importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                this.linkTableViewListeners(importantBarView.tableView.getItems());
-                this.importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                this.importantBarView.tableView.setOnMouseClicked(this::updateToDo);
+                importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+                linkTableViewListeners(importantBarView.tableView.getItems());
+                importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                importantBarView.comboBox.setOnAction(this::changeCombo);
+                importantBarView.tableView.setOnMouseClicked(this::updateToDo);
 
                 // Put it on main view
                 toDoView.borderPane.setCenter(importantBarView);
             }
             case 1 -> {
-                this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
+                plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
                 plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                this.linkTableViewListeners(plannedBarView.tableView.getItems());
+                plannedBarView.comboBox.setOnAction(this::changeCombo);
+                linkTableViewListeners(plannedBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(plannedBarView);
             }
             case 2 -> {
-                this.doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
+                doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
                 doneBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 doneBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                this.linkTableViewListeners(doneBarView.tableView.getItems());
+                doneBarView.comboBox.setOnAction(this::changeCombo);
+                linkTableViewListeners(doneBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(doneBarView);
             }
             case 3 -> {
-                this.garbageBarView = new GarbageBarView(this.toDoList.getToDoListGarbage());
+                garbageBarView = new GarbageBarView(this.toDoList.getToDoListGarbage());
                 garbageBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 garbageBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                this.linkTableViewListeners(garbageBarView.tableView.getItems());
+                garbageBarView.comboBox.setOnAction(this::changeCombo);
+                linkTableViewListeners(garbageBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(garbageBarView);
             }
         }
@@ -476,7 +484,37 @@ public class ToDoController {
 	}
 
 	private void changeCombo(ActionEvent event) {
+		MainBarView main = (MainBarView) getActiveMidView();
+		switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
+		case 0: {
+			ObservableList<ToDo> observableListAll = FXCollections.observableArrayList(this.toDoList.getToDoList());
+			main.tableView.getItems().clear();
+			main.tableView.getItems().addAll(observableListAll);
+			break;
+		}
+		case 1: {
+			ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+			ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
+			main.tableView.getItems().clear();
+			main.tableView.getItems().addAll(observableListToday);
+			break;
+		}
+		case 2: {
+			ArrayList<ToDo> arrayListWeek = this.toDoList.searchLocalWeek();
+			ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
+			main.tableView.getItems().clear();
+			main.tableView.getItems().addAll(observableListWeek);
+			break;
+		}
+		case 3: {
+			ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalMonth();
+			ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
+			main.tableView.getItems().clear();
+			main.tableView.getItems().addAll(observableListMonth);
+			System.out.println("Test" + observableListMonth.toString());
+		}
 		
+		}
 
 	}
 		
