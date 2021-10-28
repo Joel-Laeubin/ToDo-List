@@ -84,10 +84,6 @@ public class ToDoView extends BorderPane {
 			this.splitPane.setDividerPositions(0.3);
 			this.setLeft(splitPane);
 
-			// Customize Dialog
-			this.addToDoDialog = new Dialog<ButtonType>();
-			this.toDoDialogPane = new AddToDoDialogPane(listView.getItems());
-			this.addToDoDialog.setDialogPane(toDoDialogPane);
 			
 			
 			//Creating the BarChart to show the done and undone ToDo's

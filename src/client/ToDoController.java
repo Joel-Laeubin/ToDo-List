@@ -149,21 +149,25 @@ public class ToDoController {
         if(this.importantBarView != null) {
             this.importantBarView.tableView.getItems().clear();
             this.importantBarView.tableView.getItems().addAll(this.toDoList.getToDoListImportant());
+            this.linkTableViewListeners(this.importantBarView.tableView.getItems());
         }
 
         if(this.garbageBarView != null) {
             this.garbageBarView.tableView.getItems().clear();
             this.garbageBarView.tableView.getItems().addAll(this.toDoList.getToDoListGarbage());
+            this.linkTableViewListeners(this.garbageBarView.tableView.getItems());
         }
 
         if(this.plannedBarView != null) {
             this.plannedBarView.tableView.getItems().clear();
             this.plannedBarView.tableView.getItems().addAll(this.toDoList.getToDoListPlanned());
+            this.linkTableViewListeners(this.plannedBarView.tableView.getItems());
         }
 
         if(this.doneBarView != null) {
             this.doneBarView.tableView.getItems().clear();
             this.doneBarView.tableView.getItems().addAll(this.toDoList.getToDoListDone());
+            this.linkTableViewListeners(this.doneBarView.tableView.getItems());
         }
     }
 
@@ -182,12 +186,12 @@ public class ToDoController {
      */
     private void searchItem(MouseEvent e) {
 
-        // Clear pane
-        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
-
         // Fetch input
         MainBarView midView = (MainBarView) this.getActiveMidView();
         String searchString = midView.searchField.getText();
+
+        // Clear pane
+        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
 
         // Search items
         ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
@@ -201,27 +205,31 @@ public class ToDoController {
      * Generates a new view and sets it to the center
      */
     private void searchItemAndGenerateView(MouseEvent e) {
-        // Clear pane
-        ((MainBarView) this.getActiveMidView()).tableView.getItems().clear();
 
         // Fetch input
         MainBarView midView = (MainBarView) this.getActiveMidView();
         String searchString = midView.searchField.getText();
 
-        // Search items
-        ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
-        ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
+        // Only go ahead if input is not empty
+        if(searchString.length() != 0) {
 
-        // Generate new searchView
-        this.searchBarView = new SearchBarView(observableSearchList);
-        this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-        this.linkTableViewListeners(searchBarView.tableView.getItems());
-        this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
+            // Search items
+            ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
+            ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
 
-        // Put it on main view
-        toDoView.borderPane.setCenter(this.searchBarView);
-        System.out.println(toDoView.borderPane.getCenter());
+            // Generate new searchView
+            this.searchBarView = new SearchBarView(observableSearchList);
+            this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+            this.linkTableViewListeners(searchBarView.tableView.getItems());
+            this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
 
+            // Put it on main view
+            toDoView.borderPane.setCenter(this.searchBarView);
+
+        }
+
+        // Otherwise just consume the event
+        e.consume();
     }
 
     /* Method that is used to retrieve the active midView
@@ -243,6 +251,10 @@ public class ToDoController {
         String dueDateString = "";
         try {
             dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+            if(dueDateString.equals("")) {
+                // Setting default date to today
+                this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
+            }
         } catch (NullPointerException e) {
             // Setting default date to today
             this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
@@ -250,13 +262,6 @@ public class ToDoController {
         }
 
         String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
-
-        // Clear graphical validation
-        this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.datePicker.getStyleClass().remove("notOk");
-        this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
 
         // Set default category if none is choosen
         // Note that we need to update the stored variable as it is used for the validity check later
@@ -326,10 +331,22 @@ public class ToDoController {
      */
     public void createToDoDialog(MouseEvent e) {
 
+        // Create & Customize Dialog
+        this.toDoView.addToDoDialog = new Dialog<ButtonType>();
+        this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems());
+        this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
+
         // Set up event filter on OK-button to prevent dialog from closing when user input is not valid
         Button okButton = (Button) this.toDoView.toDoDialogPane.lookupButton(this.toDoView.toDoDialogPane.okButtonType);
         okButton.addEventFilter(ActionEvent.ACTION,
                 event -> { if(!validateUserInput()) { event.consume(); }});
+
+        // Clear graphical validation
+        this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.messageTextArea.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.categoryComboBox.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.datePicker.getStyleClass().remove("notOk");
+        this.toDoView.toDoDialogPane.tagsTextfield.getStyleClass().remove("notOk");
 
         // Show dialog
         Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
@@ -351,13 +368,15 @@ public class ToDoController {
                 ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
                 this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
 
-                // Clear out dialogPane
-                this.toDoView.toDoDialogPane.clearPane();
             }
 
-            
-
         }
+
+        // Clear out dialogPane
+        this.toDoView.toDoDialogPane.clearPane();
+
+        // Refresh views
+        this.updateInstancedSublists();
 
     }
 
