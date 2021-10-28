@@ -9,23 +9,15 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 import model.ToDo;
 import model.ToDoList;
-import client.ToDoView;
-
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.time.LocalDate;
-import client.FocusTimer;
-import client.MainBarView;
 
 public class ToDoController {
 
@@ -33,6 +25,8 @@ public class ToDoController {
     private ToDoView toDoView;
     private ToDo toDo;
     private ToDoList toDoList;
+    
+    private FocusTimerDialogPane dialog;
 
     private ImportantBarView importantBarView;
     private GarbageBarView garbageBarView;
@@ -46,6 +40,8 @@ public class ToDoController {
         this.toDoView = toDoView;
         this.toDo = toDo;
         this.toDoList = toDoList;
+        
+        this.dialog = new FocusTimerDialogPane();
 
         // Set default midPane & add initial event handling for searchbar
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
@@ -63,7 +59,10 @@ public class ToDoController {
         // Selected ComboBox
         plannedBarView.comboBox.setOnAction(this::changeCombo); 
         
-          
+        // Eventhandling for focus timer
+        this.dialog.playButton.setOnMouseClicked(this::playTimer);
+        this.dialog.stopButton.setOnMouseClicked(this::stopTimer);
+        this.dialog.replayButton.setOnMouseClicked(this::replayTimer);  
         
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -479,10 +478,26 @@ public class ToDoController {
         }
     }
 
+    // Open a new focus timer window
 	private void createFocusTimer(MouseEvent e) {
-			this.toDoView.focusTimerDialog = new FocusTimer();
-	}
+		
+		// Create and customize Dialog
+		this.toDoView.focusDialog = new Dialog<ButtonType>();
+		this.toDoView.focusTimerDialog = new FocusTimerDialogPane();
+		this.toDoView.focusDialog.setDialogPane(dialog);
+		
+		// Button closeButton = (Button) this.toDoView.focusTimerDialog.lookupButton(this.toDoView.focusTimerDialog.closeButtonType);
+		
+		Optional<ButtonType> close = this.toDoView.focusDialog.showAndWait();
+					
+					
+			}
+			
 
+	/*
+	 * Depending on which date filter (ComboBox) the user choosed,
+	 * the ToDo tasks will change.
+	 */
 	private void changeCombo(ActionEvent event) {
 		MainBarView main = (MainBarView) getActiveMidView();
 		switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
@@ -511,12 +526,26 @@ public class ToDoController {
 			ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
 			main.tableView.getItems().clear();
 			main.tableView.getItems().addAll(observableListMonth);
-			System.out.println("Test" + observableListMonth.toString());
+		}
+		}
+	}
+		
+		
+		public void stopTimer(MouseEvent event) {
+			this.dialog.timeline.pause();
 		}
 		
+		
+		public void playTimer(MouseEvent event) {
+			this.dialog.timeline.play();
 		}
 
-	}
+		public void replayTimer(MouseEvent event) {
+			this.dialog.timeline.playFromStart();
+		}
+	
+
+	
 		
 	}
 
