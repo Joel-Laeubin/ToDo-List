@@ -1,13 +1,18 @@
 package client;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 import model.ToDo;
 import model.ToDoList;
 import client.ToDoView;
@@ -54,6 +59,20 @@ public class ToDoController {
         
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
+        
+        
+        
+        Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event) {
+				toDoView.serie1.getData().clear();
+				toDoView.serie2.getData().clear();
+				toDoView.serie1.getData().add(new XYChart.Data<String, Number>("Done", toDoList.getToDoListDone().size()));
+				toDoView.serie2.getData().add(new XYChart.Data<String, Number>("Undone", toDoList.getToDoListPlanned().size()));
+			}
+		}));
+		Updater.setCycleCount(Timeline.INDEFINITE);
+		Updater.play();			
+		toDoView.bc.getData().addAll(toDoView.serie1, toDoView.serie2);
 
     }
 
@@ -64,22 +83,7 @@ public class ToDoController {
      */
     public void createToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
         this.toDoList.addToDo(new ToDo(title, message, dueDate, category, tags));
-        switch (category) {
-        case "Wichtig" -> {
-        	ToDoView.undoneNumber++;
-        	break;
-        }
-        case "Geplant" -> {
-        	ToDoView.undoneNumber++;
-        	break;
-        }
-        case "Erledigt" -> {
-        	ToDoView.doneNumber++;
-        	break;
-        }
         
-        	
-        }
     }
 
     /* Read method
@@ -150,9 +154,7 @@ public class ToDoController {
         toDo.setCategory("Erledigt");
         toDo.setDone(true);
         this.updateInstancedSublists();
-        ToDoView.undoneNumber--;
-        ToDoView.doneNumber++;
-        
+             
     }
 
     /* Method to mark ToDo as important
