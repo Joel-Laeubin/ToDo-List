@@ -63,6 +63,22 @@ public class ToDoController {
      */
     public void createToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
         this.toDoList.addToDo(new ToDo(title, message, dueDate, category, tags));
+        switch (category) {
+        case "Wichtig" -> {
+        	ToDoView.undoneNumber++;
+        	break;
+        }
+        case "Geplant" -> {
+        	ToDoView.undoneNumber++;
+        	break;
+        }
+        case "Erledigt" -> {
+        	ToDoView.doneNumber++;
+        	break;
+        }
+        
+        	
+        }
     }
 
     /* Read method
@@ -116,6 +132,8 @@ public class ToDoController {
         toDo.setCategory("Erledigt");
         toDo.setDone(true);
         this.updateInstancedSublists();
+        ToDoView.undoneNumber--;
+        ToDoView.doneNumber++;
         
     }
 
@@ -135,6 +153,7 @@ public class ToDoController {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
         toDo.setCategory("Papierkorb");
         this.updateInstancedSublists();
+        
     }
 
     /* Method to update the sublists inside the instances of each view
