@@ -35,9 +35,7 @@ public class ToDoView extends BorderPane {
 		
 		final static String done = "Done";
 		final static String undone = "Undone";
-		protected static int doneNumber = 0;
-		protected static int undoneNumber = 0;
-		
+				
 		private CategoryAxis xAxis;
 		private NumberAxis yAxis;
 		protected BarChart<String, Number> bc;
