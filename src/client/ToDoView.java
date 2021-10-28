@@ -85,7 +85,6 @@ public class ToDoView extends BorderPane {
 			this.setLeft(splitPane);
 
 			
-			
 			//Creating the BarChart to show the done and undone ToDo's
 			this.xAxis = new CategoryAxis();
 			this.yAxis = new NumberAxis();

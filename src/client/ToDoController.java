@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import model.ToDo;
 import model.ToDoList;
@@ -76,35 +77,52 @@ public class ToDoController {
      * Gets a specific ToDo based on its ID, updated the contents and stores it again.
      * Maybe pass in an ToDo as parameter?
      */
-    public void updateToDo(int ID, String title, String message, LocalDate dueDate) {
+    public void updateToDo(MouseEvent e) {
 
-        // Fetch item & old status
-        ToDo itemToUpdate = this.toDoList.getToDo(ID);
-        String oldTitle = itemToUpdate.getTitle();
-        String oldMessage = itemToUpdate.getMessage();
-        LocalDate oldDueDate = itemToUpdate.getDueDate();
+        // Check for double click
+        if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
 
-        // Delete old item from arrayList
-        this.toDoList.getToDoList().remove(itemToUpdate);
+            // Get clicked item
+            MainBarView activeMidView = (MainBarView) this.getActiveMidView();
+            int index = activeMidView.tableView.getSelectionModel().getSelectedIndex();
+            ObservableList<ToDo> items = activeMidView.tableView.getItems();
+            ToDo itemToUpdate = items.get(index);
 
-        // Compare changes
-        boolean titleChanged = oldTitle.equals(title);
-        boolean messageChanged = oldMessage.equals(message);
-        boolean dueDateChanged = oldDueDate == dueDate;
 
-        // Make changes
-        if (titleChanged) {
-            itemToUpdate.setTitle(title);
+            // Open new dialogPane to make it editable
+            this.toDoView.addToDoDialog = new Dialog<ButtonType>();
+            this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems(), itemToUpdate);
+            this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
+            Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
+
+            // Parse only positive result, ignore CANCEL_CLOSE
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+
+                // Validate user input
+                if (this.validateUserInput()) {
+
+                    // Delete old item from arrayList
+                    this.toDoList.getToDoList().remove(itemToUpdate);
+
+                    // Parse out data
+                    String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+                    String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
+                    String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
+                    String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+                    String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
+
+                    String[] tagArray = tags.replaceAll("\\s", "").split(";");
+                    ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
+                    this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+
+                }
+
+            }
+
         }
-        if (messageChanged) {
-            itemToUpdate.setMessage(message);
-        }
-        if (dueDateChanged) {
-            itemToUpdate.setDueDate(dueDate);
-        }
 
-        // Insert changed item into ArrayList
-        this.toDoList.addToDo(itemToUpdate);
+        // Update lists
+        this.updateInstancedSublists();
     }
     
     /* Method to set a ToDo on done ("Erledigt") whenever the button is clicked.
@@ -403,6 +421,7 @@ public class ToDoController {
                 this.importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 this.linkTableViewListeners(importantBarView.tableView.getItems());
                 this.importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                this.importantBarView.tableView.setOnMouseClicked(this::updateToDo);
 
                 // Put it on main view
                 toDoView.borderPane.setCenter(importantBarView);
@@ -442,13 +461,3 @@ public class ToDoController {
 		
 	}
 
-	
-	
-
-			
-        
-    
-        
-           
-
-    
