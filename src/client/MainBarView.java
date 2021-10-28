@@ -74,6 +74,7 @@ public abstract class MainBarView extends VBox {
 		 * this week or this month
 		 */
 		this.filter = FXCollections.observableArrayList(
+				"Alle",
 				"Heute",
 				"diese Woche",
 				"diesen Monat"
