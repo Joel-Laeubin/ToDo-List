@@ -109,8 +109,7 @@ public class ToDoView extends BorderPane {
 			this.serie2 = new XYChart.Series<>();
 			serie2.setName(undone);	
 			
-			
-			
+						
 			this.vBox.getChildren().add(bc);
 			
 			/*
@@ -119,10 +118,13 @@ public class ToDoView extends BorderPane {
 			 */
 			this.vBoxBottom = new VBox();
 			this.hBoxBottom = new HBox();
+			
 			this.openFocusTimer = new Button("Fokus Timer");
+			
 			this.hBoxBottom.getChildren().add(openFocusTimer);
 			this.hBoxBottom.setPadding(new Insets(0.0, 0.0, 40.0, 950.0));
 			this.vBoxBottom.getChildren().add(hBoxBottom);
+			
 			this.setBottom(vBoxBottom);
 		    
 			// Add CSS styling
@@ -134,6 +136,10 @@ public class ToDoView extends BorderPane {
 			this.splitPane.getStyleClass().add("splitPane");
 			this.bc.getStyleClass().add("barChart");
 			
+			// Create and customize Dialog
+			this.focusDialog = new Dialog<ButtonType>();
+			this.focusTimerDialog = new FocusTimerDialogPane();
+			this.focusDialog.setDialogPane(focusTimerDialog);
 			
 		}
 		
