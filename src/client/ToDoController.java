@@ -1,5 +1,6 @@
 package client;
 
+import com.sun.tools.javac.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -54,13 +55,12 @@ public class ToDoController {
         
         // Selected ComboBox
         plannedBarView.comboBox.setOnAction(this::changeCombo); 
-                 
+
         // EventHandling for focus timer
         this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
         this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
-        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer); 
-		
-        
+        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
+
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				toDoView.serie1.getData().clear();
@@ -107,7 +107,6 @@ public class ToDoController {
             int index = activeMidView.tableView.getSelectionModel().getSelectedIndex();
             ObservableList<ToDo> items = activeMidView.tableView.getItems();
             ToDo itemToUpdate = items.get(index);
-
 
             // Open new dialogPane to make it editable
             this.toDoView.addToDoDialog = new Dialog<ButtonType>();
@@ -414,6 +413,10 @@ public class ToDoController {
         // Clear out dialogPane
         this.toDoView.toDoDialogPane.clearPane();
 
+        // Add editing functionality
+        MainBarView midView = (MainBarView) this.getActiveMidView();
+        midView.tableView.setOnMouseClicked(this::updateToDo);
+
         // Refresh views
         this.updateInstancedSublists();
 
@@ -479,7 +482,7 @@ public class ToDoController {
     }
     // Open a new focus timer window
     public void createFocusTimer(MouseEvent e) {
-    	
+
     	// show dialog
     	this.toDoView.focusDialog.showAndWait();
     }
