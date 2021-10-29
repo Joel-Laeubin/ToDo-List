@@ -137,32 +137,6 @@ public class ToDoView extends BorderPane {
 			
 		}
 		
-		private int getUndoneData() {
-			int undoneCount = 0;
-			for(String category : ToDoList.categoryList) {
-				if(category.equals("Geplant")) {
-					undoneCount++;
-				if(category.equals("Wichtig")) {
-					undoneCount++;
-				}
-				}
-			}
-			return undoneCount;
-		}
-
-		private int getDoneData() {
-			int doneCount = 0;		
-			for (String category : ToDoList.categoryList) {
-				if(category.equals("Erledigt")) {
-					doneCount++;
-				}
-			}
-			return doneCount;
-		}
-	
-
-		
-		
-		
+				
 
 		}
