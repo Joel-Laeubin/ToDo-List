@@ -486,10 +486,12 @@ public class ToDoController {
 		this.toDoView.focusTimerDialog = new FocusTimerDialogPane();
 		this.toDoView.focusDialog.setDialogPane(dialog);
 		
-		// Button closeButton = (Button) this.toDoView.focusTimerDialog.lookupButton(this.toDoView.focusTimerDialog.closeButtonType);
-		
+		// show dialog
 		Optional<ButtonType> close = this.toDoView.focusDialog.showAndWait();
-					
+				
+		if (close.get() == ButtonType.CANCEL) {
+			System.out.println("Cancel button pressed");
+		}
 					
 			}
 			
