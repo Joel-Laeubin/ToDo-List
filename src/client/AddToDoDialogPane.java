@@ -9,6 +9,8 @@ import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.ToDo;
 
+import java.util.ArrayList;
+
 public class AddToDoDialogPane extends DialogPane {
 
     // Components
@@ -94,7 +96,7 @@ public class AddToDoDialogPane extends DialogPane {
         dateToolTip.setShowDelay(DURATION_UNTIL_SHOW);
         tagsToolTip.setShowDelay(DURATION_UNTIL_SHOW);
 
-        // Instantiate the rest of the items
+        // Instantiate the rest of the items, remove "Papierkorb" from selectable category
         categoryComboBox = new ComboBox<>();
         ObservableList<String> copy = FXCollections.observableArrayList();
         copy.addAll(listViewItems);
@@ -213,7 +215,7 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Fill fields
         titleTextfield.setText(todo.getTitle());
-        categoryComboBox.getEditor().setText(todo.getCategory());
+        categoryComboBox.getEditor().setText(categoryComboBox.getItems().get(1));
         datePicker.getEditor().setText(todo.getDueDate().toString());
 
         // Fill tag field, create new tag string if tags are set on item

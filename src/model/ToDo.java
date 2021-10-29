@@ -1,7 +1,9 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -76,7 +78,9 @@ public class ToDo {
 
 		this.categories.add("Geplant");
 		this.categories.add(category);
+		this.category = category;
 		ToDoList.categoryList.addAll(this.categories);
+
 
 		this.tags = tags;
 	}

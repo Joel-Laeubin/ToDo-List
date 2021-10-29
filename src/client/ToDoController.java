@@ -456,6 +456,7 @@ public class ToDoController {
                 plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
                 plannedBarView.comboBox.setOnAction(this::changeCombo);
+                plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(plannedBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(plannedBarView);
             }
@@ -464,6 +465,7 @@ public class ToDoController {
                 doneBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 doneBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
                 doneBarView.comboBox.setOnAction(this::changeCombo);
+                doneBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(doneBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(doneBarView);
             }
@@ -472,6 +474,7 @@ public class ToDoController {
                 garbageBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 garbageBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
                 garbageBarView.comboBox.setOnAction(this::changeCombo);
+                garbageBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(garbageBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(garbageBarView);
             }
@@ -529,12 +532,11 @@ public class ToDoController {
 	}
 		
 		
-		public void stopTimer(MouseEvent event) {
+    public void stopTimer(MouseEvent event) {
 			this.dialog.timeline.pause();
 		}
-		
-		
-		public void playTimer(MouseEvent event) {
+
+        public void playTimer(MouseEvent event) {
 			this.dialog.timeline.play();
 		}
 
