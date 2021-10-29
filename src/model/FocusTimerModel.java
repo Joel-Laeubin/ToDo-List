@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 
 import client.FocusTimerDialogPane;
 import javafx.animation.KeyFrame;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 
 public class FocusTimerModel {
@@ -45,6 +46,8 @@ public void countDown() {
 				}
 				if (minute == 0 && second == 0) {
 					dialog.getTimeline().stop();
+					AudioClip audio = new AudioClip("/icons/endSound.wav");
+					audio.play();
 				}
 	
 		}));	
