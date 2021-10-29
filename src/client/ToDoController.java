@@ -11,6 +11,7 @@ import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.media.AudioClip;
 import javafx.util.Duration;
 import model.ToDo;
 import model.ToDoList;
@@ -533,6 +534,8 @@ public class ToDoController {
 		
 		public void stopTimer(MouseEvent event) {
 			this.dialog.timeline.pause();
+			AudioClip audio = new AudioClip("/icons/endSound.wav");
+			audio.play();
 		}
 		
 		
