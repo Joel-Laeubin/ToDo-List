@@ -25,8 +25,6 @@ public class ToDoController {
     private ToDoView toDoView;
     private ToDo toDo;
     private ToDoList toDoList;
-    
-    private FocusTimerDialogPane dialog;
 
     private ImportantBarView importantBarView;
     private GarbageBarView garbageBarView;
@@ -40,8 +38,6 @@ public class ToDoController {
         this.toDoView = toDoView;
         this.toDo = toDo;
         this.toDoList = toDoList;
-        
-        this.dialog = new FocusTimerDialogPane();
 
         // Set default midPane & add initial event handling for searchbar
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
@@ -58,11 +54,12 @@ public class ToDoController {
         
         // Selected ComboBox
         plannedBarView.comboBox.setOnAction(this::changeCombo); 
-        
-        // Eventhandling for focus timer
-        this.dialog.playButton.setOnMouseClicked(this::playTimer);
-        this.dialog.stopButton.setOnMouseClicked(this::stopTimer);
-        this.dialog.replayButton.setOnMouseClicked(this::replayTimer);  
+                 
+        // EventHandling for focus timer
+        this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
+        this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
+        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer); 
+		
         
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -480,20 +477,13 @@ public class ToDoController {
             }
         }
     }
-
     // Open a new focus timer window
-	private void createFocusTimer(MouseEvent e) {
-		
-		// Create and customize Dialog
-		this.toDoView.focusDialog = new Dialog<ButtonType>();
-		this.toDoView.focusTimerDialog = new FocusTimerDialogPane();
-		this.toDoView.focusDialog.setDialogPane(dialog);
-		
-		// show dialog
-		Optional<ButtonType> close = this.toDoView.focusDialog.showAndWait();
-					
-			}
-			
+    public void createFocusTimer(MouseEvent e) {
+    	
+    	// show dialog
+    	this.toDoView.focusDialog.showAndWait();
+    }
+
 
 	/*
 	 * Depending on which date filter (ComboBox) the user choosed,
@@ -533,15 +523,15 @@ public class ToDoController {
 		
 		
     public void stopTimer(MouseEvent event) {
-			this.dialog.timeline.pause();
+			this.toDoView.focusTimerDialog.timeline.pause();
 		}
 
         public void playTimer(MouseEvent event) {
-			this.dialog.timeline.play();
+			this.toDoView.focusTimerDialog.timeline.play();
 		}
 
 		public void replayTimer(MouseEvent event) {
-			this.dialog.timeline.playFromStart();
+			this.toDoView.focusTimerDialog.timeline.playFromStart();
 		}
 	
 

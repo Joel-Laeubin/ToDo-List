@@ -33,7 +33,7 @@ public class FocusTimerDialogPane extends DialogPane {
 	protected Timer time;
 	protected Timeline timeline;
 	
-	ButtonType closeButtonType;
+	protected ButtonType closeButtonType;
 	
 	public FocusTimerDialogPane() {
 		
@@ -65,15 +65,14 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.timerBorderPane.setCenter(vBoxText);
 		this.timerBorderPane.setBottom(vBoxButtons);
 		
-		this.setContent(timerBorderPane);
-		
+				
 		// Add buttonTypes
 		closeButtonType = new ButtonType("Beenden", ButtonBar.ButtonData.CANCEL_CLOSE);
 		this.getButtonTypes().add(closeButtonType);
-			
 		
 		this.timeline = new Timeline();
 		
+		this.setContent(timerBorderPane);
 	}
 
 public Text getCounter() {
