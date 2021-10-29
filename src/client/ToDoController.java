@@ -488,10 +488,6 @@ public class ToDoController {
 		
 		// show dialog
 		Optional<ButtonType> close = this.toDoView.focusDialog.showAndWait();
-				
-		if (close.get() == ButtonType.CANCEL) {
-			System.out.println("Cancel button pressed");
-		}
 					
 			}
 			
