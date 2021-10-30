@@ -484,7 +484,7 @@ public class ToDoController {
     public void createFocusTimer(MouseEvent e) {
 
     	// show dialog
-    	this.toDoView.focusDialog.showAndWait();
+    	this.toDoView.focusDialog.show();
     }
 
 
