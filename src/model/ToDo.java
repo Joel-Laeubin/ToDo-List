@@ -21,6 +21,9 @@ public class ToDo {
 	private boolean isDone;
 	private String category;
 	private ArrayList<String> categories;	
+	private ImageView importantIcon;
+	private ImageView doneIcon;
+	private ImageView garbageIcon;	
 	private Button importantButton;
 	private Button doneButton;
 	private Button garbageButton;
@@ -45,11 +48,16 @@ public class ToDo {
 		this.categories = new ArrayList<>();
 		
 		this.importantButton = new Button();
-		this.importantButton.setGraphic(new ImageView("/icons/starIcon.png"));
+		this.importantIcon = new ImageView("/icons/starIcon.png");
+		this.importantButton.setGraphic(importantIcon);
+		
 		this.doneButton = new Button();
-		this.doneButton.setGraphic(new ImageView("/icons/doneIcon2.png"));
+		this.doneIcon = new ImageView("/icons/doneIcon2.png");
+		this.doneButton.setGraphic(doneIcon);
+		
 		this.garbageButton = new Button();
-		this.garbageButton.setGraphic(new ImageView("/icons/garbageIcon.png"));
+		this.garbageIcon = new ImageView("/icons/garbageIcon.png");
+		this.garbageButton.setGraphic(garbageIcon);
 
 		
 		this.categories.add("Geplant");
