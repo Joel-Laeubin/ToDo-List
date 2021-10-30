@@ -43,7 +43,8 @@ public class FocusTimerDialogPane extends DialogPane {
 	
 	public FocusTimerDialogPane() {
 		
-		this.counter = new Text("25:00");
+		this.counter = new Text();
+		this.counter.setText("25:00");
 		
 		this.playIcon = new ImageView("/icons/startIcon.png");
 		this.stopIcon = new ImageView("/icons/stopIcon.png");
@@ -83,6 +84,7 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.getButtonTypes().add(closeButtonType);
 		
 		this.timeline = new Timeline();
+		this.timer = new Timer();
 		
 		this.setContent(timerBorderPane);
 		
@@ -94,6 +96,10 @@ public class FocusTimerDialogPane extends DialogPane {
 	
 	public Timeline getTimeline() {
 		return timeline;
+	}
+	
+	public Timer getTimer() {
+		return timer;
 	}
 	
 	

@@ -30,6 +30,8 @@ public void FocusTimerDialogPane () {
 	
 public void countDown() {
 	
+	this.dialog.getTimer();
+	
 	this.dialog.getTimeline().getKeyFrames().add(new KeyFrame(Duration.seconds(1), e ->
 	{
 				second--;
