@@ -11,6 +11,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 
 public class FocusTimerDialogPane extends DialogPane {
@@ -45,17 +47,23 @@ public class FocusTimerDialogPane extends DialogPane {
 		
 		this.counter = new Text();
 		this.counter.setText("25:00");
+		this.counter.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
 		
 		this.playIcon = new ImageView("/icons/startIcon.png");
-		this.stopIcon = new ImageView("/icons/stopIcon.png");
-		this.replayIcon = new ImageView("/icons/restartIcon.png");
-		
+		this.playIcon.setFitHeight(50);
+		this.playIcon.setFitWidth(50);
 		this.playButton = new Button();
 		this.playButton.setGraphic(playIcon);
 		
+		this.stopIcon = new ImageView("/icons/stopIcon.png");
+		this.stopIcon.setFitHeight(50);
+		this.stopIcon.setFitWidth(50);
 		this.stopButton = new Button();
 		this.stopButton.setGraphic(stopIcon);
 		
+		this.replayIcon = new ImageView("/icons/restartIcon.png");
+		this.replayIcon.setFitHeight(50);
+		this.replayIcon.setFitWidth(50);
 		this.replayButton = new Button();
 		this.replayButton.setGraphic(replayIcon);
 		
