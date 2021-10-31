@@ -12,6 +12,8 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
 import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -138,6 +140,10 @@ public class ToDoView extends BorderPane {
 			
 			// Create and customize Dialog
 			this.focusDialog = new Dialog<ButtonType>();
+			this.focusDialog.setTitle("Fokus Timer");
+			ImageView focusImage = new ImageView("/icons/timer.png");
+			this.focusDialog.setGraphic(focusImage);
+			
 			this.focusTimerDialog = new FocusTimerDialogPane();
 			this.focusDialog.setDialogPane(focusTimerDialog);
 			
