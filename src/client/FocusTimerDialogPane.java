@@ -1,6 +1,5 @@
 package client;
 
-import java.util.Timer;
 
 import javafx.animation.Timeline;
 import javafx.geometry.Pos;
@@ -40,7 +39,6 @@ public class FocusTimerDialogPane extends DialogPane {
 	protected VBox vBoxStop;
 	protected VBox vBoxReplay;
 	
-	protected Timer timer;
 	protected Timeline timeline;
 	
 	protected ButtonType closeButtonType;
@@ -98,7 +96,6 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.getButtonTypes().add(closeButtonType);
 		
 		this.timeline = new Timeline();
-		this.timer = new Timer();
 		
 		this.setContent(timerBorderPane);
 		
@@ -108,12 +105,14 @@ public class FocusTimerDialogPane extends DialogPane {
 		return counter;
 	}
 	
-	public Timeline getTimeline() {
-		return timeline;
+	public Button getPlayButton() {
+		return playButton;
 	}
-	
-	public Timer getTimer() {
-		return timer;
+	public Button getStopButton() {
+		return stopButton;
+	}
+	public Button getReplayButton() {
+		return replayButton;
 	}
 	
 	

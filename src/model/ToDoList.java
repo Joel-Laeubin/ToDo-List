@@ -108,44 +108,45 @@ public class ToDoList {
 		return returnList;
 	}
 
-	public ArrayList<ToDo> searchLocalToday(){
+	public ArrayList<ToDo> searchLocalToday() {
 		
 		LocalDate now = LocalDate.now();
 		
-		ArrayList<ToDo> returnTask = new ArrayList<>();
+		ArrayList<ToDo> returnToday = new ArrayList<>();	
 		for(ToDo toDo : this.toDoList) {
 			if (toDo.getDueDate().equals(now)) {
-				returnTask.add(toDo);
+				returnToday.add(toDo);
 			}
 		}
-		return returnTask;
+		return returnToday;
 	}
 	
-	public ArrayList<ToDo> searchLocalWeek(){
+	public ArrayList<ToDo> searchLocalWeek() {
+		
 		LocalDate now = LocalDate.now();
 		LocalDate inAWeek = LocalDate.now().plusDays(7);
-	
-		ArrayList<ToDo> returnTask1 = new ArrayList<>();
+		
+		ArrayList<ToDo> returnWeek = new ArrayList<>();
 		for(ToDo toDo : this.toDoList) {
-			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAWeek) == 1) {
-				returnTask1.add(toDo);
+			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAWeek) >= 1) {
+				returnWeek.add(toDo);
 			}
 		}
-			return returnTask1;
+		return returnWeek;		
 	}
 	
 	public ArrayList<ToDo> searchLocalMonth() {
-		
+	
 		LocalDate now = LocalDate.now();
-		LocalDate inAMonth = LocalDate.now().plusMonths(1);
+		LocalDate inAMonth = LocalDate.now().plusDays(30);
 		
-		ArrayList<ToDo> returnTask2 = new ArrayList<>();
+		ArrayList<ToDo> returnMonth = new ArrayList<>();
 		for(ToDo toDo : this.toDoList) {
 			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAMonth) >= 1) {
-				returnTask2.add(toDo);
+				returnMonth.add(toDo);
 			}
 		}
-		return returnTask2;
+		return returnMonth;		
 	}
 	
 	public void removeToDo(ToDo toDo) { 

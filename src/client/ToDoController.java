@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
+import model.FocusTimerModel;
 import model.ToDo;
 import model.ToDoList;
 import java.time.LocalDate;
@@ -32,7 +33,8 @@ public class ToDoController {
     private PlannedBarView plannedBarView;
     private DoneBarView doneBarView;
     private SearchBarView searchBarView;
-
+    private FocusTimerDialogPane dialog;
+    private FocusTimerModel model;
 
     // Constructor
     public ToDoController(ToDoView toDoView, ToDo toDo, ToDoList toDoList) {
@@ -55,11 +57,15 @@ public class ToDoController {
         
         // Selected ComboBox
         plannedBarView.comboBox.setOnAction(this::changeCombo); 
+        
+        // Add focus timer dialog and model 
+        this.dialog = new FocusTimerDialogPane();
+        this.model = new FocusTimerModel();
 
         // EventHandling for focus timer
-        this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
-        this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
-        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
+       // this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
+      //  this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
+      //  this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
 
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
@@ -487,58 +493,51 @@ public class ToDoController {
     	this.toDoView.focusDialog.showAndWait();
     }
 
-
-	/*
-	 * Depending on which date filter (ComboBox) the user choosed,
-	 * the ToDo tasks will change.
-	 */
-	private void changeCombo(ActionEvent event) {
-		MainBarView main = (MainBarView) getActiveMidView();
-		switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
-		case 0: {
-			ObservableList<ToDo> observableListAll = FXCollections.observableArrayList(this.toDoList.getToDoList());
-			main.tableView.getItems().clear();
-			main.tableView.getItems().addAll(observableListAll);
-			break;
-		}
-		case 1: {
-			ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
-			ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
-			main.tableView.getItems().clear();
-			main.tableView.getItems().addAll(observableListToday);
-			break;
-		}
-		case 2: {
-			ArrayList<ToDo> arrayListWeek = this.toDoList.searchLocalWeek();
-			ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
-			main.tableView.getItems().clear();
-			main.tableView.getItems().addAll(observableListWeek);
-			break;
-		}
-		case 3: {
-			ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalMonth();
-			ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
-			main.tableView.getItems().clear();
-			main.tableView.getItems().addAll(observableListMonth);
-		}
-		}
+    /*
+     * Depending on which date filter (ComboBox) the user choosed,
+	 * the ToDo task-view will change.
+     */
+    
+    private void changeCombo(ActionEvent event) {
+    	MainBarView main = (MainBarView) getActiveMidView();
+    	switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
+    	case 0: {
+    		ObservableList<ToDo> observableListAll = FXCollections.observableArrayList(this.toDoList.getToDoList());
+    		main.tableView.getItems().clear();
+    		main.tableView.getItems().addAll(observableListAll);
+    		break;
+    	}
+    	case 1: {
+    		ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+    		ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
+    		main.tableView.getItems().clear();
+    		main.tableView.getItems().addAll(observableListToday);
+    		break;
+    	}
+    	case 2: {
+    		ArrayList<ToDo> arrayListWeek = this.toDoList.searchLocalWeek();
+    		ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
+    		main.tableView.getItems().clear();
+    		main.tableView.getItems().addAll(observableListWeek);
+    		break;
+    	}
+    	case 3: {
+    		ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalWeek();
+    		ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
+    		main.tableView.getItems().clear();
+    		main.tableView.getItems().addAll(observableListMonth);
+    	}
+    	}
+    }
+    
+	
 	}
 		
-		
-    public void stopTimer(MouseEvent event) {
-			this.toDoView.focusTimerDialog.timeline.pause();
-		}
+	
 
-        public void playTimer(MouseEvent event) {
-			this.toDoView.focusTimerDialog.timeline.play();
-		}
-
-		public void replayTimer(MouseEvent event) {
-			this.toDoView.focusTimerDialog.timeline.playFromStart();
-		}
 	
 
 	
 		
-	}
+	
 
