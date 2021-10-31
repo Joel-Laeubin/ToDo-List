@@ -3,10 +3,12 @@ package client;
 import java.util.Timer;
 
 import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -27,7 +29,7 @@ public class FocusTimerDialogPane extends DialogPane {
 	protected ImageView stopIcon;
 	protected ImageView replayIcon;
 	
-	protected Text counter;
+	protected Label counter;
 	
 	protected BorderPane timerBorderPane;
 	
@@ -45,9 +47,9 @@ public class FocusTimerDialogPane extends DialogPane {
 	
 	public FocusTimerDialogPane() {
 		
-		this.counter = new Text();
-		this.counter.setText("25:00");
+		this.counter = new Label("25:00");
 		this.counter.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+		this.counter.setAlignment(Pos.CENTER);
 		
 		this.playIcon = new ImageView("/icons/startIcon.png");
 		this.playIcon.setFitHeight(50);
@@ -70,17 +72,21 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.timerBorderPane = new BorderPane();
 		
 		this.hBoxButtons = new HBox();
+		this.hBoxButtons.setAlignment(Pos.CENTER);
+		this.hBoxButtons.setSpacing(20);
 		this.vBoxText = new VBox();
 		
 		this.vBoxPlay = new VBox();
 		this.vBoxStop = new VBox();
 		this.vBoxReplay = new VBox();
-		
+	
 		this.vBoxPlay.getChildren().add(playButton);
 		this.vBoxStop.getChildren().add(stopButton);
 		this.vBoxReplay.getChildren().add(replayButton);
 		
 		this.vBoxText.getChildren().add(counter);
+		this.vBoxText.setAlignment(Pos.CENTER);
+		this.vBoxText.setSpacing(100);
 		
 		this.hBoxButtons.getChildren().addAll(vBoxPlay, vBoxStop, vBoxReplay);
 		
@@ -98,7 +104,7 @@ public class FocusTimerDialogPane extends DialogPane {
 		
 	}
 	
-	public Text getCounter() {
+	public Label getCounter() {
 		return counter;
 	}
 	
