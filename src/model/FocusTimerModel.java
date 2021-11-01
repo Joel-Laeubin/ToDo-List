@@ -71,53 +71,7 @@ public void FocusTimerDialogPane () {
 		return minute;
 	}
 	
-	/*
-	 * Eventhandling for the start button.
-	 * If the user clicks on the start button,
-	 * the timer will start.
-	 */
-	public void startTimer() {
-		this.dialog.getPlayButton().addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				timer.start();
-			}
-		});
-		
-	}
 	
-	/*
-	 * Eventhandling for the stop button.
-	 * If the user clicks on the stop button,
-	 * the timer will stop.
-	 */
-	public void stopTimer() {
-		this.dialog.getStopButton().addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				timer.stop();
-			}
-		});
-}
-	
-	/*
-	 * Eventhandling for the restart button.
-	 * If the user clicks on the restart button,
-	 * the timer will be set on 25 minutes and
-	 * is ready for a new start.
-	 */
-	public void replayTimer() {
-		this.dialog.getReplayButton().addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				timer.restart();
-				}
-			});
-			
-		}
 }
 					
 	
