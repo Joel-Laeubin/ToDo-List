@@ -14,11 +14,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import model.FocusTimerModel;
 
 public class FocusTimerDialogPane extends DialogPane {
 	
 	protected ToDoController controller;
+	protected FocusTimerModel model;
 	
 	protected Button playButton;
 	protected Button stopButton;
@@ -28,7 +29,7 @@ public class FocusTimerDialogPane extends DialogPane {
 	protected ImageView stopIcon;
 	protected ImageView replayIcon;
 	
-	protected Label counter;
+	protected Label counterLabel;
 	
 	protected BorderPane timerBorderPane;
 	
@@ -45,9 +46,11 @@ public class FocusTimerDialogPane extends DialogPane {
 	
 	public FocusTimerDialogPane() {
 		
-		this.counter = new Label("25:00");
-		this.counter.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
-		this.counter.setAlignment(Pos.CENTER);
+		this.model = new FocusTimerModel(counterLabel);
+		
+		this.counterLabel = new Label("25:00");
+		this.counterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
+		this.counterLabel.setAlignment(Pos.CENTER);
 		
 		this.playIcon = new ImageView("/icons/startIcon.png");
 		this.playIcon.setFitHeight(50);
@@ -82,7 +85,7 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.vBoxStop.getChildren().add(stopButton);
 		this.vBoxReplay.getChildren().add(replayButton);
 		
-		this.vBoxText.getChildren().add(counter);
+		this.vBoxText.getChildren().add(counterLabel);
 		this.vBoxText.setAlignment(Pos.CENTER);
 		this.vBoxText.setSpacing(100);
 		
@@ -102,7 +105,7 @@ public class FocusTimerDialogPane extends DialogPane {
 	}
 	
 	public Label getCounter() {
-		return counter;
+		return counterLabel;
 	}
 	
 	public Button getPlayButton() {

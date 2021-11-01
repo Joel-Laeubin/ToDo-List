@@ -60,13 +60,9 @@ public class ToDoController {
         
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
-        this.model = new FocusTimerModel();
+        this.model = new FocusTimerModel(null);
 
-        // EventHandling for focus timer
-       // this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
-      //  this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
-      //  this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
-
+      
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event) {
 				toDoView.serie1.getData().clear();
@@ -531,54 +527,47 @@ public class ToDoController {
     }
     
     /*
-	 * Eventhandling for the start button.
-	 * If the user clicks on the start button,
-	 * the timer will start.
-	 */
-	public void startTimer() {
-		this.dialog.getPlayButton().addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				model.getTimer().start();
-			}
-		});
-		
-	}
-	
-	/*
-	 * Eventhandling for the stop button.
-	 * If the user clicks on the stop button,
-	 * the timer will stop.
-	 */
-	public void stopTimer() {
-		this.dialog.getStopButton().addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				model.getTimer().stop();
-			}
-		});
-}
-	
-	/*
-	 * Eventhandling for the restart button.
-	 * If the user clicks on the restart button,
-	 * the timer will be set on 25 minutes and
-	 * is ready for a new start.
-	 */
-	public void replayTimer() {
-		this.dialog.getReplayButton().addEventHandler(ActionEvent.ACTION, new EventHandler<ActionEvent>() {
-			
-			@Override
-			public void handle(ActionEvent actionEvent) {
-				model.getTimer().restart();
-				}
+   	 * New Constructor for FocusTimer
+   	 * EventHandling for the playButton, replayButton and stopButton.
+   	 * - If the user clicks on the playButton, the timer will start counting from 25 minutes backwards. 
+   	 * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
+   	 * - If the user clicks on the stopButton, the timer will stop immediately.
+   	 */
+    
+    public ToDoController(FocusTimerModel model, FocusTimerDialogPane dialog) {
+    	
+    	this.model = model;
+    	this.dialog = dialog;
+    	
+    	 // EventHandling for focus timer
+         this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
+         this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
+         this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
 
-	});
+    }
+    
+    public void playTimer(MouseEvent event) {
+        	 if (!model.isRunning()) {
+                model.start();
+                model.setRunning(true);
+        	 }
+    }
+        	 
+    public void replayTimer(MouseEvent event) {
+    			model.restart();
+    }
+    
+    public void stopTimer(MouseEvent event) {
+             if (model.isRunning()) {
+                 model.pause();
+                 model.setRunning(false);
+    }
+    
+    }   
 	
-	}
+ 
 }
+
 		
 	
 

@@ -1,81 +1,133 @@
 package model;
 
-import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
-
-import javax.swing.Timer;
-
-import client.FocusTimerDialogPane;
-import javafx.animation.KeyFrame;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.media.AudioClip;
-import javafx.util.Duration;
+import java.util.Timer;
+import java.util.TimerTask;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
 
 public class FocusTimerModel {
 	
-	FocusTimerDialogPane dialog;
-	int second;
-	int minute;
-	DecimalFormat fmt;
-	String secondFormat;
-	String minuteFormat;
-	Timer timer;
+	 private boolean isRunning = false;
+	    private boolean isBreak = false;
+	    private Timer timer = new Timer();
+	    private int counter = 60 * 25; // 60 * 25 Testing:10
+	    private final Label counterLabel;
+	    private int seconds, minutes;
 
-public void FocusTimerDialogPane () {
-	
-	this.second = 0;
-	this.minute = 25;
-	this.dialog.getCounter();
-	
-	this.dialog = new FocusTimerDialogPane();
-	
-}
-	public void countDown() {
-	
-	this.timer = new Timer(1500, new ActionListener() {
-			
-		@Override
-		public void actionPerformed(java.awt.event.ActionEvent e) {
-			// TODO Auto-generated method stub
-							
-				second--;
-				secondFormat = fmt.format(second);
-				minuteFormat = fmt.format(minute);	
-				dialog.getCounter().setText(minuteFormat + ":" + secondFormat);
-				
-				if (second == -1) {
-					second = 59;
-					minute--;
-					secondFormat = fmt.format(second);
-					minuteFormat = fmt.format(minute);	
-					dialog.getCounter().setText(minuteFormat + ":" + secondFormat);
-				}
-				if (minute == 0 && second == 0) {
-					timer.stop();
-				}
+	    public FocusTimerModel (Label counterLabel) {
+			this.counterLabel = counterLabel;
+	    }
+
+	    public boolean isRunning() {
+	        return isRunning;
+	    }
+
+	    public void setRunning(boolean running) {
+	        isRunning = running;
+	    }
+
+	    public void pause() {
+	        timer.cancel();
+	    }
+
+	    public void start() {
+	        timer = new Timer();
+	        timer.scheduleAtFixedRate(new TimerTask() {
+	            @Override
+	            public void run() {
+	                Platform.runLater(() -> {
+	                    counter--;
+	                    seconds = counter % 60;
+	                    minutes = counter / 60;
+	                    if (seconds < 10 && minutes < 10) {
+	                    	counterLabel.setText("0" + minutes + ":0" + seconds);
+	                    } else if (minutes < 10) {
+	                    	counterLabel.setText("0" + minutes + ":" + seconds);
+	                    } else {
+	                    	counterLabel.setText(minutes + ":" + seconds);
+	                    }
+	                });
+	            }
+	        }, 0, 1500);
+	    }
+	    
+	    public void restart() {
+	    	isRunning();
+	    	setRunning(true);
+	    	
+	    	if (minutes == 25 && seconds == 0) {
+	    		counterLabel.setText(minutes + ":00");
+	    	}
+	    	
+	    	counter = (60 * 25) + 1;
+	    	
+	    	seconds = counter % 60;
+	        minutes = counter / 60;
+	       
+	        timer = new Timer();
+	        timer.scheduleAtFixedRate(new TimerTask() {
+	            @Override
+	            public void run() {
+	                Platform.runLater(() -> {
+	                    counter--;
+
+	                    seconds = counter % 60;
+	                    minutes = counter / 60;
+	                    if (seconds < 10 && minutes < 10) {
+	                    	counterLabel.setText("0" + minutes + ":0" + seconds);
+	                    } else if (minutes < 10) {
+	                    	counterLabel.setText("0" + minutes + ":" + seconds);
+	                    } else {
+	                    	counterLabel.setText(minutes + ":" + seconds);
+	                    }
+	                });
+	            }
+	        }, 0, 1000);
+	    }
+	    	
+
+		public boolean isBreak() {
+			return isBreak;
 		}
-	});
+
+		public Timer getTimer() {
+			return timer;
+		}
+
+		public int getCounter() {
+			return counter;
+		}
+
+		public Label getTimerLbl() {
+			return counterLabel;
+		}
+
+		public int getSeconds() {
+			return seconds;
+		}
+
+		public int getMinutes() {
+			return minutes;
+		}
+
+		public void setBreak(boolean isBreak) {
+			this.isBreak = isBreak;
+		}
+
+		public void setTimer(Timer timer) {
+			this.timer = timer;
+		}
+
+		public void setCounter(int counter) {
+			this.counter = counter;
+		}
+
+		public void setSeconds(int seconds) {
+			this.seconds = seconds;
+		}
+
+		public void setMinutes(int minutes) {
+			this.minutes = minutes;
+		}
+
 	}
-
-
-	public Timer getTimer() {
-		return timer;
-	}
-	
-	public int getSecond() {
-		return second;
-	}
-	
-	public int getMinute() {
-		return minute;
-	}
-	
-	
-}
-					
-	
-
-
-
-
