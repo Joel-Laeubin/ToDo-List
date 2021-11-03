@@ -459,6 +459,9 @@ public class ToDoController {
                 plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(plannedBarView.tableView.getItems());
                 toDoView.borderPane.setCenter(plannedBarView);
+                toDoView.borderPane.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
+                toDoView.splitPane.getStyleClass().add("borderPaneUpdate");
+                toDoView.borderPane.getStyleClass().add("borderPaneUpdate");
             }
             case 2 -> {
                 doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
