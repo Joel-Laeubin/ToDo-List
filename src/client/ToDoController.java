@@ -162,7 +162,7 @@ public class ToDoController {
             int index = activeMidView.tableView.getSelectionModel().getSelectedIndex();
 
             // Don't run if double click on table head
-            if (index != 0) {
+            if (index != -1) {
                 ObservableList<ToDo> items = activeMidView.tableView.getItems();
                 ToDo itemToUpdate = items.get(index);
 
