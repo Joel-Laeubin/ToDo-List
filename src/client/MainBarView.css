@@ -1,7 +1,3 @@
-.view {
- 	-fx-background-color: LightSteelBlue;
-	-fx-padding: 15px;
-}
 .mainBarView {
  	-fx-background-color: LightSteelBlue;
 	-fx-padding: 15px;
@@ -18,6 +14,13 @@
 }
 .tableView {
  	-fx-background-color: LightSteelBlue;
+	-fx-border-style: solid;
+	-fx-border-radius: 3px;
+}
+.tableColumn {
+	-fx-border-style: solid;
+	-fx-border-radius: 3px;
+	
 }
 .checkBox {
     	-fx-background-color: LightSteelBlue;
@@ -26,8 +29,8 @@
 }
 .task {
     	-fx-background-color: LightSteelBlue;
-	-fx-border: 2px;
-	-fx-border-radius: 5px;
+	-fx-border-style: solid;
+	-fx-border-radius: 3px;
 }
 .dueDate {
     	-fx-background-color: LightSteelBlue;
@@ -50,9 +53,5 @@
 }
 .header{
  	-fx-background-color: LightSteelBlue;
-}
-
-.VBox {
-	-fx-background-color: LightSteelBlue;
 }
 
