@@ -99,19 +99,25 @@ public class ToDo {
 		this.tags = tags;
 	}
 
-	public ToDo(String title, String message, LocalDate dateOfCreation, LocalDate dueDate, ArrayList<String> categories, ArrayList<String> tags) {
+	// Constructor used by the db-handler
+	public ToDo(String title, String message, LocalDate dateOfCreation,
+				LocalDate dueDate, ArrayList<String> categories, ArrayList<String> tags) {
+
 		this.ID = globalToDoId + 1;
 		globalToDoId++;
 		this.title = title;
 		this.message = message;
-		this.dateOfCreation = LocalDate.now();
+		this.dateOfCreation = dateOfCreation;
 		this.dueDate = dueDate;
 		this.isDone = false;
-		this.dateOfCreation = dateOfCreation;
 
-		this.category = category;
-		this.category = "Geplant";
-		this.categories = new ArrayList<>();
+		this.categories = categories;
+		// Parse out category if not "Geplant". Since only 1 other category can be selected, we can use a simple for loop
+		for (String category : categories) {
+			if (!category.equals("Geplant")) {
+				this.category = category.replace(" ", "");
+			}
+		}
 
 		this.importantButton = new Button();
 		this.importantIcon = new ImageView("/icons/starIcon.png");
