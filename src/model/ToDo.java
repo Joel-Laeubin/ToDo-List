@@ -75,6 +75,7 @@ public class ToDo {
 		this.isDone = false;
 
 		this.category = category;
+		this.category = "Geplant";
 		this.categories = new ArrayList<>();
 
 		this.importantButton = new Button();

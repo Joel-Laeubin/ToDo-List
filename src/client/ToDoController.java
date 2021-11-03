@@ -16,6 +16,9 @@ import javafx.util.Duration;
 import model.FocusTimerModel;
 import model.ToDo;
 import model.ToDoList;
+import services.SqliteManager;
+
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +38,21 @@ public class ToDoController {
     private SearchBarView searchBarView;
     private FocusTimerDialogPane dialog;
     private FocusTimerModel model;
+    private SqliteManager sqliteManager;
 
     // Constructor
     public ToDoController(ToDoView toDoView, ToDo toDo, ToDoList toDoList) {
+
         this.toDoView = toDoView;
         this.toDo = toDo;
         this.toDoList = toDoList;
+
+        // Set up database handler
+        try {
+            this.sqliteManager = new SqliteManager();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         // Set default midPane & add initial event handling for searchbar
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
@@ -84,8 +96,9 @@ public class ToDoController {
      * Needs input from ToDoView
      */
     public void createToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
-        this.toDoList.addToDo(new ToDo(title, message, dueDate, category, tags));
-        
+        ToDo toDo = new ToDo(title, message, dueDate, category, tags);
+        this.toDoList.addToDo(toDo);
+        this.sqliteManager.writeItem(toDo);
     }
 
     /* Read method
