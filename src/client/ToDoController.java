@@ -68,32 +68,66 @@ public class ToDoController {
         // Register buttons
         this.plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
-        
+
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
-        
+
         // Selected ComboBox
-        plannedBarView.comboBox.setOnAction(this::changeCombo); 
-        
+        plannedBarView.comboBox.setOnAction(this::changeCombo);
+
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
         this.model = new FocusTimerModel(null);
 
-      
-        Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event) {
-				toDoView.serie1.getData().clear();
-				toDoView.serie2.getData().clear();
-				toDoView.serie1.getData().add(new XYChart.Data<String, Number>("Done", toDoList.getToDoListDone().size()));
-				toDoView.serie2.getData().add(new XYChart.Data<String, Number>("Undone", toDoList.getToDoListPlanned().size()));
-			}
-		}));
-        
-		Updater.setCycleCount(Timeline.INDEFINITE);
-		Updater.play();			
-		toDoView.bc.getData().addAll(toDoView.serie1, toDoView.serie2);
-    	}
 
+        Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                toDoView.serie1.getData().clear();
+                toDoView.serie2.getData().clear();
+                toDoView.serie1.getData().add(new XYChart.Data<String, Number>("Done", toDoList.getToDoListDone().size()));
+                toDoView.serie2.getData().add(new XYChart.Data<String, Number>("Undone", toDoList.getToDoListPlanned().size()));
+            }
+        }));
+
+        Updater.setCycleCount(Timeline.INDEFINITE);
+        Updater.play();
+        toDoView.bc.getData().addAll(toDoView.serie1, toDoView.serie2);
+    }
+
+    // ---------------------------------- Classic Getters
+    public ToDoView getToDoView() {
+        return toDoView;
+    }
+    public ToDo getToDo() {
+        return toDo;
+    }
+    public ToDoList getToDoList() {
+        return toDoList;
+    }
+    public ImportantBarView getImportantBarView() {
+        return importantBarView;
+    }
+    public GarbageBarView getGarbageBarView() {
+        return garbageBarView;
+    }
+    public PlannedBarView getPlannedBarView() {
+        return plannedBarView;
+    }
+    public DoneBarView getDoneBarView() {
+        return doneBarView;
+    }
+    public SearchBarView getSearchBarView() {
+        return searchBarView;
+    }
+    public FocusTimerDialogPane getDialog() {
+        return dialog;
+    }
+    public FocusTimerModel getModel() {
+        return model;
+    }
+    public SqliteManager getSqliteManager() {
+        return sqliteManager;
+    }
 
     // ---------------------------------- CRUD-Methods
     /* Create method
@@ -120,7 +154,7 @@ public class ToDoController {
     public void updateToDo(MouseEvent e) {
 
         // Check for double click
-        if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
+        if (e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount() == 2) {
 
             // Get clicked item
             MainBarView activeMidView = (MainBarView) this.getActiveMidView();
@@ -185,7 +219,7 @@ public class ToDoController {
         toDo.setCategory("Erledigt");
         toDo.setDone(true);
         this.updateInstancedSublists();
-             
+
     }
 
     /* Method to mark ToDo as important
@@ -205,7 +239,7 @@ public class ToDoController {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
         toDo.setCategory("Papierkorb");
         this.updateInstancedSublists();
-        
+
     }
 
 
@@ -240,7 +274,7 @@ public class ToDoController {
         String searchString = midView.searchField.getText();
 
         // Only go ahead if input is not empty
-        if(searchString.length() != 0) {
+        if (searchString.length() != 0) {
 
             // Search items
             ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
@@ -272,25 +306,25 @@ public class ToDoController {
         this.toDoList.updateSublists();
 
         // Update sublists in each view
-        if(this.importantBarView != null) {
+        if (this.importantBarView != null) {
             this.importantBarView.tableView.getItems().clear();
             this.importantBarView.tableView.getItems().addAll(this.toDoList.getToDoListImportant());
             this.linkTableViewListeners(this.importantBarView.tableView.getItems());
         }
 
-        if(this.garbageBarView != null) {
+        if (this.garbageBarView != null) {
             this.garbageBarView.tableView.getItems().clear();
             this.garbageBarView.tableView.getItems().addAll(this.toDoList.getToDoListGarbage());
             this.linkTableViewListeners(this.garbageBarView.tableView.getItems());
         }
 
-        if(this.plannedBarView != null) {
+        if (this.plannedBarView != null) {
             this.plannedBarView.tableView.getItems().clear();
             this.plannedBarView.tableView.getItems().addAll(this.toDoList.getToDoListPlanned());
             this.linkTableViewListeners(this.plannedBarView.tableView.getItems());
         }
 
-        if(this.doneBarView != null) {
+        if (this.doneBarView != null) {
             this.doneBarView.tableView.getItems().clear();
             this.doneBarView.tableView.getItems().addAll(this.toDoList.getToDoListDone());
             this.linkTableViewListeners(this.doneBarView.tableView.getItems());
@@ -308,7 +342,7 @@ public class ToDoController {
      *
      */
     private void linkTableViewListeners(ObservableList<ToDo> listItems) {
-        for(ToDo toDo : listItems) {
+        for (ToDo toDo : listItems) {
             toDo.getDoneButton().setOnMouseClicked(this::setToDoOnDone);
             toDo.getImportantButton().setOnMouseClicked(this::setToDoAsImportant);
             toDo.getGarbageButton().setOnMouseClicked(this::setToDoAsGarbage);
@@ -388,7 +422,7 @@ public class ToDoController {
         String dueDateString = "";
         try {
             dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
-            if(dueDateString.equals("")) {
+            if (dueDateString.equals("")) {
                 // Setting default date to today
                 this.toDoView.toDoDialogPane.datePicker.setValue(LocalDate.now());
             }
@@ -402,7 +436,7 @@ public class ToDoController {
 
         // Set default category if none is choosen
         // Note that we need to update the stored variable as it is used for the validity check later
-        if(category == null) {
+        if (category == null) {
             this.toDoView.toDoDialogPane.categoryComboBox.setValue("Geplant");
             category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
         }
@@ -417,13 +451,15 @@ public class ToDoController {
         // Validate date
         boolean dateIsValid = false;
         LocalDate paneDate = LocalDate.parse(dueDateString);
-        if(paneDate.compareTo(LocalDate.now()) >= 0) { dateIsValid = true; }
+        if (paneDate.compareTo(LocalDate.now()) >= 0) {
+            dateIsValid = true;
+        }
 
         // Validate tags
         // Removes all whitespace and non-visible characters with \\s and splits the string by ;
         try {
-             tagArray = tags.replaceAll("\\s", "").split(";");
-             tagsAreValid = true;
+            tagArray = tags.replaceAll("\\s", "").split(";");
+            tagsAreValid = true;
         } catch (Exception e) {
             System.out.println(e.getMessage());
             tagsAreValid = false;
@@ -465,7 +501,11 @@ public class ToDoController {
         // Set up event filter on OK-button to prevent dialog from closing when user input is not valid
         Button okButton = (Button) this.toDoView.toDoDialogPane.lookupButton(this.toDoView.toDoDialogPane.okButtonType);
         okButton.addEventFilter(ActionEvent.ACTION,
-                event -> { if(!validateUserInput()) { event.consume(); }});
+                event -> {
+                    if (!validateUserInput()) {
+                        event.consume();
+                    }
+                });
 
         // Clear graphical validation
         this.toDoView.toDoDialogPane.titleTextfield.getStyleClass().remove("notOk");
@@ -515,85 +555,85 @@ public class ToDoController {
     // Open a new focus timer window
     public void createFocusTimer(MouseEvent e) {
 
-    	// show dialog
-    	this.toDoView.focusDialog.showAndWait();
+        // show dialog
+        this.toDoView.focusDialog.showAndWait();
     }
 
     /*
      * Depending on which date filter (ComboBox) the user choosed,
-	 * the ToDo task-view will change.
+     * the ToDo task-view will change.
      */
     private void changeCombo(ActionEvent event) {
-    	MainBarView main = (MainBarView) getActiveMidView();
-    	switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
-    	case 0: {
-    		ObservableList<ToDo> observableListAll = FXCollections.observableArrayList(this.toDoList.getToDoList());
-    		main.tableView.getItems().clear();
-    		main.tableView.getItems().addAll(observableListAll);
-    		break;
-    	}
-    	case 1: {
-    		ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
-    		ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
-    		main.tableView.getItems().clear();
-    		main.tableView.getItems().addAll(observableListToday);
-    		break;
-    	}
-    	case 2: {
-    		ArrayList<ToDo> arrayListWeek = this.toDoList.searchLocalWeek();
-    		ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
-    		main.tableView.getItems().clear();
-    		main.tableView.getItems().addAll(observableListWeek);
-    		break;
-    	}
-    	case 3: {
-    		ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalMonth();
-    		ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
-    		main.tableView.getItems().clear();
-    		main.tableView.getItems().addAll(observableListMonth);
-    	}
-    	}
+        MainBarView main = (MainBarView) getActiveMidView();
+        switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
+            case 0: {
+                ObservableList<ToDo> observableListAll = FXCollections.observableArrayList(this.toDoList.getToDoList());
+                main.tableView.getItems().clear();
+                main.tableView.getItems().addAll(observableListAll);
+                break;
+            }
+            case 1: {
+                ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+                ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
+                main.tableView.getItems().clear();
+                main.tableView.getItems().addAll(observableListToday);
+                break;
+            }
+            case 2: {
+                ArrayList<ToDo> arrayListWeek = this.toDoList.searchLocalWeek();
+                ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
+                main.tableView.getItems().clear();
+                main.tableView.getItems().addAll(observableListWeek);
+                break;
+            }
+            case 3: {
+                ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalMonth();
+                ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
+                main.tableView.getItems().clear();
+                main.tableView.getItems().addAll(observableListMonth);
+            }
+        }
     }
-    
+
     /*
-   	 * New Constructor for FocusTimer
-   	 * EventHandling for the playButton, replayButton and stopButton.
-   	 * - If the user clicks on the playButton, the timer will start counting from 25 minutes backwards. 
-   	 * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
-   	 * - If the user clicks on the stopButton, the timer will stop immediately.
-   	 */
+     * New Constructor for FocusTimer
+     * EventHandling for the playButton, replayButton and stopButton.
+     * - If the user clicks on the playButton, the timer will start counting from 25 minutes backwards.
+     * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
+     * - If the user clicks on the stopButton, the timer will stop immediately.
+     */
     public ToDoController(FocusTimerModel model, FocusTimerDialogPane dialog) {
-    	
-    	this.model = model;
-    	this.dialog = dialog;
-    	
-    	 // EventHandling for focus timer
-         this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
-         this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
-         this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
+
+        this.model = model;
+        this.dialog = dialog;
+
+        // EventHandling for focus timer
+        this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
+        this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
+        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
 
     }
-    
+
     public void playTimer(MouseEvent event) {
-        	 if (!model.isRunning()) {
-                model.start();
-                model.setRunning(true);
-        	 }
+        if (!model.isRunning()) {
+            model.start();
+            model.setRunning(true);
+        }
     }
-        	 
+
     public void replayTimer(MouseEvent event) {
-    			model.restart();
+        model.restart();
     }
-    
+
     public void stopTimer(MouseEvent event) {
-             if (model.isRunning()) {
-                 model.pause();
-                 model.setRunning(false);
+        if (model.isRunning()) {
+            model.pause();
+            model.setRunning(false);
+        }
+
     }
-    
-    }   
-	
- 
+
+
 }
 
 		

@@ -52,9 +52,9 @@ public class ToDoApp extends Application {
 	public void stop() {
 
 		// Kill all items that are marked as garbage
-		ArrayList<ToDo> garbageList = this.toDoList.getGarbageList();
+		ArrayList<ToDo> garbageList = this.toDoController.getToDoList().getGarbageList();
 		for(ToDo garbageItem : garbageList) {
-
+			this.toDoController.getSqliteManager().deleteItem(garbageItem);
 		}
 
 	}
