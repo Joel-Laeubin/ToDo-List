@@ -134,7 +134,7 @@ public class ToDoView extends BorderPane {
 			this.vBox.getStyleClass().add("vBox");
 			this.borderPane.getStyleClass().add("borderPane");
 			this.splitPane.getStyleClass().add("splitPane");
-			this.bc.getStyleClass().add("barChart");
+			this.bc.getStyleClass().add("bc");
 			
 			// Create and customize Dialog
 			this.focusDialog = new Dialog<ButtonType>();
