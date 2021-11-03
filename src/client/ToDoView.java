@@ -36,8 +36,8 @@ public class ToDoView extends BorderPane {
 		protected Dialog<ButtonType> addToDoDialog;
 		protected AddToDoDialogPane toDoDialogPane;
 		
-		final static String done = "Done";
-		final static String undone = "Undone";
+		final static String done = "Erledigt";
+		final static String undone = "Geplant";
 				
 		private CategoryAxis xAxis;
 		private NumberAxis yAxis;
