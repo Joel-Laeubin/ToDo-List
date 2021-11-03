@@ -57,6 +57,7 @@ public class ToDoApp extends Application {
 			this.toDoController.getSqliteManager().deleteItem(garbageItem);
 		}
 
+
 	}
 
 }

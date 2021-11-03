@@ -185,6 +185,11 @@ public class AddToDoDialogPane extends DialogPane {
         dateToolTip.setShowDelay(DURATION_UNTIL_SHOW);
         tagsToolTip.setShowDelay(DURATION_UNTIL_SHOW);
 
+        // Remove Papierkorb
+        ObservableList<String> copy = FXCollections.observableArrayList();
+        copy.addAll(listViewItems);
+        copy.remove(3);
+
         // Instantiate the rest of the items
         categoryComboBox = new ComboBox<>();
         categoryComboBox.setItems(listViewItems);
