@@ -101,9 +101,9 @@ public class ToDoView extends BorderPane {
 			this.yAxis = new NumberAxis();
 			this.bc = new BarChart<String, Number>(xAxis, yAxis);
 			
-			bc.setTitle("Status Overview");
-			xAxis.setLabel("Category");
-			yAxis.setLabel("Number");
+			bc.setTitle("Status Überblick");
+			xAxis.setLabel("Kategorie");
+			yAxis.setLabel("Anzahl");
 			bc.setAnimated(false);
 			
 			this.serie1 = new XYChart.Series();
