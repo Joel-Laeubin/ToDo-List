@@ -138,7 +138,6 @@ public abstract class MainBarView extends VBox {
 		
 		// Add CSS styling
 		this.getStylesheets().add(getClass().getResource("MainBarView.css").toExternalForm());
-		this.getStyleClass().add("view");
 		this.getStyleClass().add("mainBarView");
 		this.lupe.getStyleClass().add("lupe");
 		this.searchBar.getStyleClass().add("searchField");
@@ -151,6 +150,11 @@ public abstract class MainBarView extends VBox {
         this.garbage.getStyleClass().add("garbage");
         this.scrollPane.getStyleClass().add("scrollPane");
         this.header.getStyleClass().add("header");
+        this.important.getStyleClass().add("tableColumn");
+        this.task.getStyleClass().add("tableColumn");
+        this.dueDate.getStyleClass().add("tableColumn");
+        this.checkBox.getStyleClass().add("tableColumn");
+        this.garbage.getStyleClass().add("tableColumn");
       		
 	}
 
