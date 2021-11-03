@@ -9,6 +9,8 @@ import client.ToDoView;
 import model.ToDo;
 import model.ToDoList;
 
+import java.util.ArrayList;
+
 public class ToDoApp extends Application {
 
 	// Fields
@@ -25,7 +27,7 @@ public class ToDoApp extends Application {
 	// Shows a GUI for the ToDo-App
 	
 	public void start(Stage stage) {
-		
+
 		// 1. Instantiates the root todoView
 		this.todoModel = new ToDo();
 		this.toDoList = new ToDoList();
@@ -42,8 +44,19 @@ public class ToDoApp extends Application {
 		
 		// Adds an icon to the window
 		Image doneImage = new Image("/icons/doneIcon.png");
-		stage.getIcons().add(doneImage);		
+		stage.getIcons().add(doneImage);
 		
+	}
+
+	@Override
+	public void stop() {
+
+		// Kill all items that are marked as garbage
+		ArrayList<ToDo> garbageList = this.toDoController.getToDoList().getGarbageList();
+		for(ToDo garbageItem : garbageList) {
+			this.toDoController.getSqliteManager().deleteItem(garbageItem);
+		}
+
 	}
 
 }

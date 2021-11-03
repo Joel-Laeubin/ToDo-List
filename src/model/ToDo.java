@@ -21,6 +21,9 @@ public class ToDo {
 	private boolean isDone;
 	private String category;
 	private ArrayList<String> categories;	
+	private ImageView importantIcon;
+	private ImageView doneIcon;
+	private ImageView garbageIcon;	
 	private Button importantButton;
 	private Button doneButton;
 	private Button garbageButton;
@@ -44,37 +47,22 @@ public class ToDo {
 		this.category = category;
 		this.categories = new ArrayList<>();
 		
-		
+		this.importantButton = new Button();
+		this.importantIcon = new ImageView("/icons/starIcon.png");
+		this.importantButton.setGraphic(importantIcon);
 		
 		this.doneButton = new Button();
-		ImageView done = new ImageView("/icons/doneIcon2.png");
-		done.setFitHeight(20);
-		done.setFitWidth(20);
-		this.doneButton.setGraphic(done);
+		this.doneIcon = new ImageView("/icons/doneIcon2.png");
+		this.doneButton.setGraphic(doneIcon);
 		
 		this.garbageButton = new Button();
-		ImageView garbage = new ImageView("/icons/garbageIcon.png");
-		garbage.setFitHeight(20);
-		garbage.setFitWidth(20);
-		this.garbageButton.setGraphic(garbage);
-	
-		this.importantButton = new Button();
-		ImageView important = new ImageView("/icons/starIcon.png");
-		important.setFitHeight(20);
-		important.setFitWidth(20);
-		this.importantButton.setGraphic(important);
+		this.garbageIcon = new ImageView("/icons/garbageIcon.png");
+		this.garbageButton.setGraphic(garbageIcon);
 
 		
 		this.categories.add("Geplant");
 		this.categories.add(category);
 		ToDoList.categoryList.addAll(this.categories);
-		
-		this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.doneButton.getStyleClass().add("button");
-		this.garbageButton.getStyleClass().add("button");
-		this.importantButton.getStyleClass().add("button");
 	}
 
 	public ToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
@@ -87,27 +75,20 @@ public class ToDo {
 		this.isDone = false;
 
 		this.category = category;
+		this.category = "Geplant";
 		this.categories = new ArrayList<>();
 
+		this.importantButton = new Button();
+		this.importantIcon = new ImageView("/icons/starIcon.png");
+		this.importantButton.setGraphic(importantIcon);
+		
 		this.doneButton = new Button();
-		ImageView done = new ImageView("/icons/doneIcon2.png");
-		done.setFitHeight(20);
-		done.setFitWidth(20);
-		this.doneButton.setGraphic(done);
+		this.doneIcon = new ImageView("/icons/doneIcon2.png");
+		this.doneButton.setGraphic(doneIcon);
 		
 		this.garbageButton = new Button();
-		ImageView garbage = new ImageView("/icons/garbageIcon.png");
-		garbage.setFitHeight(20);
-		garbage.setFitWidth(20);
-		this.garbageButton.setGraphic(garbage);
-	
-		this.importantButton = new Button();
-		ImageView important = new ImageView("/icons/starIcon.png");
-		important.setFitHeight(20);
-		important.setFitWidth(20);
-		this.importantButton.setGraphic(important);
-		
-		
+		this.garbageIcon = new ImageView("/icons/garbageIcon.png");
+		this.garbageButton.setGraphic(garbageIcon);
 
 		this.categories.add("Geplant");
 		this.categories.add(category);
@@ -116,14 +97,42 @@ public class ToDo {
 
 
 		this.tags = tags;
-		
-		this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.doneButton.getStyleClass().add("button");
-		this.garbageButton.getStyleClass().add("button");
-		this.importantButton.getStyleClass().add("button");
-		
+	}
+
+	// Constructor used by the db-handler
+	public ToDo(String title, String message, LocalDate dateOfCreation,
+				LocalDate dueDate, ArrayList<String> categories, ArrayList<String> tags) {
+
+		this.ID = globalToDoId + 1;
+		globalToDoId++;
+		this.title = title;
+		this.message = message;
+		this.dateOfCreation = dateOfCreation;
+		this.dueDate = dueDate;
+		this.isDone = false;
+
+		this.categories = categories;
+		// Parse out category if not "Geplant". Since only 1 other category can be selected, we can use a simple for loop
+		for (String category : categories) {
+			if (!category.equals("Geplant")) {
+				this.category = category.replace(" ", "");
+			}
+		}
+
+		this.importantButton = new Button();
+		this.importantIcon = new ImageView("/icons/starIcon.png");
+		this.importantButton.setGraphic(importantIcon);
+		this.doneButton = new Button();
+		this.doneIcon = new ImageView("/icons/doneIcon2.png");
+		this.doneButton.setGraphic(doneIcon);
+		this.garbageButton = new Button();
+		this.garbageIcon = new ImageView("/icons/garbageIcon.png");
+		this.garbageButton.setGraphic(garbageIcon);
+
+		this.categories.add("Geplant");
+		this.categories.add(category);
+		ToDoList.categoryList.addAll(this.categories);
+		this.tags = tags;
 	}
 	
 	// Getters

@@ -2,6 +2,7 @@ package client;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.SortedList;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -101,7 +102,6 @@ public abstract class MainBarView extends VBox {
 		this.tableView.setEditable(true);
 		this.tableView.setPrefHeight(600);
 
-
 		this.important = new TableColumn<>("Wichtig");
 		this.important.setCellValueFactory(new PropertyValueFactory<ToDo, String>("importantButton"));
     	    
@@ -116,13 +116,12 @@ public abstract class MainBarView extends VBox {
 		
 		this.garbage = new TableColumn<>("Papierkorb");
 		this.garbage.setCellValueFactory(new PropertyValueFactory<ToDo, String>("garbageButton"));
-
-
+	
 		// Adds Columns to the TableView
 		this.tableView.getColumns().addAll(this.important, this.task, this.dueDate, this.checkBox, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
-		
+				
 		this.setPrefHeight(600);
 		
 		/*
