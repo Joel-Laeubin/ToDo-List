@@ -163,6 +163,10 @@ public class SqliteManager {
         try {
             this.connection = DriverManager.getConnection(this.connectionString);
             this.statement = connection.createStatement();
+            String deleteString = "DELETE FROM Items WHERE ToDo_ID=" + toDo.getID();
+            statement.executeUpdate(deleteString);
+            System.out.println("Deleted item from db");
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

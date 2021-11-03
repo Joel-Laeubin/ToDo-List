@@ -95,7 +95,7 @@ public class ToDoController {
     	}
 
 
-    // ------- CRUD-Methods
+    // ---------------------------------- CRUD-Methods
     /* Create method
      * Parses the inputs of the user required for a new ToDoInstance, creates the instance and stores it.
      * Needs input from ToDoView
@@ -163,7 +163,19 @@ public class ToDoController {
         // Update lists
         this.updateInstancedSublists();
     }
-    
+
+    /* Delete method
+     * Gets a specific ToDo based on its ID and deletes it.
+     */
+    public void deleteToDo(int ID) {
+
+        // Fetch ToDo item
+        ToDo itemToRemove = this.toDoList.getToDo(ID);
+        this.toDoList.removeToDo(itemToRemove);
+    }
+
+
+    // ---------------------------------- Methods to change items
     /* Method to set a ToDo on done ("Erledigt") whenever the button is clicked.
      * Fetches out the corresponding toDo from the button clicked
      * Deletes all other categories from the toDo, since a toDo can only be 'done' when it's done
@@ -185,8 +197,9 @@ public class ToDoController {
         this.updateInstancedSublists();
     }
 
-    /* Method to mark ToDo as garbage
-     * ToDo gets deleted from preceding sublist via the .setCategory method.
+    /* Method to mark Item as garbage
+     * Item gets deleted from preceding sublist via the .setCategory method.
+     * Deletes the item from the database as well.
      */
     private void setToDoAsGarbage(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
@@ -195,50 +208,8 @@ public class ToDoController {
         
     }
 
-    /* Method to update the sublists inside the instances of each view
-     * Checks if each view exists and updates the passed sublist if so
-     */
-    private void updateInstancedSublists() {
 
-        // Update current sublists
-        this.toDoList.updateSublists();
-
-        // Update sublists in each view
-        if(this.importantBarView != null) {
-            this.importantBarView.tableView.getItems().clear();
-            this.importantBarView.tableView.getItems().addAll(this.toDoList.getToDoListImportant());
-            this.linkTableViewListeners(this.importantBarView.tableView.getItems());
-        }
-
-        if(this.garbageBarView != null) {
-            this.garbageBarView.tableView.getItems().clear();
-            this.garbageBarView.tableView.getItems().addAll(this.toDoList.getToDoListGarbage());
-            this.linkTableViewListeners(this.garbageBarView.tableView.getItems());
-        }
-
-        if(this.plannedBarView != null) {
-            this.plannedBarView.tableView.getItems().clear();
-            this.plannedBarView.tableView.getItems().addAll(this.toDoList.getToDoListPlanned());
-            this.linkTableViewListeners(this.plannedBarView.tableView.getItems());
-        }
-
-        if(this.doneBarView != null) {
-            this.doneBarView.tableView.getItems().clear();
-            this.doneBarView.tableView.getItems().addAll(this.toDoList.getToDoListDone());
-            this.linkTableViewListeners(this.doneBarView.tableView.getItems());
-        }
-    }
-
-    /* Delete method
-     * Gets a specific ToDo based on its ID and deletes it.
-     */
-    public void deleteToDo(int ID) {
-
-        // Fetch ToDo item
-        ToDo itemToRemove = this.toDoList.getToDo(ID);
-        this.toDoList.removeToDo(itemToRemove);
-    }
-
+    // ---------------------------------- Searchbar-method
     /* Method that is linked to the searchButton
      * Does not generate a new view and is only used by searchItemAndGenerateView
      */
@@ -290,6 +261,42 @@ public class ToDoController {
         e.consume();
     }
 
+
+    // ---------------------------------- Application instance methods
+    /* Method to update the sublists inside the instances of each view
+     * Checks if each view exists and updates the passed sublist if so
+     */
+    private void updateInstancedSublists() {
+
+        // Update current sublists
+        this.toDoList.updateSublists();
+
+        // Update sublists in each view
+        if(this.importantBarView != null) {
+            this.importantBarView.tableView.getItems().clear();
+            this.importantBarView.tableView.getItems().addAll(this.toDoList.getToDoListImportant());
+            this.linkTableViewListeners(this.importantBarView.tableView.getItems());
+        }
+
+        if(this.garbageBarView != null) {
+            this.garbageBarView.tableView.getItems().clear();
+            this.garbageBarView.tableView.getItems().addAll(this.toDoList.getToDoListGarbage());
+            this.linkTableViewListeners(this.garbageBarView.tableView.getItems());
+        }
+
+        if(this.plannedBarView != null) {
+            this.plannedBarView.tableView.getItems().clear();
+            this.plannedBarView.tableView.getItems().addAll(this.toDoList.getToDoListPlanned());
+            this.linkTableViewListeners(this.plannedBarView.tableView.getItems());
+        }
+
+        if(this.doneBarView != null) {
+            this.doneBarView.tableView.getItems().clear();
+            this.doneBarView.tableView.getItems().addAll(this.toDoList.getToDoListDone());
+            this.linkTableViewListeners(this.doneBarView.tableView.getItems());
+        }
+    }
+
     /* Method that is used to retrieve the active midView
      *
      */
@@ -297,6 +304,78 @@ public class ToDoController {
         return this.toDoView.borderPane.getCenter();
     }
 
+    /* Method to set event handlers for the tableView Items
+     *
+     */
+    private void linkTableViewListeners(ObservableList<ToDo> listItems) {
+        for(ToDo toDo : listItems) {
+            toDo.getDoneButton().setOnMouseClicked(this::setToDoOnDone);
+            toDo.getImportantButton().setOnMouseClicked(this::setToDoAsImportant);
+            toDo.getGarbageButton().setOnMouseClicked(this::setToDoAsGarbage);
+        }
+    }
+
+    /* Method to change center view of GUI
+     * ----------------------------------- Swapping out centerView
+     * We set up a clickListener on the (main) listView and listen on any click
+     * On a click, we parse out which item was clicked by its index
+     * Based on which item was clicked, we swap out the center of the main borderPane with the corresponding view
+     * ----------------------------------- Adding listeners to the rows of the tableview
+     * Since we have buttons inside the tableView, they need to be addressed by the controller as well.
+     * However, the concept of a javaFX-tableView intends to represent instances of a model inside each row.
+     * On the other hand, the MVC pattern demands a strict separation of model (data), and view.
+     * This leads to a dilemma, where each solution violates one of the concepts. Placing the button inside the model
+     * violates the MVC concept, placing the button inside the tableView via a workaround violates the intends of javaFX.
+     * Anyhow - we see less dissonance in adding a button to a model, since this can be perceived as a "trait" of the model.
+     */
+    private void changeCenterBar(MouseEvent e) {
+        switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
+            case 0 -> {
+                // Create new instance of the view, populated with up-to-date dataset
+                this.importantBarView = new ImportantBarView(this.toDoList.getToDoListImportant());
+
+                // Add listeners
+                importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+                linkTableViewListeners(importantBarView.tableView.getItems());
+                importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                importantBarView.comboBox.setOnAction(this::changeCombo);
+                importantBarView.tableView.setOnMouseClicked(this::updateToDo);
+
+                // Put it on main view
+                toDoView.borderPane.setCenter(importantBarView);
+            }
+            case 1 -> {
+                plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
+                plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+                plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                plannedBarView.comboBox.setOnAction(this::changeCombo);
+                plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
+                linkTableViewListeners(plannedBarView.tableView.getItems());
+                toDoView.borderPane.setCenter(plannedBarView);
+            }
+            case 2 -> {
+                doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
+                doneBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+                doneBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                doneBarView.comboBox.setOnAction(this::changeCombo);
+                doneBarView.tableView.setOnMouseClicked(this::updateToDo);
+                linkTableViewListeners(doneBarView.tableView.getItems());
+                toDoView.borderPane.setCenter(doneBarView);
+            }
+            case 3 -> {
+                garbageBarView = new GarbageBarView(this.toDoList.getToDoListGarbage());
+                garbageBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+                garbageBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                garbageBarView.comboBox.setOnAction(this::changeCombo);
+                garbageBarView.tableView.setOnMouseClicked(this::updateToDo);
+                linkTableViewListeners(garbageBarView.tableView.getItems());
+                toDoView.borderPane.setCenter(garbageBarView);
+            }
+        }
+    }
+
+
+    // ---------------------------------- Creation Dialog methods
     /* Validate user input method
      *
      */
@@ -371,17 +450,6 @@ public class ToDoController {
 
     }
 
-    /* Method to set event handlers for the tableView Items
-     *
-     */
-    private void linkTableViewListeners(ObservableList<ToDo> listItems) {
-        for(ToDo toDo : listItems) {
-            toDo.getDoneButton().setOnMouseClicked(this::setToDoOnDone);
-            toDo.getImportantButton().setOnMouseClicked(this::setToDoAsImportant);
-            toDo.getGarbageButton().setOnMouseClicked(this::setToDoAsGarbage);
-        }
-    }
-
     /* Dialog creation method
      * Shows the dialog to get input from the user required for a new ToDO
      * After user has made his input, controller parses out the data and creates a new ToDo
@@ -442,64 +510,8 @@ public class ToDoController {
 
     }
 
-    /* Method to change center view of GUI
-     * ----------------------------------- Swapping out centerView
-     * We set up a clickListener on the (main) listView and listen on any click
-     * On a click, we parse out which item was clicked by its index
-     * Based on which item was clicked, we swap out the center of the main borderPane with the corresponding view
-     * ----------------------------------- Adding listeners to the rows of the tableview
-     * Since we have buttons inside the tableView, they need to be addressed by the controller as well.
-     * However, the concept of a javaFX-tableView intends to represent instances of a model inside each row.
-     * On the other hand, the MVC pattern demands a strict separation of model (data), and view.
-     * This leads to a dilemma, where each solution violates one of the concepts. Placing the button inside the model
-     * violates the MVC concept, placing the button inside the tableView via a workaround violates the intends of javaFX.
-     * Anyhow - we see less dissonance in adding a button to a model, since this can be perceived as a "trait" of the model.
-     */
-    private void changeCenterBar(MouseEvent e) {
-        switch (toDoView.listView.getSelectionModel().getSelectedIndex()) {
-            case 0 -> {
-                // Create new instance of the view, populated with up-to-date dataset
-                this.importantBarView = new ImportantBarView(this.toDoList.getToDoListImportant());
 
-                // Add listeners
-                importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                linkTableViewListeners(importantBarView.tableView.getItems());
-                importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                importantBarView.comboBox.setOnAction(this::changeCombo);
-                importantBarView.tableView.setOnMouseClicked(this::updateToDo);
-
-                // Put it on main view
-                toDoView.borderPane.setCenter(importantBarView);
-            }
-            case 1 -> {
-                plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
-                plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                plannedBarView.comboBox.setOnAction(this::changeCombo);
-                plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
-                linkTableViewListeners(plannedBarView.tableView.getItems());
-                toDoView.borderPane.setCenter(plannedBarView);
-            }
-            case 2 -> {
-                doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
-                doneBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                doneBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                doneBarView.comboBox.setOnAction(this::changeCombo);
-                doneBarView.tableView.setOnMouseClicked(this::updateToDo);
-                linkTableViewListeners(doneBarView.tableView.getItems());
-                toDoView.borderPane.setCenter(doneBarView);
-            }
-            case 3 -> {
-                garbageBarView = new GarbageBarView(this.toDoList.getToDoListGarbage());
-                garbageBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-                garbageBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-                garbageBarView.comboBox.setOnAction(this::changeCombo);
-                garbageBarView.tableView.setOnMouseClicked(this::updateToDo);
-                linkTableViewListeners(garbageBarView.tableView.getItems());
-                toDoView.borderPane.setCenter(garbageBarView);
-            }
-        }
-    }
+    // ---------------------------------- Focus timer methods
     // Open a new focus timer window
     public void createFocusTimer(MouseEvent e) {
 
@@ -511,7 +523,6 @@ public class ToDoController {
      * Depending on which date filter (ComboBox) the user choosed,
 	 * the ToDo task-view will change.
      */
-    
     private void changeCombo(ActionEvent event) {
     	MainBarView main = (MainBarView) getActiveMidView();
     	switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
@@ -551,7 +562,6 @@ public class ToDoController {
    	 * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
    	 * - If the user clicks on the stopButton, the timer will stop immediately.
    	 */
-    
     public ToDoController(FocusTimerModel model, FocusTimerDialogPane dialog) {
     	
     	this.model = model;

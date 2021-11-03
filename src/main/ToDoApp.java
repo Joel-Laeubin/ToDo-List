@@ -9,6 +9,8 @@ import client.ToDoView;
 import model.ToDo;
 import model.ToDoList;
 
+import java.util.ArrayList;
+
 public class ToDoApp extends Application {
 
 	// Fields
@@ -44,6 +46,17 @@ public class ToDoApp extends Application {
 		Image doneImage = new Image("/icons/doneIcon.png");
 		stage.getIcons().add(doneImage);
 		
+	}
+
+	@Override
+	public void stop() {
+
+		// Kill all items that are marked as garbage
+		ArrayList<ToDo> garbageList = this.toDoList.getGarbageList();
+		for(ToDo garbageItem : garbageList) {
+
+		}
+
 	}
 
 }

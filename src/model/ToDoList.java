@@ -1,5 +1,6 @@
 package model;
 
+import java.lang.invoke.DelegatingMethodHandle$Holder;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -178,5 +179,25 @@ public class ToDoList {
 	public ObservableList<ToDo> getToDoListDone() { return this.doneList; }
 	public ObservableList<ToDo> getToDoListGarbage() { return this.garbageList; }
 
+	public ArrayList<ToDo> getImportantList() {
+		ArrayList<ToDo> resultSet = new ArrayList<>();
+		resultSet.addAll(this.getToDoListImportant());
+		return resultSet;
+	}
+	public ArrayList<ToDo> getPlannedList() {
+		ArrayList<ToDo> resultSet = new ArrayList<>();
+		resultSet.addAll(this.getToDoListPlanned());
+		return resultSet;
+	}
+	public ArrayList<ToDo> getDoneList() {
+		ArrayList<ToDo> resultSet = new ArrayList<>();
+		resultSet.addAll(this.getToDoListDone());
+		return resultSet;
+	}
+	public ArrayList<ToDo> getGarbageList() {
+		ArrayList<ToDo> resultSet = new ArrayList<>();
+		resultSet.addAll(this.getToDoListGarbage());
+		return resultSet;
+	}
 
 }
