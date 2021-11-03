@@ -160,40 +160,44 @@ public class ToDoController {
             // Get clicked item
             MainBarView activeMidView = (MainBarView) this.getActiveMidView();
             int index = activeMidView.tableView.getSelectionModel().getSelectedIndex();
-            ObservableList<ToDo> items = activeMidView.tableView.getItems();
-            ToDo itemToUpdate = items.get(index);
 
-            // Open new dialogPane to make it editable
-            this.toDoView.addToDoDialog = new Dialog<ButtonType>();
-            this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems(), itemToUpdate);
-            this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
-            Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
+            // Don't run if double click on table head
+            if (index != 0) {
+                ObservableList<ToDo> items = activeMidView.tableView.getItems();
+                ToDo itemToUpdate = items.get(index);
 
-            // Parse only positive result, ignore CANCEL_CLOSE
-            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
+                // Open new dialogPane to make it editable
+                this.toDoView.addToDoDialog = new Dialog<ButtonType>();
+                this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems(), itemToUpdate);
+                this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
+                Optional<ButtonType> result = this.toDoView.addToDoDialog.showAndWait();
 
-                // Validate user input
-                if (this.validateUserInput()) {
+                // Parse only positive result, ignore CANCEL_CLOSE
+                if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.OK_DONE) {
 
-                    // Delete old item from arrayList
-                    this.toDoList.removeToDo(itemToUpdate);
-                    this.sqliteManager.deleteItem(itemToUpdate);
+                    // Validate user input
+                    if (this.validateUserInput()) {
 
-                    // Parse out data
-                    String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
-                    String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
-                    String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
-                    String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
-                    String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
+                        // Delete old item from arrayList
+                        this.toDoList.removeToDo(itemToUpdate);
+                        this.sqliteManager.deleteItem(itemToUpdate);
 
-                    String[] tagArray = tags.replaceAll("\\s", "").split(";");
-                    ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
-                    this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
-                    ToDo updatedItem = new ToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
-                    this.sqliteManager.writeItem(updatedItem);
+                        // Parse out data
+                        String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
+                        String category = this.toDoView.toDoDialogPane.categoryComboBox.getValue();
+                        String message = this.toDoView.toDoDialogPane.messageTextArea.getText();
+                        String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
+                        String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
+
+                        String[] tagArray = tags.replaceAll("\\s", "").split(";");
+                        ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
+                        this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+                        ToDo updatedItem = new ToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+                        this.sqliteManager.writeItem(updatedItem);
+
+                    }
 
                 }
-
             }
 
         }
