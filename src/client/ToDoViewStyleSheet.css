@@ -16,6 +16,9 @@
 .splitPane{
     -fx-background-color: LightSteelBlue;
 }
-.barChart{
+.bc{
+    -fx-background-color: LightSteelBlue;
+}
+.borderPaneUpdate {
     -fx-background-color: LightSteelBlue;
 }
