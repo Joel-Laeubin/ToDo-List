@@ -109,7 +109,7 @@ public abstract class MainBarView extends VBox {
 		this.task.setCellValueFactory(new PropertyValueFactory<ToDo, String>("title"));
     		
 		this.dueDate = new TableColumn<>("Termin");
-		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDate"));
+		this.dueDate.setCellValueFactory(new PropertyValueFactory<ToDo, String>("dueDateString"));
 
 		this.checkBox = new TableColumn<>("Erledigt");
 		this.checkBox.setCellValueFactory(new PropertyValueFactory<ToDo, String>("doneButton"));

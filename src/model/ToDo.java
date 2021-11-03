@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAmount;
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +19,7 @@ public class ToDo {
 	private String message;
 	private LocalDate dateOfCreation;
 	private LocalDate dueDate;
+	private String dueDateString;
 	private boolean isDone;
 	private String category;
 	private ArrayList<String> categories;	
@@ -42,6 +44,7 @@ public class ToDo {
 		this.message = message;
 		this.dateOfCreation = LocalDate.now();
 		this.dueDate = dueDate;
+		this.dueDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 		this.isDone = false;
 		
 		this.category = category;
@@ -85,6 +88,7 @@ public class ToDo {
 		this.message = message;
 		this.dateOfCreation = LocalDate.now();
 		this.dueDate = dueDate;
+		this.dueDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 		this.isDone = false;
 
 		this.category = category;
@@ -134,6 +138,7 @@ public class ToDo {
 		this.title = title;
 		this.message = message;
 		this.dateOfCreation = dateOfCreation;
+		this.dueDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 		this.dueDate = dueDate;
 		this.isDone = false;
 
@@ -192,6 +197,9 @@ public class ToDo {
 	}
 	public LocalDate getDateOfCreation() {
 		return this.dateOfCreation;		
+	}
+	public String getDueDateString() {
+		return dueDateString;
 	}
 	public LocalDate getDueDate() {
 		return this.dueDate;
