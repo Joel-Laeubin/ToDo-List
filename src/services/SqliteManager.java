@@ -198,7 +198,7 @@ public class SqliteManager {
                 LocalDate dateOfCreation = null;
                 LocalDate dueDate = null;
                 String title = resultSet.getString("Title");
-                String message = resultSet.getString("Message");
+                String message = resultSet.getString("Message").equals("N/A") ? "" : resultSet.getString("Message");
                 String rawCategories = resultSet.getString("Categories");
                 String rawTags = resultSet.getString("Tags");
                 try {
