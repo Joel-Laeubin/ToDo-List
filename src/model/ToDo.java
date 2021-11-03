@@ -122,21 +122,16 @@ public class ToDo {
 		this.importantButton = new Button();
 		this.importantIcon = new ImageView("/icons/starIcon.png");
 		this.importantButton.setGraphic(importantIcon);
-
 		this.doneButton = new Button();
 		this.doneIcon = new ImageView("/icons/doneIcon2.png");
 		this.doneButton.setGraphic(doneIcon);
-
 		this.garbageButton = new Button();
 		this.garbageIcon = new ImageView("/icons/garbageIcon.png");
 		this.garbageButton.setGraphic(garbageIcon);
 
 		this.categories.add("Geplant");
 		this.categories.add(category);
-		this.category = category;
 		ToDoList.categoryList.addAll(this.categories);
-
-
 		this.tags = tags;
 	}
 	

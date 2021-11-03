@@ -137,11 +137,13 @@ public class SqliteManager {
 
     }
 
-    public void updateItem(ToDo toDo) {
+    public void updateItem(ToDo oldItem, ToDo newItem) {
 
         try {
             this.connection = DriverManager.getConnection(this.connectionString);
             this.statement = connection.createStatement();
+            this.deleteItem(oldItem);
+            this.writeItem(newItem);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {

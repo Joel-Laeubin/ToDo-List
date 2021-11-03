@@ -138,6 +138,7 @@ public class ToDoController {
         ToDo toDo = new ToDo(title, message, dueDate, category, tags);
         this.toDoList.addToDo(toDo);
         this.sqliteManager.writeItem(toDo);
+        this.toDoList.updateSublists();
     }
 
     /* Read method
@@ -175,7 +176,8 @@ public class ToDoController {
                 if (this.validateUserInput()) {
 
                     // Delete old item from arrayList
-                    this.toDoList.getToDoList().remove(itemToUpdate);
+                    this.toDoList.removeToDo(itemToUpdate);
+                    this.sqliteManager.deleteItem(itemToUpdate);
 
                     // Parse out data
                     String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
@@ -187,6 +189,8 @@ public class ToDoController {
                     String[] tagArray = tags.replaceAll("\\s", "").split(";");
                     ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
                     this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+                    ToDo updatedItem = new ToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+                    this.sqliteManager.writeItem(updatedItem);
 
                 }
 
@@ -216,10 +220,11 @@ public class ToDoController {
      */
     public void setToDoOnDone(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
+        this.sqliteManager.deleteItem(toDo);
         toDo.setCategory("Erledigt");
         toDo.setDone(true);
+        this.sqliteManager.writeItem(toDo);
         this.updateInstancedSublists();
-
     }
 
     /* Method to mark ToDo as important
@@ -227,7 +232,9 @@ public class ToDoController {
      */
     private void setToDoAsImportant(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
+        this.sqliteManager.deleteItem(toDo);
         toDo.setCategory("Wichtig");
+        this.sqliteManager.writeItem(toDo);
         this.updateInstancedSublists();
     }
 
@@ -237,7 +244,9 @@ public class ToDoController {
      */
     private void setToDoAsGarbage(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
+        this.sqliteManager.deleteItem(toDo);
         toDo.setCategory("Papierkorb");
+        this.sqliteManager.writeItem(toDo);
         this.updateInstancedSublists();
 
     }
@@ -552,6 +561,7 @@ public class ToDoController {
 
 
     // ---------------------------------- Focus timer methods
+
     // Open a new focus timer window
     public void createFocusTimer(MouseEvent e) {
 

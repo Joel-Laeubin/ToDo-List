@@ -1,6 +1,6 @@
 package model;
 
-import java.lang.invoke.DelegatingMethodHandle$Holder;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -153,7 +153,10 @@ public class ToDoList {
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo);
 		ToDo.globalToDoId -= 1;
-		ToDoList.categoryList.remove(toDo.getCategories());
+		ToDoList.categoryList.remove(toDo.getCategory());
+
+		// Delete item from all sublists
+
 		
 	}
 	public int getNumberOfCategoryTypes() {
