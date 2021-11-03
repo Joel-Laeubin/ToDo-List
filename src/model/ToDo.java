@@ -44,17 +44,37 @@ public class ToDo {
 		this.category = category;
 		this.categories = new ArrayList<>();
 		
-		this.importantButton = new Button();
-		this.importantButton.setGraphic(new ImageView("/icons/starIcon.png"));
+		
+		
 		this.doneButton = new Button();
-		this.doneButton.setGraphic(new ImageView("/icons/doneIcon2.png"));
+		ImageView done = new ImageView("/icons/doneIcon2.png");
+		done.setFitHeight(20);
+		done.setFitWidth(20);
+		this.doneButton.setGraphic(done);
+		
 		this.garbageButton = new Button();
-		this.garbageButton.setGraphic(new ImageView("/icons/garbageIcon.png"));
+		ImageView garbage = new ImageView("/icons/garbageIcon.png");
+		garbage.setFitHeight(20);
+		garbage.setFitWidth(20);
+		this.garbageButton.setGraphic(garbage);
+	
+		this.importantButton = new Button();
+		ImageView important = new ImageView("/icons/starIcon.png");
+		important.setFitHeight(20);
+		important.setFitWidth(20);
+		this.importantButton.setGraphic(important);
 
 		
 		this.categories.add("Geplant");
 		this.categories.add(category);
 		ToDoList.categoryList.addAll(this.categories);
+		
+		this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
+		this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
+		this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
+		this.doneButton.getStyleClass().add("button");
+		this.garbageButton.getStyleClass().add("button");
+		this.importantButton.getStyleClass().add("button");
 	}
 
 	public ToDo(String title, String message, LocalDate dueDate, String category, ArrayList<String> tags) {
@@ -70,11 +90,24 @@ public class ToDo {
 		this.categories = new ArrayList<>();
 
 		this.doneButton = new Button();
-		this.doneButton.setGraphic(new ImageView("/icons/doneIcon2.png"));
+		ImageView done = new ImageView("/icons/doneIcon2.png");
+		done.setFitHeight(20);
+		done.setFitWidth(20);
+		this.doneButton.setGraphic(done);
+		
 		this.garbageButton = new Button();
-		this.garbageButton.setGraphic(new ImageView("/icons/garbageIcon.png"));
+		ImageView garbage = new ImageView("/icons/garbageIcon.png");
+		garbage.setFitHeight(20);
+		garbage.setFitWidth(20);
+		this.garbageButton.setGraphic(garbage);
+	
 		this.importantButton = new Button();
-		this.importantButton.setGraphic(new ImageView("/icons/starIcon.png"));
+		ImageView important = new ImageView("/icons/starIcon.png");
+		important.setFitHeight(20);
+		important.setFitWidth(20);
+		this.importantButton.setGraphic(important);
+		
+		
 
 		this.categories.add("Geplant");
 		this.categories.add(category);
@@ -83,6 +116,14 @@ public class ToDo {
 
 
 		this.tags = tags;
+		
+		this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
+		this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
+		this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
+		this.doneButton.getStyleClass().add("button");
+		this.garbageButton.getStyleClass().add("button");
+		this.importantButton.getStyleClass().add("button");
+		
 	}
 	
 	// Getters
