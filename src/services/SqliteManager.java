@@ -4,7 +4,11 @@ import model.ToDo;
 
 import java.io.File;
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /* SqliteManager
  * Doesn't keep an open connection to save resources.
@@ -15,6 +19,7 @@ public class SqliteManager {
     // Fields
     private String connectionString;
     private Connection connection;
+    private Statement statement;
 
 
     // Constructor
@@ -75,23 +80,23 @@ public class SqliteManager {
 
             // Set up connection & statement
             this.connection = DriverManager.getConnection(this.connectionString);
-            Statement statement = connection.createStatement();
+            this.statement = connection.createStatement();
 
             // Craft sql string & write it
             String message = toDo.getMessage().isEmpty() ? "N/A" : toDo.getMessage();
             String categories = toDo.getCategories().isEmpty() ? "N/A" : toDo.getCategories().toString();
             String tags = toDo.getTags().isEmpty() ? "N/A" : toDo.getTags().toString();
             String writeString = "INSERT INTO Items VALUES ("
-                    + Integer.toString(toDo.getID()) + ", "
-                    + toDo.getTitle() + ", '"
+                    + Integer.toString(toDo.getID()) + ", '"
+                    + toDo.getTitle() + "', '"
                     + message + "', '"
                     + toDo.getDateOfCreation().toString() + "', '"
                     + toDo.getDueDate().toString() + "', '"
                     + categories.toString() + "', '"
                     + tags
                     + "')";
-            statement.executeUpdate(writeString);
-            statement.close();
+            this.statement.executeUpdate(writeString);
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -100,7 +105,9 @@ public class SqliteManager {
         finally {
             try {
                 this.connection.close();
+                this.statement.close();
                 this.connection = null;
+                this.statement = null;
                 System.gc();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
@@ -111,20 +118,123 @@ public class SqliteManager {
 
     public void readItem() {
 
+        try {
+            this.connection = DriverManager.getConnection(this.connectionString);
+            this.statement = connection.createStatement();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                this.connection.close();
+                this.statement.close();
+                this.connection = null;
+                this.statement = null;
+                System.gc();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
     public void updateItem(ToDo toDo) {
+
+        try {
+            this.connection = DriverManager.getConnection(this.connectionString);
+            this.statement = connection.createStatement();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                this.connection.close();
+                this.statement.close();
+                this.connection = null;
+                this.statement = null;
+                System.gc();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
     }
 
     public void deleteItem(ToDo toDo) {
 
+        try {
+            this.connection = DriverManager.getConnection(this.connectionString);
+            this.statement = connection.createStatement();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                this.connection.close();
+                this.statement.close();
+                this.connection = null;
+                this.statement = null;
+                System.gc();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
     }
 
+    /* Method that returns all items stored inside the db
+     * Used by the controller on application start
+     */
     public ArrayList<ToDo> loadItems() {
         ArrayList<ToDo> result = new ArrayList<>();
 
         // Read items & put them into ArrayList
+        try {
+
+            // Set up db connection
+            this.connection = DriverManager.getConnection(this.connectionString);
+            this.statement = connection.createStatement();
+
+            // Read items & parse them
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM Items");
+            while(resultSet.next()) {
+                LocalDate dateOfCreation = null;
+                LocalDate dueDate = null;
+                String title = resultSet.getString("Title");
+                String message = resultSet.getString("Message");
+                String rawCategories = resultSet.getString("Categories");
+                String rawTags = resultSet.getString("Tags");
+                try {
+                    dateOfCreation = LocalDate.parse(resultSet.getString("DoC"));
+                    dueDate = LocalDate.parse(resultSet.getString("DueDate"));
+                } catch (DateTimeParseException e) {
+                    System.out.println(e.getMessage());
+                }
+
+                // Clean outputs
+                ArrayList<String> categoryList = new ArrayList<>(Arrays.asList(rawCategories
+                        .replaceAll("[\\[\\]]", "")
+                        .split(",")));
+                ArrayList<String> tagList = new ArrayList<>(Arrays.asList(rawTags
+                        .replaceAll("[\\[\\]]", "")
+                        .split(",")));
+
+                // Create item and add to result set
+                ToDo toDo = new ToDo(title, message, dateOfCreation, dueDate, categoryList, tagList);
+                result.add(toDo);
+            }
+
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            try {
+                this.connection.close();
+                this.statement.close();
+                this.connection = null;
+                this.statement = null;
+                System.gc();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
 
         return result;
     }

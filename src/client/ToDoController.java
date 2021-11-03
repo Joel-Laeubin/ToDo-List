@@ -54,6 +54,11 @@ public class ToDoController {
             e.printStackTrace();
         }
 
+        // Load items from database
+        this.toDoList.getToDoList().addAll(this.sqliteManager.loadItems());
+        this.toDoList.updateSublists();
+        System.out.println("Loaded items from database: " + this.toDoList.getToDoList().size());
+
         // Set default midPane & add initial event handling for searchbar
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
         plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);

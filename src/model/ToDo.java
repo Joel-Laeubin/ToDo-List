@@ -98,6 +98,41 @@ public class ToDo {
 
 		this.tags = tags;
 	}
+
+	public ToDo(String title, String message, LocalDate dateOfCreation, LocalDate dueDate, ArrayList<String> categories, ArrayList<String> tags) {
+		this.ID = globalToDoId + 1;
+		globalToDoId++;
+		this.title = title;
+		this.message = message;
+		this.dateOfCreation = LocalDate.now();
+		this.dueDate = dueDate;
+		this.isDone = false;
+		this.dateOfCreation = dateOfCreation;
+
+		this.category = category;
+		this.category = "Geplant";
+		this.categories = new ArrayList<>();
+
+		this.importantButton = new Button();
+		this.importantIcon = new ImageView("/icons/starIcon.png");
+		this.importantButton.setGraphic(importantIcon);
+
+		this.doneButton = new Button();
+		this.doneIcon = new ImageView("/icons/doneIcon2.png");
+		this.doneButton.setGraphic(doneIcon);
+
+		this.garbageButton = new Button();
+		this.garbageIcon = new ImageView("/icons/garbageIcon.png");
+		this.garbageButton.setGraphic(garbageIcon);
+
+		this.categories.add("Geplant");
+		this.categories.add(category);
+		this.category = category;
+		ToDoList.categoryList.addAll(this.categories);
+
+
+		this.tags = tags;
+	}
 	
 	// Getters
 	public int getID() {
