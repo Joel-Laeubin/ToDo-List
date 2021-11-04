@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import model.ToDo;
@@ -32,6 +33,7 @@ public class ToDoView extends BorderPane {
 		protected VBox vBox;
 		protected BorderPane borderPane;
 		protected SplitPane splitPane;
+		protected StackPane stackPane;
 		
 		protected Dialog<ButtonType> addToDoDialog;
 		protected AddToDoDialogPane toDoDialogPane;
@@ -84,6 +86,9 @@ public class ToDoView extends BorderPane {
 			this.borderPane = new BorderPane();
 			this.setCenter(borderPane);
 			this.borderPane.setPrefSize(1000, 600);
+			
+			this.stackPane = new StackPane();
+			this.borderPane.setRight(stackPane);
 
 			/*
 			 * Creates a SplitPane between vBox and borderPane
@@ -132,11 +137,11 @@ public class ToDoView extends BorderPane {
 			// Add CSS styling
 			this.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
 			this.getStyleClass().add("view");
-			this.listView.getStyleClass().add("listView");
+			this.listView.getStylesheets().add(getClass().getResource("ListViewStyleSheet.css").toExternalForm());
 			this.vBox.getStyleClass().add("vBox");
 			this.borderPane.getStyleClass().add("borderPane");
 			this.splitPane.getStyleClass().add("splitPane");
-			this.bc.getStyleClass().add("bc");
+			this.bc.getStylesheets().add(getClass().getResource("BarChartStyleSheet.css").toExternalForm());
 			
 			// Create and customize Dialog
 			this.focusDialog = new Dialog<ButtonType>();
