@@ -1,0 +1,17 @@
+.list-view {
+  -fx-background-insets: 0;
+  -fx-padding: 0;
+}
+.list-cell:even {
+    -fx-background-color: #101b53;
+    -fx-text-fill: white;
+    -fx-border-style: none;
+}
+.list-cell: odd {
+    -fx-background-color: #101b53;
+    -fx-text-fill: white;
+    -fx-border-style: none;
+}
+.list-cell:filled:selected {
+    -fx-text-fill: red;
+}
