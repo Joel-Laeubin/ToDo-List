@@ -138,8 +138,8 @@ public class ToDo {
 		this.title = title;
 		this.message = message;
 		this.dateOfCreation = dateOfCreation;
-		this.dueDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 		this.dueDate = dueDate;
+		this.dueDateString = this.dueDate.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
 		this.isDone = false;
 
 		this.categories = categories;
