@@ -249,5 +249,30 @@ public class SqliteManager {
 
     // Custom methods
 
+    // Close everything on application shutdown and ping garbage collection
+    public void cleanUp() {
+
+        if(this.statement != null) {
+            try {
+                this.statement.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+
+        if(this.connection != null) {
+            try {
+                this.connection.close();;
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        this.connection = null;
+        this.statement = null;
+        System.gc();
+        System.exit(130);
+    }
 
 }

@@ -57,6 +57,8 @@ public class ToDoApp extends Application {
 			this.toDoController.getSqliteManager().deleteItem(garbageItem);
 		}
 
+		// Make sure database is closed
+		this.toDoController.getSqliteManager().cleanUp();
 
 	}
 
