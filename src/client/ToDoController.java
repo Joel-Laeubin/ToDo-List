@@ -179,8 +179,7 @@ public class ToDoController {
                     if (this.validateUserInput()) {
 
                         // Delete old item from arrayList
-                        this.toDoList.removeToDo(itemToUpdate);
-                        this.sqliteManager.deleteItem(itemToUpdate);
+                        // this.toDoList.removeToDo(itemToUpdate);
 
                         // Parse out data
                         String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
@@ -191,9 +190,13 @@ public class ToDoController {
 
                         String[] tagArray = tags.replaceAll("\\s", "").split(";");
                         ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
-                        this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
-                        ToDo updatedItem = new ToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
-                        this.sqliteManager.writeItem(updatedItem);
+
+                        // TODO: We're double-creating the item here
+                        // this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+                        ToDo updatedItem = new ToDo(itemToUpdate.getID(), title, message, LocalDate.parse(dueDateString),
+                                itemToUpdate.getDateOfCreation(), category, tagArrayList, true);
+                        this.toDoList.updateToDo(itemToUpdate, updatedItem);
+                        this.sqliteManager.updateItem(itemToUpdate, updatedItem);
 
                     }
 

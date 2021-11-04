@@ -75,6 +75,19 @@ public class ToDoList {
 
 	}
 
+	// By updating an item we don't change the global ID counter
+	public void updateToDo(ToDo oldItem, ToDo newItem) {
+		for(ToDo item : this.toDoList) {
+			if(item.getID() == oldItem.getID()) {
+				item.setTitle(newItem.getTitle());
+				item.setMessage(newItem.getMessage());
+				item.setDueDate(newItem.getDueDate());
+				item.setCategory(newItem.getCategory());
+				item.setTags(newItem.getTags());
+			}
+		}
+	}
+
 	/* Method to refresh the contents of each
 	 *
 	 */

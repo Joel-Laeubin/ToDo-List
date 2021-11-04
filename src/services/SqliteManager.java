@@ -143,17 +143,34 @@ public class SqliteManager {
         try {
             this.connection = DriverManager.getConnection(this.connectionString);
             this.statement = connection.createStatement();
-            this.deleteItem(oldItem);
-            this.writeItem(newItem);
+
+            String message = newItem.getMessage().isEmpty() ? "N/A" : newItem.getMessage();
+            String categories = oldItem.getCategories().isEmpty() ? "N/A" : oldItem.getCategories().toString();
+            String tags = oldItem.getTags().isEmpty() ? "N/A" : oldItem.getTags().toString();
+
+            String updateString = "UPDATE Items SET "
+                    + "ToDo_ID=" + newItem.getID() + ", "
+                    + "Title='" + newItem.getTitle() + "', "
+                    + "Message='" + message + "', "
+                    + "DoC='" + newItem.getDateOfCreation().toString() + "', "
+                    + "DueDate='" + newItem.getDueDate().toString() + "', "
+                    + "Categories='" + categories + "', "
+                    + "Tags='" + tags + "' "
+                    + "WHERE ToDo_ID=" + oldItem.getID();
+            this.statement.executeUpdate(updateString);
+            System.out.println("Updated item in db.");
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
-                this.connection.close();
-                this.statement.close();
-                this.connection = null;
-                this.statement = null;
-                System.gc();
+                if (this.connection != null && this.statement != null) {
+                    this.connection.close();
+                    this.statement.close();
+                    this.connection = null;
+                    this.statement = null;
+                    System.gc();
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
