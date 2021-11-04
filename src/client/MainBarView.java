@@ -38,7 +38,6 @@ public abstract class MainBarView extends VBox {
 	protected TableColumn<ToDo, String> dueDate;
 	protected TableColumn<ToDo, String> checkBox;
 	protected TableColumn<ToDo, String> garbage;
-	protected ScrollPane scrollPane;
 	protected HBox header;
 	protected HBox searchBar;
 	protected ObservableList<String> filter;
@@ -124,16 +123,7 @@ public abstract class MainBarView extends VBox {
 				
 		this.setPrefHeight(600);
 		
-		/*
-		 * ScrollPane helps to see
-		 * all tasks, if there are more
-		 * than the GUI shows
-		 */
-		this.scrollPane = new ScrollPane();
-		scrollPane.setFitToWidth(true);
-		scrollPane.setFitToHeight(true);
-		scrollPane.setPrefSize(500,  200);
-		this.getChildren().add(scrollPane);
+	
 		
 		// Add CSS styling
 		this.getStylesheets().add(getClass().getResource("MainBarView.css").toExternalForm());
@@ -147,7 +137,6 @@ public abstract class MainBarView extends VBox {
         this.dueDate.getStyleClass().add("dueDate");
         this.important.getStyleClass().add("important");
         this.garbage.getStyleClass().add("garbage");
-        this.scrollPane.getStyleClass().add("scrollPane");
         this.header.getStyleClass().add("header");
         this.important.getStyleClass().add("tableColumn");
         this.task.getStyleClass().add("tableColumn");
