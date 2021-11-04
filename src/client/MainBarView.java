@@ -9,6 +9,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumnBase;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -120,7 +121,9 @@ public abstract class MainBarView extends VBox {
 		this.tableView.getColumns().addAll(this.important, this.task, this.dueDate, this.checkBox, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
-				
+		
+		this.tableView.getSortOrder().add(dueDate);
+						
 		this.setPrefHeight(600);
 		
 	
