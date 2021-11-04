@@ -84,8 +84,8 @@ public class ToDoController {
             public void handle(ActionEvent event) {
                 toDoView.serie1.getData().clear();
                 toDoView.serie2.getData().clear();
-                toDoView.serie1.getData().add(new XYChart.Data<String, Number>("Done", toDoList.getToDoListDone().size()));
-                toDoView.serie2.getData().add(new XYChart.Data<String, Number>("Undone", toDoList.getToDoListPlanned().size()));
+                toDoView.serie1.getData().add(new XYChart.Data<String, Number>("Erledigt", toDoList.getToDoListDone().size()));
+                toDoView.serie2.getData().add(new XYChart.Data<String, Number>("Geplant", toDoList.getToDoListPlanned().size()));
             }
         }));
 
