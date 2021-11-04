@@ -48,10 +48,7 @@
 	-fx-border: 2px;
 	-fx-border-radius: 5px;
 }
-.scrollPane {
- 	-fx-background-color: LightSteelBlue;
-}
-.header{
+.header {
  	-fx-background-color: LightSteelBlue;
 }
 
