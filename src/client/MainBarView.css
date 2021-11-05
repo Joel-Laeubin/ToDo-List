@@ -1,54 +1,61 @@
 .mainBarView {
- 	-fx-background-color: LightSteelBlue;
+ 	-fx-background-color: #ffffff;
 	-fx-padding: 15px;
 }
 .lupe {
- 	-fx-background-color: LightSteelBlue;
 	-fx-spacing: 10px;
 }
-.searchField{
+.searchField {
 	-fx-spacing: 10px;
 }
-.createToDo{
+.createToDo {
+	-fx-background-color: #101b53;
+	-fx-text-fill: #ffffff;
 	-fx-spacing: 100px;
 }
+.createToDo:hover {
+	-fx-text-fill: red;
+}
 .tableView {
- 	-fx-background-color: LightSteelBlue;
+ 	-fx-background-color: #ffffff;
+	-fx-text-fill: #121d58;
 	-fx-border-style: solid;
-	-fx-border-radius: 3px;
+
 }
 .tableColumn {
-	-fx-border-style: solid;
-	-fx-border-radius: 3px;
-	
+	-fx-text-fill: #121d58;
 }
 .checkBox {
-    	-fx-background-color: LightSteelBlue;
-	-fx-border: 2px;
-	-fx-border-radius: 5px;
+    	-fx-background-color: #ffffff;
+	-fx-text-fill: #121d58;
 }
 .task {
-    	-fx-background-color: LightSteelBlue;
-	-fx-border-style: solid;
-	-fx-border-radius: 3px;
+    	-fx-background-color: #ffffff;
+	-fx-text-fill: #121d58;
 }
 .dueDate {
-    	-fx-background-color: LightSteelBlue;
-	-fx-border: 2px;
-	-fx-border-radius: 5px;
+    	-fx-background-color: #ffffff;
+	-fx-text-fill: #121d58;
 }
 .important {
-    	-fx-background-color: LightSteelBlue;
-	-fx-border: 2px;
-	-fx-border-radius: 5px;
-	
+    	-fx-background-color: #ffffff;
+	-fx-text-fill: #121d58;
 }
 .garbage {
- 	-fx-background-color: LightSteelBlue;
-	-fx-border: 2px;
-	-fx-border-radius: 5px;
+ 	-fx-background-color: #ffffff;
+	-fx-text-fill: #121d58;
 }
 .header {
- 	-fx-background-color: LightSteelBlue;
+ 	-fx-background-color: #ffffff;
+}
+.comboBox {
+	-fx-background-color: #101b53;
+}
+.combo-box .list-cell {
+	-fx-text-fill: #ffffff;
+	-fx-background-color: #101b53;
+}
+.combo-box .list-cell:hover {
+	-fx-text-fill: red;
 }
 

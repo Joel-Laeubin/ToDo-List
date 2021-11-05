@@ -1,0 +1,47 @@
+.root{
+	-fx-background-color: #101b53;
+}
+.leftPane {
+	-fx-background-color: #101b53;
+	-fx-padding: 10px;
+	-fx-spacing: 10px;
+}
+.rightPane {
+	-fx-background-color: #101b53;
+	-fx-padding: 10px;
+	-fx-spacing: 10px;
+}
+.newTaskLabel {
+	-fx-text-fill: #ffffff;
+	-fx-font-size: 20px;
+    	-fx-padding: 10px;
+}
+.tippLabel {
+	-fx-text-fill: #ffffff;
+	-fx-padding: 10px;
+}
+.titleLabel {
+	-fx-text-fill: #ffffff;
+}
+.categoryLabel {
+	-fx-text-fill: #ffffff;
+}
+.dueDateLabel {
+	-fx-text-fill: #ffffff;
+}
+.messageLabel {
+	-fx-text-fill: #ffffff;
+}
+.tagsLabel {
+	-fx-text-fill: #ffffff;
+}
+.messageTextArea {
+    	-fx-background-color: LightGray;
+}
+.view {
+	-fx-background-color: #101b53;
+}
+.notOk {
+    	-fx-border-color: red;
+    	-fx-border-width: 3px;
+}

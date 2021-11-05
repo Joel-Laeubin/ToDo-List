@@ -1,12 +1,19 @@
 .view {
-    -fx-background-color: #f9fafc;
+    -fx-background-color: #ffffff;
 }
 .vBox {    
     -fx-background-color: #101b53;
 }
 .borderPane{
-    -fx-background-color: #f9fafc;
+    -fx-background-color: #ffffff;
 }
 .splitPane{
-    -fx-background-color: #f9fafc;
+    -fx-background-color: #ffffff;
+}
+.openFocusTimer {
+    -fx-background-color: #101b53;
+    -fx-text-fill: #ffffff;
+}
+.openFocusTimer:hover {
+    -fx-text-fill: red;
 }

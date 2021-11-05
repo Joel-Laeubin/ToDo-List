@@ -87,8 +87,6 @@ public class ToDoView extends BorderPane {
 			this.setCenter(borderPane);
 			this.borderPane.setPrefSize(1000, 600);
 			
-			this.stackPane = new StackPane();
-			this.borderPane.setRight(stackPane);
 
 			/*
 			 * Creates a SplitPane between vBox and borderPane
@@ -132,16 +130,19 @@ public class ToDoView extends BorderPane {
 			this.hBoxBottom.setPadding(new Insets(0.0, 0.0, 40.0, 950.0));
 			this.vBoxBottom.getChildren().add(hBoxBottom);
 			
-			this.setBottom(vBoxBottom);
+			this.borderPane.setBottom(vBoxBottom);
 		    
 			// Add CSS styling
+			
 			this.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
 			this.getStyleClass().add("view");
 			this.listView.getStylesheets().add(getClass().getResource("ListViewStyleSheet.css").toExternalForm());
 			this.vBox.getStyleClass().add("vBox");
 			this.borderPane.getStyleClass().add("borderPane");
 			this.splitPane.getStyleClass().add("splitPane");
+			this.openFocusTimer.getStyleClass().add("openFocusTimer");
 			this.bc.getStylesheets().add(getClass().getResource("BarChartStyleSheet.css").toExternalForm());
+	        
 			
 			// Create and customize Dialog
 			this.focusDialog = new Dialog<ButtonType>();
