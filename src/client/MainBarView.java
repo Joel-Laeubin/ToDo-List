@@ -28,6 +28,7 @@ public abstract class MainBarView extends VBox {
 	// control elements for this container
 	protected ObservableList<ToDo> subSet;
 	protected ImageView icon;
+	private ImageView plus;
 	protected Label label;
 	protected ImageView lupe;
 	protected TextField searchField;
@@ -60,13 +61,16 @@ public abstract class MainBarView extends VBox {
 		
 		// Lupe Icon for the searchField		
 		this.lupe = new ImageView("/icons/lupe.png");
-		this.lupe.setFitHeight(17);
-		this.lupe.setFitWidth(17);
-//		this.getChildren().add(lupe);
+		this.lupe.setFitHeight(15);
+		this.lupe.setFitWidth(15);
 				
 		
 		// SearchBar and button for creating a new item
-		this.createToDo = new Button("+");
+		this.createToDo = new Button();
+		this.plus = new ImageView("/icons/plusIcon.png");
+		this.plus.setFitHeight(15);
+		this.plus.setFitWidth(15);
+		this.createToDo.setGraphic(plus);
 		this.searchBar = new HBox();
 		
 		/*

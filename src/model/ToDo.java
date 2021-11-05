@@ -66,19 +66,19 @@ public class ToDo {
 		}
 		
 		this.doneButton = new Button();
-		ImageView done = new ImageView("/icons/doneIcon2.png");
+		ImageView done = new ImageView("/icons/doneIcon3.png");
 		done.setFitHeight(20);
 		done.setFitWidth(20);
 		this.doneButton.setGraphic(done);
 		
 		this.garbageButton = new Button();
-		ImageView garbage = new ImageView("/icons/garbageIcon.png");
+		ImageView garbage = new ImageView("/icons/garbageIcon2.png");
 		garbage.setFitHeight(20);
 		garbage.setFitWidth(20);
 		this.garbageButton.setGraphic(garbage);
 	
 		this.importantButton = new Button();
-		ImageView important = new ImageView("/icons/starIcon.png");
+		ImageView important = new ImageView("/icons/starIcon2.png");
 		important.setFitHeight(20);
 		important.setFitWidth(20);
 		this.importantButton.setGraphic(important);
@@ -119,19 +119,19 @@ public class ToDo {
 		}
 
 		this.doneButton = new Button();
-		ImageView done = new ImageView("/icons/doneIcon2.png");
+		ImageView done = new ImageView("/icons/doneIcon3.png");
 		done.setFitHeight(20);
 		done.setFitWidth(20);
 		this.doneButton.setGraphic(done);
 		
 		this.garbageButton = new Button();
-		ImageView garbage = new ImageView("/icons/garbageIcon.png");
+		ImageView garbage = new ImageView("/icons/garbageIcon2.png");
 		garbage.setFitHeight(20);
 		garbage.setFitWidth(20);
 		this.garbageButton.setGraphic(garbage);
 	
 		this.importantButton = new Button();
-		ImageView important = new ImageView("/icons/starIcon.png");
+		ImageView important = new ImageView("/icons/starIcon2.png");
 		important.setFitHeight(20);
 		important.setFitWidth(20);
 		this.importantButton.setGraphic(important);
@@ -173,19 +173,19 @@ public class ToDo {
 
 
 		this.doneButton = new Button();
-		ImageView done = new ImageView("/icons/doneIcon2.png");
+		ImageView done = new ImageView("/icons/doneIcon3.png");
 		done.setFitHeight(20);
 		done.setFitWidth(20);
 		this.doneButton.setGraphic(done);
 		
 		this.garbageButton = new Button();
-		ImageView garbage = new ImageView("/icons/garbageIcon.png");
+		ImageView garbage = new ImageView("/icons/garbageIcon2.png");
 		garbage.setFitHeight(20);
 		garbage.setFitWidth(20);
 		this.garbageButton.setGraphic(garbage);
 	
 		this.importantButton = new Button();
-		ImageView important = new ImageView("/icons/starIcon.png");
+		ImageView important = new ImageView("/icons/starIcon2.png");
 		important.setFitHeight(20);
 		important.setFitWidth(20);
 		this.importantButton.setGraphic(important);
@@ -236,13 +236,13 @@ public class ToDo {
 			this.doneButton.setGraphic(done);
 
 			this.garbageButton = new Button();
-			ImageView garbage = new ImageView("/icons/garbageIcon.png");
+			ImageView garbage = new ImageView("/icons/garbageIcon2.png");
 			garbage.setFitHeight(20);
 			garbage.setFitWidth(20);
 			this.garbageButton.setGraphic(garbage);
 
 			this.importantButton = new Button();
-			ImageView important = new ImageView("/icons/starIcon.png");
+			ImageView important = new ImageView("/icons/starIcon2.png");
 			important.setFitHeight(20);
 			important.setFitWidth(20);
 			this.importantButton.setGraphic(important);
