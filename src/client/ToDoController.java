@@ -20,6 +20,7 @@ import services.SqliteManager;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +38,7 @@ public class ToDoController {
     private DoneBarView doneBarView;
     private SearchBarView searchBarView;
     private FocusTimerDialogPane dialog;
-    private FocusTimerModel model;
+    private FocusTimerModel focusModel;
     private SqliteManager sqliteManager;
 
     // Constructor
@@ -46,6 +47,8 @@ public class ToDoController {
         this.toDoView = toDoView;
         this.toDo = toDo;
         this.toDoList = toDoList;
+        
+        this.focusModel = focusModel;
 
         // Set up database handler
         try {
@@ -55,30 +58,31 @@ public class ToDoController {
         }
 
         // Load items from database
-        this.toDoList.getToDoList().addAll(this.sqliteManager.loadItems());
+        ArrayList<ToDo> databaseItems = this.sqliteManager.loadItems();
+        for(ToDo item : databaseItems) {
+            this.toDoList.addToDo(item);
+        }
         this.toDoList.updateSublists();
         System.out.println("Loaded items from database: " + this.toDoList.getToDoList().size());
 
         // Set default midPane & add initial event handling for searchbar
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
         plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+        plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+        plannedBarView.comboBox.setOnAction(this::changeCombo);
+        plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
         this.linkTableViewListeners(plannedBarView.tableView.getItems());
         toDoView.borderPane.setCenter(plannedBarView);
 
         // Register buttons
-        this.plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
-        this.plannedBarView.searchField.setOnAction(this::searchItemAndGenerateView);
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
 
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
-        // Selected ComboBox
-        plannedBarView.comboBox.setOnAction(this::changeCombo);
-
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
-        this.model = new FocusTimerModel(null);
+        this.focusModel = new FocusTimerModel(null);
 
 
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
@@ -95,7 +99,8 @@ public class ToDoController {
         toDoView.bc.getData().addAll(toDoView.serie1, toDoView.serie2);
     }
 
-    // ---------------------------------- Classic Getters
+
+	// ---------------------------------- Classic Getters
     public ToDoView getToDoView() {
         return toDoView;
     }
@@ -124,7 +129,7 @@ public class ToDoController {
         return dialog;
     }
     public FocusTimerModel getModel() {
-        return model;
+        return focusModel;
     }
     public SqliteManager getSqliteManager() {
         return sqliteManager;
@@ -180,8 +185,7 @@ public class ToDoController {
                     if (this.validateUserInput()) {
 
                         // Delete old item from arrayList
-                        this.toDoList.removeToDo(itemToUpdate);
-                        this.sqliteManager.deleteItem(itemToUpdate);
+                        // this.toDoList.removeToDo(itemToUpdate);
 
                         // Parse out data
                         String title = this.toDoView.toDoDialogPane.titleTextfield.getText();
@@ -190,11 +194,16 @@ public class ToDoController {
                         String dueDateString = this.toDoView.toDoDialogPane.datePicker.getValue().toString();
                         String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
 
+
                         String[] tagArray = tags.replaceAll("\\s", "").split(";");
                         ArrayList<String> tagArrayList = new ArrayList<String>(List.of(tagArray));
-                        this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
-                        ToDo updatedItem = new ToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
-                        this.sqliteManager.writeItem(updatedItem);
+
+                        // TODO: We're double-creating the item here
+                        // this.createToDo(title, message, LocalDate.parse(dueDateString), category, tagArrayList);
+                        ToDo updatedItem = new ToDo(itemToUpdate.getID(), title, message, LocalDate.parse(dueDateString),
+                                itemToUpdate.getDateOfCreation(), category, tagArrayList, true);
+                        this.toDoList.updateToDo(itemToUpdate, updatedItem);
+                        this.sqliteManager.updateItem(itemToUpdate, updatedItem);
 
                     }
 
@@ -309,40 +318,8 @@ public class ToDoController {
         e.consume();
     }
     
-    private void searchItemAndGenerateView(ActionEvent ae) {
-
-        // Fetch input
-        MainBarView midView = (MainBarView) this.getActiveMidView();
-        String searchString = midView.searchField.getText();
-
-        // Only go ahead if input is not empty
-        if (searchString.length() != 0) {
-
-            // Search items
-            ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
-            ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
-
-            // Generate new searchView
-            this.searchBarView = new SearchBarView(observableSearchList);
-            this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
-            this.linkTableViewListeners(searchBarView.tableView.getItems());
-            this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
-
-            // Put it on main view
-            toDoView.borderPane.setCenter(this.searchBarView);
-
-        }
-
-        // Otherwise just consume the event
-        ae.consume();
-    }
     
-
-
-    // ---------------------------------- Application instance methods
-    /* Method to update the sublists inside the instances of each view
-     * Checks if each view exists and updates the passed sublist if so
-     */
+    
     private void updateInstancedSublists() {
 
         // Update current sublists
@@ -647,37 +624,28 @@ public class ToDoController {
      * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
      * - If the user clicks on the stopButton, the timer will stop immediately.
      */
-    public ToDoController(FocusTimerModel model, FocusTimerDialogPane dialog) {
+    public ToDoController() {
 
-        this.model = model;
-        this.dialog = dialog;
-
-        // EventHandling for focus timer
-        this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
-        this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
-        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
-
-    }
-
+    	FocusTimerDialogPane focusDialog = new FocusTimerDialogPane();
+    	FocusTimerModel model = new FocusTimerModel(focusDialog.counterLabel);
+    	
+    	focusDialog.playButton.setOnMouseClicked(this::playTimer);
+    	focusDialog.stopButton.setOnMouseClicked(this::stopTimer);
+    	focusDialog.replayButton.setOnMouseClicked(this::replayTimer);
+	}
+    
     public void playTimer(MouseEvent event) {
-        if (!model.isRunning()) {
-            model.start();
-            model.setRunning(true);
-        }
+    	focusModel.start();
     }
-
-    public void replayTimer(MouseEvent event) {
-        model.restart();
-    }
-
+    
     public void stopTimer(MouseEvent event) {
-        if (model.isRunning()) {
-            model.pause();
-            model.setRunning(false);
-        }
-
+    	focusModel.stop();
     }
-
+    
+    public void replayTimer(MouseEvent event) {
+    	focusModel.restart();
+    }
+    
 
 }
 

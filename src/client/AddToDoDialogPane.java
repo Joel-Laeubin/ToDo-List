@@ -207,7 +207,7 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Instantiate the rest of the items
         categoryComboBox = new ComboBox<>();
-        categoryComboBox.setItems(listViewItems);
+        categoryComboBox.setItems(copy);
         datePicker = new DatePicker();
         messageTextArea = new TextArea();
 
@@ -235,8 +235,13 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Fill fields
         titleTextfield.setText(todo.getTitle());
-        categoryComboBox.getEditor().setText(categoryComboBox.getItems().get(1));
-        datePicker.getEditor().setText(todo.getDueDate().toString());
+        datePicker.getEditor().setText(todo.getDueDateString());
+
+        // Fill category combobox depending on what category the item has
+        categoryComboBox.getEditor().setText(todo.getCategory());
+        if(todo.getCategory().equals("Wichtig")) { categoryComboBox.getSelectionModel().select(0); }
+        if(todo.getCategory().equals("Geplant")) { categoryComboBox.getSelectionModel().select(1); }
+        if(todo.getCategory().equals("Erledigt")) { categoryComboBox.getSelectionModel().select(2); }
 
         // Fill tag field, create new tag string if tags are set on item
         if(!todo.getTags().isEmpty()) {

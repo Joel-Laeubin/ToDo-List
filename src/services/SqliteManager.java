@@ -7,9 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /* SqliteManager
  * Doesn't keep an open connection to save resources.
@@ -143,17 +141,34 @@ public class SqliteManager {
         try {
             this.connection = DriverManager.getConnection(this.connectionString);
             this.statement = connection.createStatement();
-            this.deleteItem(oldItem);
-            this.writeItem(newItem);
+
+            String message = newItem.getMessage().isEmpty() ? "N/A" : newItem.getMessage();
+            String categories = newItem.getCategories().size() == 0 ? "N/A" : newItem.getCategories().toString();
+            String tags = newItem.getTags().isEmpty() ? "N/A" : newItem.getTags().toString();
+
+            String updateString = "UPDATE Items SET "
+                    + "ToDo_ID=" + newItem.getID() + ", "
+                    + "Title='" + newItem.getTitle() + "', "
+                    + "Message='" + message + "', "
+                    + "DoC='" + newItem.getDateOfCreation().toString() + "', "
+                    + "DueDate='" + newItem.getDueDate().toString() + "', "
+                    + "Categories='" + categories + "', "
+                    + "Tags='" + tags + "' "
+                    + "WHERE ToDo_ID=" + oldItem.getID();
+            this.statement.executeUpdate(updateString);
+            System.out.println("Updated item in db.");
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
             try {
-                this.connection.close();
-                this.statement.close();
-                this.connection = null;
-                this.statement = null;
-                System.gc();
+                if (this.connection != null && this.statement != null) {
+                    this.connection.close();
+                    this.statement.close();
+                    this.connection = null;
+                    this.statement = null;
+                    System.gc();
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -217,11 +232,19 @@ public class SqliteManager {
 
                 // Clean outputs
                 ArrayList<String> categoryList = new ArrayList<>(Arrays.asList(rawCategories
-                        .replaceAll("[\\[\\]]", "")
-                        .split(",")));
+                         .replaceAll("[\\[\\]]", "")
+                         .split(",")));
                 ArrayList<String> tagList = new ArrayList<>(Arrays.asList(rawTags
-                        .replaceAll("[\\[\\]]", "")
-                        .split(",")));
+                         .replaceAll("[\\[\\]]", "")
+                         .split(",")));
+
+                Set<String> categorySet = new HashSet<>(categoryList);
+                Set<String> tagSet = new HashSet<>(tagList);
+
+                categoryList.clear();
+                categoryList.addAll(categorySet);
+                tagList.clear();
+                tagList.addAll(tagSet);
 
                 // Create item and add to result set
                 ToDo toDo = new ToDo(title, message, dateOfCreation, dueDate, categoryList, tagList);
