@@ -8,6 +8,9 @@
 .searchButton {
 	-fx-background-color: #101b53;
 }
+.searchButton:hover {
+	-fx-background-color: #1ec4dc;
+}
 .searchField {
 	-fx-spacing: 10px;
 }
@@ -61,8 +64,11 @@
 	-fx-text-fill: #ffffff;
 	-fx-background-color: #101b53;
 }
+.combo-box:hover {
+	-fx-background-color: #1ec4dc;
+}
 .combo-box .list-cell:hover {
-	-fx-text-fill: #1ec4dc;
+	-fx-background-color: #1ec4dc;
 }
 .combo-box .arrow {
 	-fx-background-color: #ffffff;

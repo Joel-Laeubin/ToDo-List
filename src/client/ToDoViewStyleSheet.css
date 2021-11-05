@@ -15,5 +15,5 @@
     -fx-text-fill: #ffffff;
 }
 .openFocusTimer:hover {
-    -fx-text-fill: red;
+    -fx-background-color: #1ec4dc;
 }

@@ -3,8 +3,7 @@
   -fx-padding: 0;
 }
 .list-cell {
-  
-
+	-fx-cell-size: 35;
 }
 .list-cell:even {
     -fx-background-color: #101b53;
