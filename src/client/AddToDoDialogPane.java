@@ -220,7 +220,7 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Fill fields
         titleTextfield.setText(todo.getTitle());
-        datePicker.getEditor().setText(todo.getDueDate().toString());
+        datePicker.getEditor().setText(todo.getDueDateString());
 
         // Fill category combobox depending on what category the item has
         categoryComboBox.getEditor().setText(todo.getCategory());
