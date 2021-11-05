@@ -123,6 +123,7 @@ public abstract class MainBarView extends VBox {
 				
 		this.setPrefHeight(600);
 		
+		
 	
 		
 		// Add CSS styling
@@ -131,7 +132,7 @@ public abstract class MainBarView extends VBox {
 		this.lupe.getStyleClass().add("lupe");
 		this.searchBar.getStyleClass().add("searchField");
 		this.createToDo.getStyleClass().add("createToDo");
-        this.tableView.getStyleClass().add("tableView");    
+		this.tableView.getStyleClass().add("tableView");    
         this.checkBox.getStyleClass().add("checkBox");
         this.task.getStyleClass().add("task");
         this.dueDate.getStyleClass().add("dueDate");
@@ -143,6 +144,8 @@ public abstract class MainBarView extends VBox {
         this.dueDate.getStyleClass().add("tableColumn");
         this.checkBox.getStyleClass().add("tableColumn");
         this.garbage.getStyleClass().add("tableColumn");
+        this.comboBox.getStyleClass().add("comboBox");
+        this.comboBox.getStyleClass().add("combo-box");
       		
 	}
 
