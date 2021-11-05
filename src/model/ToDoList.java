@@ -2,6 +2,7 @@ package model;
 
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -82,6 +83,7 @@ public class ToDoList {
 				item.setTitle(newItem.getTitle());
 				item.setMessage(newItem.getMessage());
 				item.setDueDate(newItem.getDueDate());
+				item.setDueDateString(item.getDueDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
 				item.setCategory(newItem.getCategory());
 				item.setTags(newItem.getTags());
 			}

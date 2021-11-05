@@ -327,6 +327,9 @@ public class ToDo {
 
 		this.category = category;
 	}
+	public void setDueDateString(String dueDateString) {
+		this.dueDateString = dueDateString;
+	}
 
 	public void setDoneButton(Button doneButton) {
 		this.doneButton = doneButton;
