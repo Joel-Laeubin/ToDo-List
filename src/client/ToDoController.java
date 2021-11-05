@@ -55,7 +55,10 @@ public class ToDoController {
         }
 
         // Load items from database
-        this.toDoList.getToDoList().addAll(this.sqliteManager.loadItems());
+        ArrayList<ToDo> databaseItems = this.sqliteManager.loadItems();
+        for(ToDo item : databaseItems) {
+            this.toDoList.addToDo(item);
+        }
         this.toDoList.updateSublists();
         System.out.println("Loaded items from database: " + this.toDoList.getToDoList().size());
 

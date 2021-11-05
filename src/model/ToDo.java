@@ -16,7 +16,7 @@ public class ToDo {
 
 	// Fields
 	public final int ID;
-	public static int globalToDoId;
+	public static int globalToDoId = 0;
 	private String title;
 	private String message;
 	private LocalDate dateOfCreation;
@@ -148,7 +148,7 @@ public class ToDo {
 				LocalDate dueDate, ArrayList<String> categories, ArrayList<String> tags) {
 
 		this.ID = globalToDoId + 1;
-		globalToDoId++;
+		ToDo.globalToDoId++;
 		this.title = title;
 		this.message = message;
 		this.dateOfCreation = dateOfCreation;
@@ -158,11 +158,19 @@ public class ToDo {
 
 		this.categories = categories;
 		// Parse out category if not "Geplant". Since only 1 other category can be selected, we can use a simple for loop
+		this.category = "Geplant";
 		for (String category : categories) {
 			if (!category.equals("Geplant")) {
 				this.category = category.replace(" ", "");
 			}
 		}
+
+		if(!this.categories.contains("Geplant")) {
+			this.categories.add("Geplant");
+		}
+		ToDoList.categoryList.addAll(this.categories);
+		this.tags = tags;
+
 
 		this.doneButton = new Button();
 		ImageView done = new ImageView("/icons/doneIcon2.png");
@@ -182,11 +190,6 @@ public class ToDo {
 		important.setFitWidth(20);
 		this.importantButton.setGraphic(important);
 
-		this.categories.add("Geplant");
-		this.categories.add(category);
-		ToDoList.categoryList.addAll(this.categories);
-		this.tags = tags;
-		
 		this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
 		this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
 		this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());

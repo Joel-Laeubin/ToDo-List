@@ -7,9 +7,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /* SqliteManager
  * Doesn't keep an open connection to save resources.
@@ -234,11 +232,19 @@ public class SqliteManager {
 
                 // Clean outputs
                 ArrayList<String> categoryList = new ArrayList<>(Arrays.asList(rawCategories
-                        .replaceAll("[\\[\\]]", "")
-                        .split(",")));
+                         .replaceAll("[\\[\\]]", "")
+                         .split(",")));
                 ArrayList<String> tagList = new ArrayList<>(Arrays.asList(rawTags
-                        .replaceAll("[\\[\\]]", "")
-                        .split(",")));
+                         .replaceAll("[\\[\\]]", "")
+                         .split(",")));
+
+                Set<String> categorySet = new HashSet<>(categoryList);
+                Set<String> tagSet = new HashSet<>(tagList);
+
+                categoryList.clear();
+                categoryList.addAll(categorySet);
+                tagList.clear();
+                tagList.addAll(tagSet);
 
                 // Create item and add to result set
                 ToDo toDo = new ToDo(title, message, dateOfCreation, dueDate, categoryList, tagList);
