@@ -1,0 +1,16 @@
+.closeButtonType {
+	-fx-background-color: #101b53;
+    	-fx-text-fill: #ffffff;
+}
+.root {
+	-fx-background-color: #ffffff;
+}
+.button {
+    	-fx-background-color: #1ec4dc;
+    	-fx-text-fill: #ffffff;
+}
+.button:hover {
+    	-fx-border-size: 3px;
+	-fx-border-radius: 2px;
+	-fx-border-color: #101b53;
+}

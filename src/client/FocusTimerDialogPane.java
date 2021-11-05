@@ -104,6 +104,12 @@ public class FocusTimerDialogPane extends DialogPane {
 		
 		this.setContent(timerBorderPane);
 		this.setContentText("Fokus Timer");
+		
+		this.getStylesheets().add(getClass().getResource("FocusTimerDialogPaneStyleSheet.css").toExternalForm());
+		this.timerBorderPane.getStyleClass().add("root");
+		this.playButton.getStyleClass().add("button");
+		this.stopButton.getStyleClass().add("button");
+		this.replayButton.getStyleClass().add("button");
 	}
 	
 	public Label getCounter() {
