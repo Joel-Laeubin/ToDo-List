@@ -5,7 +5,7 @@
 Since we store data in a local SQLite database, be advised to add the jdbc-sqlite driver to your project classpath
  (eclipse) or your project libraries (IntelliJ). We went ahead and placed the 
 [jdbc-driver from xerial](https://github.com/xerial/sqlite-jdbc) inside the **lib-directory** of the project. Once you have
-added this dependency to your project (just as you do for JavaFX), you're all set and ready. For a more detailed guide,
+added this dependency to (just as you do for JavaFX), you're all set and ready. For a more detailed guide,
 read the chapters below.
 
 ## Adding the SQLite-JDBC driver in IntelliJ
