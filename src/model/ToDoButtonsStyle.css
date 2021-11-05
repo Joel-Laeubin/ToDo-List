@@ -1,6 +1,3 @@
 .button {
-	-fx-max-width: 25px;
-	-fx-min-width: 25px;
-	-fx-max-height: 25px;
-	-fx-min-height: 25px;
+	-fx-background-color: #1ec4dc;
 }

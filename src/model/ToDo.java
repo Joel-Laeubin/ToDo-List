@@ -193,9 +193,6 @@ public class ToDo {
 		this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
 		this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
 		this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-		this.doneButton.getStyleClass().add("button");
-		this.garbageButton.getStyleClass().add("button");
-		this.importantButton.getStyleClass().add("button");
 		
 	}
 
@@ -250,9 +247,6 @@ public class ToDo {
 			this.doneButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
 			this.garbageButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
 			this.importantButton.getStylesheets().add(getClass().getResource("ToDoButtonsStyle.css").toExternalForm());
-			this.doneButton.getStyleClass().add("button");
-			this.garbageButton.getStyleClass().add("button");
-			this.importantButton.getStyleClass().add("button");
 		} else {this.ID = -1; }
 
 

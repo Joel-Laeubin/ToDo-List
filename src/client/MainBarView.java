@@ -137,6 +137,7 @@ public abstract class MainBarView extends VBox {
 		this.getStylesheets().add(getClass().getResource("MainBarView.css").toExternalForm());
 		this.getStyleClass().add("mainBarView");
 		this.lupe.getStyleClass().add("lupe");
+		this.searchButton.getStyleClass().add("searchButton");
 		this.searchBar.getStyleClass().add("searchField");
 		this.createToDo.getStyleClass().add("createToDo");
 		this.tableView.getStyleClass().add("tableView");    

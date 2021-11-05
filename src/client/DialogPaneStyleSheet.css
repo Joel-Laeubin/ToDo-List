@@ -1,13 +1,13 @@
 .root{
-	-fx-background-color: #101b53;
+	-fx-background-color: #6d6b7c;
 }
 .leftPane {
-	-fx-background-color: #101b53;
+	-fx-background-color: #6d6b7c;
 	-fx-padding: 10px;
 	-fx-spacing: 10px;
 }
 .rightPane {
-	-fx-background-color: #101b53;
+	-fx-background-color: #6d6b7c;
 	-fx-padding: 10px;
 	-fx-spacing: 10px;
 }
@@ -39,7 +39,7 @@
     	-fx-background-color: LightGray;
 }
 .view {
-	-fx-background-color: #101b53;
+	-fx-background-color: #6d6b7c;
 }
 .notOk {
     	-fx-border-color: red;

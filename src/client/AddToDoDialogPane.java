@@ -268,17 +268,10 @@ public class AddToDoDialogPane extends DialogPane {
         this.messageLabel.getStyleClass().add("messageLabel");
         this.tagsLabel.getStyleClass().add("tagsLabel");
         this.messageTextArea.getStyleClass().add("messageTextArea");
+        this.categoryComboBox.getStyleClass().add("categoryComboBox");
         
        
-        //this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
-        //newTaskLabel.setId("titleLabel");
-        //tippLabel.setId("titleMessage");
-        //root.getStyleClass().add("borderPane");
-        //this.leftPane.getStyleClass().add("leftPane");
-        //this.rightPane.getStyleClass().add("rightPane");
-        //this.messageTextArea.getStyleClass().add("messageTextArea");
-        //this.getStyleClass().add("view");
-        
+
 
         // Add buttonTypes
         okButtonType = new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE);

@@ -5,6 +5,9 @@
 .lupe {
 	-fx-spacing: 10px;
 }
+.searchButton {
+	-fx-background-color: #101b53;
+}
 .searchField {
 	-fx-spacing: 10px;
 }
@@ -14,7 +17,7 @@
 	-fx-spacing: 100px;
 }
 .createToDo:hover {
-	-fx-text-fill: red;
+	-fx-background-color: #1ec4dc;
 }
 .tableView {
  	-fx-background-color: #ffffff;
@@ -56,6 +59,9 @@
 	-fx-background-color: #101b53;
 }
 .combo-box .list-cell:hover {
-	-fx-text-fill: red;
+	-fx-text-fill: #1ec4dc;
+}
+.combo-box .arrow {
+	-fx-background-color: #ffffff;
 }
 

@@ -3,12 +3,14 @@
   -fx-padding: 0;
 }
 .list-cell {
+  
 
 }
 .list-cell:even {
     -fx-background-color: #101b53;
     -fx-text-fill: white;
     -fx-border-style: none;
+    -fx-font: 12pt "Verdana";
 
  
 }
@@ -16,6 +18,7 @@
     -fx-background-color: #101b53;
     -fx-text-fill: white;
     -fx-border-style: none;
+    -fx-font: 12pt "Verdana";
 
 
 }
@@ -23,5 +26,6 @@
     -fx-text-fill: red;
 }
 .list-cell:hover {
-	-fx-text-fill: green;
+	-fx-text-fill: #1ec4dc;
+	
 }
