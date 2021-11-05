@@ -69,6 +69,7 @@ public class ToDoController {
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
         plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
         plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+        this.plannedBarView.searchField.setOnAction(this::searchItemAndGenerateView);
         plannedBarView.comboBox.setOnAction(this::changeCombo);
         plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
         this.linkTableViewListeners(plannedBarView.tableView.getItems());
@@ -316,6 +317,35 @@ public class ToDoController {
 
         // Otherwise just consume the event
         e.consume();
+    }
+    
+    private void searchItemAndGenerateView(ActionEvent ae) {
+
+    	// Fetch input
+        MainBarView midView = (MainBarView) this.getActiveMidView();
+        String searchString = midView.searchField.getText();
+
+        // Only go ahead if input is not empty
+        if (searchString.length() != 0) {
+
+            // Search items
+            ArrayList<ToDo> searchList = this.toDoList.searchItem(searchString);
+            ObservableList<ToDo> observableSearchList = FXCollections.observableArrayList(searchList);
+
+            // Generate new searchView
+            this.searchBarView = new SearchBarView(observableSearchList);
+            this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+            this.linkTableViewListeners(searchBarView.tableView.getItems());
+            this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
+
+            // Put it on main view
+            toDoView.borderPane.setCenter(this.searchBarView);
+
+        }
+
+        // Otherwise just consume the event
+        ae.consume();
+        
     }
     
     
