@@ -26,8 +26,9 @@
 	-fx-text-fill: #121d58;
 }
 .checkBox {
-    	-fx-background-color: #ffffff;
+    -fx-background-color: #ffffff;
 	-fx-text-fill: #121d58;
+	-fx-alignment: CENTER;
 }
 .task {
     	-fx-background-color: #ffffff;
@@ -40,10 +41,12 @@
 .important {
     	-fx-background-color: #ffffff;
 	-fx-text-fill: #121d58;
+	-fx-alignment: CENTER;
 }
 .garbage {
  	-fx-background-color: #ffffff;
 	-fx-text-fill: #121d58;
+	-fx-alignment: CENTER;
 }
 .header {
  	-fx-background-color: #ffffff;
