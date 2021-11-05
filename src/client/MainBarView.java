@@ -146,7 +146,6 @@ public abstract class MainBarView extends VBox {
         this.dueDate.getStyleClass().add("dueDate");
         this.important.getStyleClass().add("important");
         this.garbage.getStyleClass().add("garbage");
-        this.header.getStyleClass().add("header");
         this.important.getStyleClass().add("tableColumn");
         this.task.getStyleClass().add("tableColumn");
         this.dueDate.getStyleClass().add("tableColumn");

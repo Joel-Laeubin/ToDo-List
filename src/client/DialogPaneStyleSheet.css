@@ -38,9 +38,6 @@
 .messageTextArea {
     	-fx-background-color: LightGray;
 }
-.view {
-	-fx-background-color: #6d6b7c;
-}
 .notOk {
     	-fx-border-color: red;
     	-fx-border-width: 3px;

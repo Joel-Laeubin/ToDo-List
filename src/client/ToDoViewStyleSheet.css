@@ -1,19 +1,19 @@
 .view {
-    -fx-background-color: #ffffff;
+    	-fx-background-color: #ffffff;
 }
 .vBox {    
-    -fx-background-color: #101b53;
+    	-fx-background-color: #101b53;
+}
+.splitPane {
+	-fx-background-color: #ffffff;
 }
 .borderPane{
-    -fx-background-color: #ffffff;
-}
-.splitPane{
-    -fx-background-color: #ffffff;
+    	-fx-background-color: #ffffff;
 }
 .openFocusTimer {
-    -fx-background-color: #101b53;
-    -fx-text-fill: #ffffff;
+    	-fx-background-color: #101b53;
+    	-fx-text-fill: #ffffff;
 }
 .openFocusTimer:hover {
-    -fx-background-color: #1ec4dc;
+    	-fx-background-color: #1ec4dc;
 }

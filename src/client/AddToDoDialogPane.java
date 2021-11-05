@@ -127,10 +127,10 @@ public class AddToDoDialogPane extends DialogPane {
         categoryLabel.setTooltip(categoryToolTip);
         dueDateLabel.setTooltip(dateToolTip);
         tagsLabel.setTooltip(tagsToolTip);
+        
 
         // Add CSS styling
         this.getStylesheets().add(getClass().getResource("DialogPaneStyleSheet.css").toExternalForm());
-        this.getStyleClass().add("view");
         this.root.getStyleClass().add("root");
         this.leftPane.getStyleClass().add("leftPane");
         this.rightPane.getStyleClass().add("rightPane");
@@ -143,14 +143,6 @@ public class AddToDoDialogPane extends DialogPane {
         this.tagsLabel.getStyleClass().add("tagsLabel");
         this.messageTextArea.getStyleClass().add("messageTextArea");
         
-        
-        //newTaskLabel.setId("titleLabel");
-        //tippLabel.setId("titleMessage");
-        //root.getStyleClass().add("borderPane");
-        //this.leftPane.getStyleClass().add("leftPane");
-        //this.rightPane.getStyleClass().add("rightPane");
-        //this.messageTextArea.getStyleClass().add("messageTextArea");
-        //this.getStyleClass().add("view");
 
         // Add buttonTypes
         okButtonType = new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE);
@@ -256,7 +248,6 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Add CSS styling
         this.getStylesheets().add(getClass().getResource("DialogPaneStyleSheet.css").toExternalForm());
-        this.getStyleClass().add("view");
         this.root.getStyleClass().add("root");
         this.leftPane.getStyleClass().add("leftPane");
         this.rightPane.getStyleClass().add("rightPane");
@@ -268,7 +259,6 @@ public class AddToDoDialogPane extends DialogPane {
         this.messageLabel.getStyleClass().add("messageLabel");
         this.tagsLabel.getStyleClass().add("tagsLabel");
         this.messageTextArea.getStyleClass().add("messageTextArea");
-        this.categoryComboBox.getStyleClass().add("categoryComboBox");
         
        
 

@@ -1,6 +1,5 @@
 .mainBarView {
- 	-fx-background-color: #ffffff;
-	-fx-padding: 15px;
+ 	-fx-padding: 15px;
 }
 .lupe {
 	-fx-spacing: 10px;
@@ -53,9 +52,6 @@
  	-fx-background-color: #ffffff;
 	-fx-text-fill: #121d58;
 	-fx-alignment: CENTER;
-}
-.header {
- 	-fx-background-color: #ffffff;
 }
 .comboBox {
 	-fx-background-color: #101b53;
