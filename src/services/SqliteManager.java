@@ -143,8 +143,8 @@ public class SqliteManager {
             this.statement = connection.createStatement();
 
             String message = newItem.getMessage().isEmpty() ? "N/A" : newItem.getMessage();
-            String categories = oldItem.getCategories().isEmpty() ? "N/A" : oldItem.getCategories().toString();
-            String tags = oldItem.getTags().isEmpty() ? "N/A" : oldItem.getTags().toString();
+            String categories = newItem.getCategories().size() == 0 ? "N/A" : newItem.getCategories().toString();
+            String tags = newItem.getTags().isEmpty() ? "N/A" : newItem.getTags().toString();
 
             String updateString = "UPDATE Items SET "
                     + "ToDo_ID=" + newItem.getID() + ", "
