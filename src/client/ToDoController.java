@@ -97,7 +97,8 @@ public class ToDoController {
         toDoView.bc.getData().addAll(toDoView.serie1, toDoView.serie2);
     }
 
-    // ---------------------------------- Classic Getters
+
+	// ---------------------------------- Classic Getters
     public ToDoView getToDoView() {
         return toDoView;
     }
@@ -623,37 +624,28 @@ public class ToDoController {
      * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
      * - If the user clicks on the stopButton, the timer will stop immediately.
      */
-    public ToDoController(FocusTimerModel model, FocusTimerDialogPane dialog) {
+    public ToDoController() {
 
-        this.model = model;
-        this.dialog = dialog;
-
-        // EventHandling for focus timer
-        this.toDoView.focusTimerDialog.playButton.setOnMouseClicked(this::playTimer);
-        this.toDoView.focusTimerDialog.stopButton.setOnMouseClicked(this::stopTimer);
-        this.toDoView.focusTimerDialog.replayButton.setOnMouseClicked(this::replayTimer);
-
-    }
-
+    	FocusTimerDialogPane focusDialog = new FocusTimerDialogPane();
+    	FocusTimerModel model = new FocusTimerModel(focusDialog.counterLabel);
+    	
+    	focusDialog.playButton.setOnMouseClicked(this::playTimer);
+    	focusDialog.stopButton.setOnMouseClicked(this::stopTimer);
+    	focusDialog.replayButton.setOnMouseClicked(this::replayTimer);
+	}
+    
     public void playTimer(MouseEvent event) {
-        if (!model.isRunning()) {
-            model.start();
-            model.setRunning(true);
-        }
+    	model.start();
     }
-
-    public void replayTimer(MouseEvent event) {
-        model.restart();
-    }
-
+    
     public void stopTimer(MouseEvent event) {
-        if (model.isRunning()) {
-            model.pause();
-            model.setRunning(false);
-        }
-
+    	model.stop();
     }
-
+    
+    public void replayTimer(MouseEvent event) {
+    	model.restart();
+    }
+    
 
 }
 

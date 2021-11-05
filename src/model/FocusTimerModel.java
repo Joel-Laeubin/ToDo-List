@@ -1,150 +1,117 @@
 package model;
 
+import java.io.File;
+import java.nio.file.Paths;
+import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Label;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 public class FocusTimerModel {
 	
 		// Elements
-	 	private boolean isRunning;
-	    private boolean isBreak;
-	    private Timer timer;
-	    private int counter;
+	    private Timeline timeline;
 	    private final Label counterLabel;
-	    private int seconds, minutes;
+	    private int second, minute;
+	    private DecimalFormat fmt;
+	    private String secondFormat, minuteFormat;
 	    
 	    // Constructor
 	    public FocusTimerModel (Label counterLabel) {
 			this.counterLabel = counterLabel;
+			this.timeline = new Timeline();	
+			this.fmt = new DecimalFormat("00");
+			this.minute = 25;
+			this.second = 0;
 			
-			this.isRunning = false;
-			this.isBreak = false;
-			this.timer = new Timer();
-			this.counter = 60 * 25; // 25 minutes * 60 = 1500 seconds
-						
 	    }
 
-	    // Shows if timer is currently running
-	    public boolean isRunning() {
-	        return isRunning;
+	    public void stop() {
+	    	timeline.stop();
 	    }
 	    
-	    // Runs timer
-	    public void setRunning(boolean running) {
-	        isRunning = running;
-	    }
-	    
-	    // Pauses timer
-	    public void pause() {
-	        timer.cancel();
-	    }
 
 	    /*
 	     * --LOGIC--
 	     * Starts timer and changes minutes/seconds
 	     */
 	    public void start() {
-	        timer = new Timer();
-	        timer.scheduleAtFixedRate(new TimerTask() {
-	            @Override
-	            public void run() {
-	                Platform.runLater(() -> {
-	                    counter--;
-	                    seconds = counter % 60;
-	                    minutes = counter / 60;
-	                    if (seconds < 10 && minutes < 10) {
-	                    	counterLabel.setText("0" + minutes + ":0" + seconds);
-	                    } else if (minutes < 10) {
-	                    	counterLabel.setText("0" + minutes + ":" + seconds);
-	                    } else {
-	                    	counterLabel.setText(minutes + ":" + seconds);
-	                    }
-	                });
-	            }
-	        }, 0, 1500);
-	    }
-	    
-	    // Sets timer back to 25 minutes and starts running again
-	    public void restart() {
-	    	isRunning();
-	    	setRunning(true);
+	      
+	    	timeline.setCycleCount(Timeline.INDEFINITE);
 	    	
-	    	if (minutes == 25 && seconds == 0) {
-	    		counterLabel.setText(minutes + ":00");
+	    	if(timeline != null) {
+	    		timeline.stop();
 	    	}
 	    	
-	    	counter = (60 * 25) + 1;
+	    	KeyFrame frame = new KeyFrame(Duration.seconds(1), new EventHandler<ActionEvent>() {
+	    		
+	    		@Override
+	    		public void handle (ActionEvent event) {
+	    			
+	    			second--;
+	    			secondFormat = fmt.format(second);
+	    			minuteFormat = fmt.format(minute);	
+					counterLabel.setText(minuteFormat + ":" + secondFormat);
+					
+					if (second == -1) {
+						second = 59;
+						minute--;
+						secondFormat = fmt.format(second);
+						minuteFormat = fmt.format(minute);	
+						counterLabel.setText(minuteFormat + ":" + secondFormat);
+					}
+					if (minute == 0 && second == 0) {
+						timeline.stop();				
+						// Media media = new Media("src/icons/endSound.wav");
+						// MediaPlayer mediaPlayer = new MediaPlayer(media);
+	    		}
+	    		}
+	    		});
+	    	timeline.getKeyFrames().add(frame);
+	    	timeline.playFromStart();
 	    	
-	    	seconds = counter % 60;
-	        minutes = counter / 60;
-	       
-	        timer = new Timer();
-	        timer.scheduleAtFixedRate(new TimerTask() {
-	            @Override
-	            public void run() {
-	                Platform.runLater(() -> {
-	                    counter--;
-
-	                    seconds = counter % 60;
-	                    minutes = counter / 60;
-	                    if (seconds < 10 && minutes < 10) {
-	                    	counterLabel.setText("0" + minutes + ":0" + seconds);
-	                    } else if (minutes < 10) {
-	                    	counterLabel.setText("0" + minutes + ":" + seconds);
-	                    } else {
-	                    	counterLabel.setText(minutes + ":" + seconds);
-	                    }
-	                });
-	            }
-	        }, 0, 1000);
 	    }
 	    	
+	  public void restart() {
+		  
+		  minute = 25;
+		  second = 0;
+		  
+		  start();
+		  
+	  }
+	
 
 	    // Getter and Setter
-		public boolean isBreak() {
-			return isBreak;
-		}
-
-		public Timer getTimer() {
-			return timer;
-		}
-
-		public int getCounter() {
-			return counter;
-		}
 
 		public Label getTimerLbl() {
 			return counterLabel;
 		}
 
-		public int getSeconds() {
-			return seconds;
+		public int getSecond() {
+			return second;
 		}
 
-		public int getMinutes() {
-			return minutes;
+		public int getMinute() {
+			return minute;
 		}
 
-		public void setBreak(boolean isBreak) {
-			this.isBreak = isBreak;
+		public void setSecond(int seconds) {
+			this.second = second;
 		}
 
-		public void setTimer(Timer timer) {
-			this.timer = timer;
-		}
-
-		public void setCounter(int counter) {
-			this.counter = counter;
-		}
-
-		public void setSeconds(int seconds) {
-			this.seconds = seconds;
-		}
-
-		public void setMinutes(int minutes) {
-			this.minutes = minutes;
+		public void setMinute(int minute) {
+			this.minute = minute;
 		}
 
 	}

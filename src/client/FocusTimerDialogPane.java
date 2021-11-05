@@ -18,7 +18,6 @@ import model.FocusTimerModel;
 
 public class FocusTimerDialogPane extends DialogPane {
 	
-	protected ToDoController controller;
 	protected FocusTimerModel model;
 	
 	protected Button playButton;
@@ -45,30 +44,33 @@ public class FocusTimerDialogPane extends DialogPane {
 	protected ButtonType closeButtonType;
 	
 	public FocusTimerDialogPane() {
-		
-		this.model = new FocusTimerModel(counterLabel);
-		
+			
 		this.counterLabel = new Label("25:00");
 		this.counterLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 70));
 		this.counterLabel.setAlignment(Pos.CENTER);
 		
+		this.model = new FocusTimerModel(counterLabel);
+				
 		this.playIcon = new ImageView("/icons/startIcon.png");
 		this.playIcon.setFitHeight(50);
 		this.playIcon.setFitWidth(50);
 		this.playButton = new Button();
 		this.playButton.setGraphic(playIcon);
+		this.model.start();
 		
 		this.stopIcon = new ImageView("/icons/stopIcon.png");
 		this.stopIcon.setFitHeight(50);
 		this.stopIcon.setFitWidth(50);
 		this.stopButton = new Button();
 		this.stopButton.setGraphic(stopIcon);
+		// this.model.stop();
 		
 		this.replayIcon = new ImageView("/icons/restartIcon.png");
 		this.replayIcon.setFitHeight(50);
 		this.replayIcon.setFitWidth(50);
 		this.replayButton = new Button();
 		this.replayButton.setGraphic(replayIcon);
+		// this.model.restart();
 		
 		this.timerBorderPane = new BorderPane();
 		
@@ -101,6 +103,7 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.timeline = new Timeline();
 		
 		this.setContent(timerBorderPane);
+		this.setContentText("Fokus Timer");
 		
 	}
 	
