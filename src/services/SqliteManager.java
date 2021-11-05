@@ -233,10 +233,10 @@ public class SqliteManager {
                 // Clean outputs
                 ArrayList<String> categoryList = new ArrayList<>(Arrays.asList(rawCategories
                          .replaceAll("[\\[\\]]", "")
-                         .split(",")));
+                         .split(", ")));
                 ArrayList<String> tagList = new ArrayList<>(Arrays.asList(rawTags
                          .replaceAll("[\\[\\]]", "")
-                         .split(",")));
+                         .split(", ")));
 
                 Set<String> categorySet = new HashSet<>(categoryList);
                 Set<String> tagSet = new HashSet<>(tagList);
