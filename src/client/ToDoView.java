@@ -98,7 +98,9 @@ public class ToDoView extends BorderPane {
 			this.splitPane.setDividerPositions(0.3);
 			this.setLeft(splitPane);
 
-			
+			VBox buffer = new VBox();
+			buffer.setPrefHeight(60.0);
+			this.vBox.getChildren().add(buffer);
 			//Creating the BarChart to show the done and undone ToDo's
 			this.xAxis = new CategoryAxis();
 			this.yAxis = new NumberAxis();
@@ -138,8 +140,8 @@ public class ToDoView extends BorderPane {
 			this.getStyleClass().add("view");
 			this.listView.getStylesheets().add(getClass().getResource("ListViewStyleSheet.css").toExternalForm());
 			this.vBox.getStyleClass().add("vBox");
-			this.borderPane.getStyleClass().add("borderPane");
 			this.splitPane.getStyleClass().add("splitPane");
+			this.borderPane.getStyleClass().add("borderPane");
 			this.openFocusTimer.getStyleClass().add("openFocusTimer");
 			this.bc.getStylesheets().add(getClass().getResource("BarChartStyleSheet.css").toExternalForm());
 	        
