@@ -161,7 +161,8 @@ public class ToDo {
 		this.category = "Geplant";
 		for (String category : categories) {
 			if (!category.equals("Geplant")) {
-				this.category = category.replace(" ", "");
+				category = category.replace(" ", "");
+				this.category = category;
 			}
 		}
 
