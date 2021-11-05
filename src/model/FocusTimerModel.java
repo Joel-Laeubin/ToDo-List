@@ -21,7 +21,7 @@ public class FocusTimerModel {
 	
 		// Elements
 	    private Timeline timeline;
-	    private final Label counterLabel;
+	    private Label counterLabel;
 	    private int second, minute;
 	    private DecimalFormat fmt;
 	    private String secondFormat, minuteFormat;

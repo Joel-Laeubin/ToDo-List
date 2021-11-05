@@ -37,7 +37,7 @@ public class ToDoController {
     private DoneBarView doneBarView;
     private SearchBarView searchBarView;
     private FocusTimerDialogPane dialog;
-    private FocusTimerModel model;
+    private FocusTimerModel focusModel;
     private SqliteManager sqliteManager;
 
     // Constructor
@@ -46,6 +46,8 @@ public class ToDoController {
         this.toDoView = toDoView;
         this.toDo = toDo;
         this.toDoList = toDoList;
+        
+        this.focusModel = focusModel;
 
         // Set up database handler
         try {
@@ -80,7 +82,7 @@ public class ToDoController {
 
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
-        this.model = new FocusTimerModel(null);
+        this.focusModel = new FocusTimerModel(null);
 
 
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
@@ -127,7 +129,7 @@ public class ToDoController {
         return dialog;
     }
     public FocusTimerModel getModel() {
-        return model;
+        return focusModel;
     }
     public SqliteManager getSqliteManager() {
         return sqliteManager;
@@ -635,15 +637,15 @@ public class ToDoController {
 	}
     
     public void playTimer(MouseEvent event) {
-    	model.start();
+    	focusModel.start();
     }
     
     public void stopTimer(MouseEvent event) {
-    	model.stop();
+    	focusModel.stop();
     }
     
     public void replayTimer(MouseEvent event) {
-    	model.restart();
+    	focusModel.restart();
     }
     
 

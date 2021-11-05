@@ -104,7 +104,6 @@ public class FocusTimerDialogPane extends DialogPane {
 		
 		this.setContent(timerBorderPane);
 		this.setContentText("Fokus Timer");
-		
 	}
 	
 	public Label getCounter() {
