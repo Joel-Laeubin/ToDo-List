@@ -66,18 +66,17 @@ public class ToDoController {
         // Set default midPane & add initial event handling for searchbar
         this.plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
         plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
+        plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+        plannedBarView.comboBox.setOnAction(this::changeCombo);
+        plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
         this.linkTableViewListeners(plannedBarView.tableView.getItems());
         toDoView.borderPane.setCenter(plannedBarView);
 
         // Register buttons
-        this.plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
 
         // Focus timer button
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
-
-        // Selected ComboBox
-        plannedBarView.comboBox.setOnAction(this::changeCombo);
 
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
