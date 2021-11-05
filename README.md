@@ -21,9 +21,12 @@ src-directory.
 - TBD
 
 # Minimal Requirements
-- The applicaiton implements the data class "ToDo"
-- The "model" of the application maintains an ArrayList of "ToDo" items
-- The user interface allows the user to perform CRUD operations on individual ToDo items
+- The applicaiton implements the data class "ToDo".
+- The "model" of the application maintains an ArrayList of "ToDo" items.
+- The user interface allows the user to perform CRUD operations on individual ToDo items.
+  - Please note that a ToDo placed inside the "Papierkorb" will be deleted at application close. We designed this
+  mechanism this way so that you are able to re-adjust the category of a deleted item - moving it out of the
+  "Papierkorb" again.
 
 # Additional Features
 - **Functionality**
@@ -38,7 +41,8 @@ src-directory.
     - ToDo-items can be filtered based on their due-date - selecting all items due for today or during the current week.
   - **Bar chart**
     - The application shows a bar chart which states how many toDo's that are open, and how many still need to be done.
-
+- **Design**
+  - Customized .CSS styling
 
 ## Contributors
 - [Margareta Karaqi](https://github.com/mkfhnw)
