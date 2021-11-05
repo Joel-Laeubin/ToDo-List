@@ -17,3 +17,9 @@
 .axis {
   -fx-tick-label-fill: #ffffff;
 }
+.default-color0.chart-bar {
+	-fx-bar-fill: #1ec4dc;
+}
+.default-color1.chart-bar {
+	-fx-bar-fill: #6d6b7c;
+}
