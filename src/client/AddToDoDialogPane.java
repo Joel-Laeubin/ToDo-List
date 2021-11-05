@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.ToDo;
 
@@ -128,14 +129,28 @@ public class AddToDoDialogPane extends DialogPane {
         tagsLabel.setTooltip(tagsToolTip);
 
         // Add CSS styling
-        this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
-        newTaskLabel.setId("titleLabel");
-        tippLabel.setId("titleMessage");
-        root.getStyleClass().add("borderPane");
+        this.getStylesheets().add(getClass().getResource("DialogPaneStyleSheet.css").toExternalForm());
+        this.getStyleClass().add("view");
+        this.root.getStyleClass().add("root");
         this.leftPane.getStyleClass().add("leftPane");
         this.rightPane.getStyleClass().add("rightPane");
+        this.newTaskLabel.getStyleClass().add("newTaskLabel");
+        this.tippLabel.getStyleClass().add("tippLabel");
+        this.titleLabel.getStyleClass().add("titleLabel");
+        this.categoryLabel.getStyleClass().add("categoryLabel");
+        this.dueDateLabel.getStyleClass().add("dueDateLabel");
+        this.messageLabel.getStyleClass().add("messageLabel");
+        this.tagsLabel.getStyleClass().add("tagsLabel");
         this.messageTextArea.getStyleClass().add("messageTextArea");
-        this.getStyleClass().add("view");
+        
+        
+        //newTaskLabel.setId("titleLabel");
+        //tippLabel.setId("titleMessage");
+        //root.getStyleClass().add("borderPane");
+        //this.leftPane.getStyleClass().add("leftPane");
+        //this.rightPane.getStyleClass().add("rightPane");
+        //this.messageTextArea.getStyleClass().add("messageTextArea");
+        //this.getStyleClass().add("view");
 
         // Add buttonTypes
         okButtonType = new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE);
@@ -235,14 +250,30 @@ public class AddToDoDialogPane extends DialogPane {
         messageTextArea.setText(todo.getMessage());
 
         // Add CSS styling
-        this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
-        newTaskLabel.setId("titleLabel");
-        tippLabel.setId("titleMessage");
-        root.getStyleClass().add("borderPane");
+        this.getStylesheets().add(getClass().getResource("DialogPaneStyleSheet.css").toExternalForm());
+        this.getStyleClass().add("view");
+        this.root.getStyleClass().add("root");
         this.leftPane.getStyleClass().add("leftPane");
         this.rightPane.getStyleClass().add("rightPane");
+        this.newTaskLabel.getStyleClass().add("newTaskLabel");
+        this.tippLabel.getStyleClass().add("tippLabel");
+        this.titleLabel.getStyleClass().add("titleLabel");
+        this.categoryLabel.getStyleClass().add("categoryLabel");
+        this.dueDateLabel.getStyleClass().add("dueDateLabel");
+        this.messageLabel.getStyleClass().add("messageLabel");
+        this.tagsLabel.getStyleClass().add("tagsLabel");
         this.messageTextArea.getStyleClass().add("messageTextArea");
-        this.getStyleClass().add("view");
+        
+       
+        //this.getStylesheets().add(getClass().getResource("AddToDoDialogPaneStyle.css").toExternalForm());
+        //newTaskLabel.setId("titleLabel");
+        //tippLabel.setId("titleMessage");
+        //root.getStyleClass().add("borderPane");
+        //this.leftPane.getStyleClass().add("leftPane");
+        //this.rightPane.getStyleClass().add("rightPane");
+        //this.messageTextArea.getStyleClass().add("messageTextArea");
+        //this.getStyleClass().add("view");
+        
 
         // Add buttonTypes
         okButtonType = new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE);
