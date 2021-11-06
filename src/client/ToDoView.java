@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -50,7 +51,9 @@ public class ToDoView extends BorderPane {
 		protected Dialog<ButtonType> focusDialog;
 		protected FocusTimerDialogPane focusTimerDialog;
 		protected Button openFocusTimer;
+		protected Button howTo;
 				
+		private HBox hBoxHowTo;
 		protected VBox vBoxBottom;
 		protected HBox hBoxBottom;
 		
@@ -123,14 +126,17 @@ public class ToDoView extends BorderPane {
 			 * Button Focus timer for a focus timer dialog
 			 * on the right side of the bottom of the BorderPane
 			 */
-			this.vBoxBottom = new VBox();
-			this.hBoxBottom = new HBox();
+		
 			
 			this.openFocusTimer = new Button("Fokus Timer");
+			this.howTo = new Button("How to");
 			
-			this.hBoxBottom.getChildren().add(openFocusTimer);
-			this.hBoxBottom.setPadding(new Insets(0.0, 0.0, 40.0, 950.0));
-			this.vBoxBottom.getChildren().add(hBoxBottom);
+			this.vBoxBottom = new VBox();
+			
+			this.vBoxBottom.getChildren().addAll(openFocusTimer, howTo);
+			this.vBoxBottom.setPadding(new Insets(0.0, 00.0, 30.0, 950.0));
+			this.vBoxBottom.setSpacing(30);
+			this.vBoxBottom.setAlignment(Pos.CENTER);
 			
 			this.borderPane.setBottom(vBoxBottom);
 		    

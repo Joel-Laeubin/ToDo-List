@@ -636,13 +636,6 @@ public class ToDoController {
                 ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
                 main.tableView.getItems().clear();
                 main.tableView.getItems().addAll(observableListWeek);
-                break;
-            }
-            case 3: {
-                ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalMonth();
-                ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
-                main.tableView.getItems().clear();
-                main.tableView.getItems().addAll(observableListMonth);
             }
         }
     }
