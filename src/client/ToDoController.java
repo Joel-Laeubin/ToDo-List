@@ -87,6 +87,11 @@ public class ToDoController implements Serializable {
         
         // HowTo Button EventHandling
         this.toDoView.howTo.setOnMouseClicked(this::createHowTo);
+        
+        // EventHandling for play, stop or replay How-To Video
+        this.toDoView.howToDialogPane.getPlayButton().setOnMouseClicked(this::playMedia);
+        this.toDoView.howToDialogPane.getStopButton().setOnMouseClicked(this::stopMedia);
+        this.toDoView.howToDialogPane.getReplayButton().setOnMouseClicked(this::replayMedia);
 
         // Instantiate barchart with utils
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
@@ -699,17 +704,34 @@ public class ToDoController implements Serializable {
     		  
         // show dialog
         this.toDoView.howToDialog.showAndWait();
-        
-    	this.toDoView.howToDialogPane.getMediaPlayer().play();
     
         // If ButtonType "beenden" is clicked, stop the Video
         if (toDoView.howToDialogPane.getCloseButtonType().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
  		   
- 		   toDoView.howToDialogPane.getMediaPlayer().stop();
-    
+ 		   toDoView.howToDialogPane.getMediaPlayer().stop();  
     }
-    
   }
+  
+  // Plays HowTo video
+  public void playMedia(MouseEvent event) {
+	  
+	  this.toDoView.howToDialogPane.getMediaPlayer().play();
+  }
+  
+  //Stops HowTo video
+  public void stopMedia(MouseEvent event) {
+	  
+	  this.toDoView.howToDialogPane.getMediaPlayer().pause();
+	  
+  }
+  //Replays HowTo video
+  public void replayMedia(MouseEvent event) {
+	  
+	  this.toDoView.howToDialogPane.getMediaPlayer().stop();
+	  
+  }
+  
+  
 }
 
 		
