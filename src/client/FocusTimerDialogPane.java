@@ -64,14 +64,12 @@ public class FocusTimerDialogPane extends DialogPane {
 		this.stopIcon.setFitWidth(50);
 		this.stopButton = new Button();
 		this.stopButton.setGraphic(stopIcon);
-		// this.model.stop();
 		
 		this.replayIcon = new ImageView("/icons/restartIcon.png");
 		this.replayIcon.setFitHeight(50);
 		this.replayIcon.setFitWidth(50);
 		this.replayButton = new Button();
 		this.replayButton.setGraphic(replayIcon);
-		// this.model.restart();
 		
 		this.timerBorderPane = new BorderPane();
 		

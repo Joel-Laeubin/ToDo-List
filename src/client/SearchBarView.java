@@ -23,11 +23,9 @@ public class SearchBarView extends MainBarView {
         // Populate tableView
         this.tableView.getItems().addAll(searchList);
 
-        // Add CSS
-//        this.getStylesheets().add(this.getClass().getResource("CategoryViewStyle.css").toExternalForm());
-//        this.icon.getStyleClass().add("icon");
-//        this.label.getStyleClass().add("label");
-//        this.header.getStyleClass().add("header");
+        //Add css-styling
+        this.getStylesheets().add(getClass().getResource("CategoryViewStyle.css").toExternalForm());
+		this.label.getStyleClass().add("labelHeader");
 
     }
 

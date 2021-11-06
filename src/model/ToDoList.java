@@ -137,20 +137,6 @@ public class ToDoList {
 		return returnToday;
 	}
 	
-	public ArrayList<ToDo> searchLocalWeek() {
-		
-		LocalDate now = LocalDate.now();
-		LocalDate inAWeek = LocalDate.now().plusDays(7);
-		
-		ArrayList<ToDo> returnWeek = new ArrayList<>();
-		for(ToDo toDo : this.toDoList) {
-			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAWeek) == 1) {
-				returnWeek.add(toDo);
-			}
-		}
-		return returnWeek;		
-	}
-	
 	public void removeToDo(ToDo toDo) { 
 		this.toDoList.remove(toDo);
 		ToDo.globalToDoId -= 1;
