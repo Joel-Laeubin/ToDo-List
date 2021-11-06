@@ -241,6 +241,9 @@ public class ToDoController implements Serializable {
      */
     public void setToDoOnDone(MouseEvent e) {
         ToDo toDo = toDoList.getToDo((Button) e.getSource());
+        // TODO: Either write new constructor for a ToDo where we pass in an existing instance of a ToDo together with
+        // a string that is being set as category. Or use an existing constructor and pass in all the elements
+        // so we have an old and a new item to pass into the sqliteManager.update() method.
         this.sqliteManager.deleteItem(toDo);
         toDo.setCategory("Erledigt");
         toDo.setDone(true);

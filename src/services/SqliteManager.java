@@ -83,7 +83,7 @@ public class SqliteManager {
 
             // Craft sql string & write it
             String message = toDo.getMessage().isEmpty() ? "N/A" : toDo.getMessage();
-            String categories = toDo.getCategories().isEmpty() ? "N/A" : toDo.getCategories().toString();
+            String categories = toDo.getCategories().size() == 0 ? "N/A" : toDo.getCategories().toString();
             String tags = toDo.getTags().isEmpty() ? "N/A" : toDo.getTags().toString();
             String writeString = "INSERT INTO Items VALUES ("
                     + Integer.toString(toDo.getID()) + ", '"
@@ -143,7 +143,8 @@ public class SqliteManager {
             this.statement = connection.createStatement();
 
             String message = newItem.getMessage().isEmpty() ? "N/A" : newItem.getMessage();
-            String categories = newItem.getCategories().size() == 0 ? "N/A" : newItem.getCategories().toString();
+            // String categories = newItem.getCategories().size() == 0 ? "N/A" : newItem.getCategories().toString();
+            String categories = newItem.getCategories().toString();
             String tags = newItem.getTags().isEmpty() ? "N/A" : newItem.getTags().toString();
 
             String updateString = "UPDATE Items SET "

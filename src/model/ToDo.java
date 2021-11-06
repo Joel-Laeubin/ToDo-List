@@ -320,6 +320,11 @@ public class ToDo {
 			this.categories.add(category);
 		}
 
+		// Suspend double-adding
+		if (!this.categories.contains(category)) {
+			this.categories.add(category);
+		}
+
 		this.category = category;
 	}
 	public void setDueDateString(String dueDateString) {
