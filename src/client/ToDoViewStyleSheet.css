@@ -17,3 +17,10 @@
 .openFocusTimer:hover {
     	-fx-background-color: #1ec4dc;
 }
+.howTo {
+    	-fx-background-color: #101b53;
+    	-fx-text-fill: #ffffff;
+}
+.howTo:hover {
+    	-fx-background-color: #1ec4dc;
+}

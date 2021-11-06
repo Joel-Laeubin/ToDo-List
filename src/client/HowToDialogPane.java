@@ -80,6 +80,14 @@ public class HowToDialogPane extends DialogPane {
 	this.getButtonTypes().add(closeButtonType);
 	
 	this.setContent(howToBorderPane);
+	
+	//Add css-styling
+	this.getStylesheets().add(getClass().getResource("FocusAndHowToDialogPaneStyleSheet.css").toExternalForm());
+	this.howToBorderPane.getStyleClass().add("root");
+	this.playButton.getStyleClass().add("button");
+	this.stopButton.getStyleClass().add("button");
+	this.replayButton.getStyleClass().add("button");
+	
 
 	}	
 	
