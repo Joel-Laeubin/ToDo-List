@@ -669,6 +669,10 @@ public class ToDoController implements Serializable {
                     }
                     case "Papierkorb": {
                         resultSet = this.toDoList.getToDoListGarbage();
+                        break;
+                    }
+                    case "Erledigt": {
+                        resultSet = this.toDoList.getToDoListDone();
                     }
 
                 }
@@ -678,8 +682,42 @@ public class ToDoController implements Serializable {
                 break;
             }
             case 1: {
-                ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
-                ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
+
+                String selectedCategory = this.toDoView.listView.getSelectionModel().getSelectedItem();
+                ObservableList<ToDo> resultSet = FXCollections.observableArrayList();
+                switch (selectedCategory) {
+
+                    case "Geplant": {
+                        ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+                        for(ToDo item : arrayListToday) {
+                            if(item.getCategories().contains("Geplant")) { resultSet.add(item); }
+                        }
+                        break;
+                    }
+                    case "Wichtig": {
+                        ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+                        for(ToDo item : arrayListToday) {
+                            if(item.getCategories().contains("Wichtig")) { resultSet.add(item); }
+                        }
+                        break;
+                    }
+                    case "Papierkorb": {
+                        ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+                        for(ToDo item : arrayListToday) {
+                            if(item.getCategories().contains("Papierkorb")) { resultSet.add(item); }
+                        }
+                        break;
+                    }
+                    case "Erledigt": {
+                        ArrayList<ToDo> arrayListToday = this.toDoList.searchLocalToday();
+                        for(ToDo item : arrayListToday) {
+                            if(item.getCategories().contains("Erledigt")) { resultSet.add(item); }
+                        }
+                    }
+
+                }
+
+                ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(resultSet);
                 main.tableView.getItems().clear();
                 main.tableView.getItems().addAll(observableListToday);
             }
