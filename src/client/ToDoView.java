@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.ToDo;
@@ -166,6 +167,8 @@ public class ToDoView extends BorderPane {
 			this.focusTimerDialog = new FocusTimerDialogPane();
 			this.focusDialog.setDialogPane(focusTimerDialog);
 			
+			this.focusDialog.initModality(Modality.NONE);
+			
 			// Create and costumize HowTo Dialog
 			this.howToDialog = new Dialog<ButtonType>();
 			this.howToDialog.setTitle("How-To");
@@ -174,6 +177,8 @@ public class ToDoView extends BorderPane {
 			
 			this.howToDialogPane = new HowToDialogPane();
 			this.howToDialog.setDialogPane(howToDialogPane);
+			
+			this.howToDialog.initModality(Modality.NONE);
 
 			
 		}
