@@ -3,6 +3,7 @@ package client;
 import java.io.File;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar;
@@ -48,14 +49,7 @@ public class HowToDialogPane extends DialogPane {
 	this.mediaPlayer = new MediaPlayer(media);
 	this.mediaView = new MediaView();
 	this.mediaView.setMediaPlayer(mediaPlayer);
-	
-	// Makes Video bigger
-	DoubleProperty width = mediaView.fitWidthProperty();
-	DoubleProperty height = mediaView.fitHeightProperty();
-	width.bind(Bindings.selectDouble(mediaView.sceneProperty(), "width"));
-	height.bind(Bindings.selectDouble(mediaView.sceneProperty(), "height"));
 
-	
 	// BorderPane
 	this.howToBorderPane = new BorderPane();
 	this.howToBorderPane.setCenter(mediaView);
@@ -109,6 +103,8 @@ public class HowToDialogPane extends DialogPane {
 	this.hBoxButtons = new HBox();
 	this.hBoxButtons.getChildren().addAll(vBoxPlay, vBoxStop, vBoxReplay);
 	this.hBoxButtons.setSpacing(10);
+	this.hBoxButtons.setAlignment(Pos.CENTER);
+	this.hBoxButtons.setPadding(new Insets(50.0, 0.0, 0.0, 20.0));
 	
 	this.howToBorderPane.setBottom(hBoxButtons);
 	

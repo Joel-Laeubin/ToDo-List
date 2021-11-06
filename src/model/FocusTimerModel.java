@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.util.Duration;
 
 public class FocusTimerModel implements Serializable {
@@ -73,8 +74,6 @@ public class FocusTimerModel implements Serializable {
 					}
 					if (minute == 0 && second == 0) {
 						timeline.stop();				
-						// Media media = new Media("src/icons/endSound.wav");
-						// MediaPlayer mediaPlayer = new MediaPlayer(media);
 	    		}
 	    		}
 	    		});
