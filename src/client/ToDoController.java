@@ -77,15 +77,18 @@ public class ToDoController {
         this.linkTableViewListeners(plannedBarView.tableView.getItems());
         toDoView.borderPane.setCenter(plannedBarView);
 
-        // Register buttons
+        // Register buttons EventHandling
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
 
-        // Focus timer button
+        // Focus timer button EventHandling
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
         this.focusModel = new FocusTimerModel(null);
+        
+        // HowTo Button EventHandling
+        this.toDoView.howTo.setOnMouseClicked(this::createHowTo);
 
 
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
@@ -677,7 +680,14 @@ public class ToDoController {
     	focusModel.restart();
     }
     
+    // Open a new focus timer window
+    public void createHowTo(MouseEvent e) {
 
+        // show dialog
+        this.toDoView.howToDialog.showAndWait();
+    }
+    
+    
 }
 
 		
