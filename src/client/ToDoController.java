@@ -436,6 +436,7 @@ public class ToDoController implements Serializable {
                 importantBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 linkTableViewListeners(importantBarView.tableView.getItems());
                 importantBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                importantBarView.searchButton.setOnAction(this::searchItemAndGenerateView);
                 importantBarView.comboBox.setOnAction(this::changeCombo);
                 importantBarView.tableView.setOnMouseClicked(this::updateToDo);
 
@@ -446,6 +447,7 @@ public class ToDoController implements Serializable {
                 plannedBarView = new PlannedBarView(this.toDoList.getToDoListPlanned());
                 plannedBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 plannedBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                plannedBarView.searchButton.setOnAction(this::searchItemAndGenerateView);
                 plannedBarView.comboBox.setOnAction(this::changeCombo);
                 plannedBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(plannedBarView.tableView.getItems());
@@ -456,6 +458,7 @@ public class ToDoController implements Serializable {
                 doneBarView = new DoneBarView(this.toDoList.getToDoListDone());
                 doneBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 doneBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                doneBarView.searchButton.setOnAction(this::searchItemAndGenerateView);
                 doneBarView.comboBox.setOnAction(this::changeCombo);
                 doneBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(doneBarView.tableView.getItems());
@@ -465,6 +468,7 @@ public class ToDoController implements Serializable {
                 garbageBarView = new GarbageBarView(this.toDoList.getToDoListGarbage());
                 garbageBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
                 garbageBarView.searchButton.setOnMouseClicked(this::searchItemAndGenerateView);
+                garbageBarView.searchButton.setOnAction(this::searchItemAndGenerateView);
                 garbageBarView.comboBox.setOnAction(this::changeCombo);
                 garbageBarView.tableView.setOnMouseClicked(this::updateToDo);
                 linkTableViewListeners(garbageBarView.tableView.getItems());
