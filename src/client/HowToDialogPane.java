@@ -59,7 +59,9 @@ public class HowToDialogPane extends DialogPane {
 	// BorderPane
 	this.howToBorderPane = new BorderPane();
 	this.howToBorderPane.setCenter(mediaView);
-	
+	this.howToBorderPane.setMinWidth(1250);
+	this.howToBorderPane.setMinHeight(900);
+
 	// Icon for PlayButton
 	this.playIcon = new ImageView("/icons/startIcon.png");
 	this.playIcon.setFitHeight(40);
