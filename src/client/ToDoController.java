@@ -321,6 +321,7 @@ public class ToDoController implements Serializable {
             this.linkTableViewListeners(searchBarView.tableView.getItems());
             this.searchBarView.tableView.setOnMouseClicked(this::updateToDo);
             this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
+            this.searchBarView.searchField.setOnAction(this::searchItemAndGenerateView);
 
             // Put it on main view
             toDoView.borderPane.setCenter(this.searchBarView);
@@ -351,6 +352,7 @@ public class ToDoController implements Serializable {
             this.linkTableViewListeners(searchBarView.tableView.getItems());
             this.searchBarView.tableView.setOnMouseClicked(this::updateToDo);
             this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
+            this.searchBarView.searchField.setOnAction(this::searchItemAndGenerateView);
 
             // Put it on main view
             toDoView.borderPane.setCenter(this.searchBarView);
