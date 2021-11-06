@@ -84,11 +84,11 @@ public class AddToDoDialogPane extends DialogPane {
         tagsTextfield = new TextField();
 
         // Instantiate tooltips
-        titleToolTip = new Tooltip("Your title must be > 50 characters.");
-        messageToolTip = new Tooltip("Your title must be > 300 characters.");
-        categoryToolTip = new Tooltip("Your category must be a value contained in the dropdown.");
-        dateToolTip = new Tooltip("Your date must be in format DD.MM.YYYY and lie ahead in time.");
-        tagsToolTip = new Tooltip("Your tags must be single words separated with a semicolon (;).");
+        titleToolTip = new Tooltip("Ihr Titel muss > 50 Zeichen lang sein.");
+        messageToolTip = new Tooltip("Ihre Beschreibung muss > 300 Zeichen lang sein.");
+        categoryToolTip = new Tooltip("Die Kategorie muss einen Wert enthalten.");
+        dateToolTip = new Tooltip("Ihr Datum muss im Format DD.MM.YYYY sein und in der Zukunft liegen.");
+        tagsToolTip = new Tooltip("Ihre Tags müssen einzelne Wörter sein, separiert mit einem Semikolon (;).");
 
         // Change tooltip timers
         titleToolTip.setShowDelay(DURATION_UNTIL_SHOW);
