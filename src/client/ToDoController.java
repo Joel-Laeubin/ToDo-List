@@ -319,6 +319,7 @@ public class ToDoController implements Serializable {
             this.searchBarView = new SearchBarView(observableSearchList);
             this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
             this.linkTableViewListeners(searchBarView.tableView.getItems());
+            this.searchBarView.tableView.setOnMouseClicked(this::updateToDo);
             this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
 
             // Put it on main view
@@ -329,7 +330,8 @@ public class ToDoController implements Serializable {
         // Otherwise just consume the event
         e.consume();
     }
-    
+
+    // Takes the enter key instead of a mouseclick on the search button
     private void searchItemAndGenerateView(ActionEvent ae) {
 
     	 // Fetch input
@@ -347,6 +349,7 @@ public class ToDoController implements Serializable {
             this.searchBarView = new SearchBarView(observableSearchList);
             this.searchBarView.createToDo.setOnMouseClicked(this::createToDoDialog);
             this.linkTableViewListeners(searchBarView.tableView.getItems());
+            this.searchBarView.tableView.setOnMouseClicked(this::updateToDo);
             this.searchBarView.searchButton.setOnMouseClicked(this::searchItem);
 
             // Put it on main view
