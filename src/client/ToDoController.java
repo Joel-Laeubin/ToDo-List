@@ -327,7 +327,7 @@ public class ToDoController implements Serializable {
     
     private void searchItemAndGenerateView(ActionEvent ae) {
 
-    	// Fetch input
+    	 // Fetch input
         MainBarView midView = (MainBarView) this.getActiveMidView();
         String searchString = midView.searchField.getText();
 
@@ -351,7 +351,6 @@ public class ToDoController implements Serializable {
 
         // Otherwise just consume the event
         ae.consume();
-        
     }
     
     
