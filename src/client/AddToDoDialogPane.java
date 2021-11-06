@@ -6,11 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 import model.ToDo;
 
-import java.util.ArrayList;
 
 public class AddToDoDialogPane extends DialogPane {
 
@@ -260,9 +258,6 @@ public class AddToDoDialogPane extends DialogPane {
         this.messageLabel.getStyleClass().add("messageLabel");
         this.tagsLabel.getStyleClass().add("tagsLabel");
         this.messageTextArea.getStyleClass().add("messageTextArea");
-        
-       
-
 
         // Add buttonTypes
         okButtonType = new ButtonType("Erstellen", ButtonBar.ButtonData.OK_DONE);

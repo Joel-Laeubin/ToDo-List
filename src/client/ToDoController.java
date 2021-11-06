@@ -1,6 +1,5 @@
 package client;
 
-import com.sun.tools.javac.Main;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -19,11 +18,9 @@ import model.FocusTimerModel;
 import model.ToDo;
 import model.ToDoList;
 import services.SqliteManager;
-
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,16 +28,16 @@ import java.util.Optional;
 public class ToDoController implements Serializable {
 
     // Fields
-    private ToDoView toDoView;
-    private ToDo toDo;
-    private ToDoList toDoList;
+    private final ToDoView toDoView;
+    private final ToDo toDo;
+    private final ToDoList toDoList;
 
     private ImportantBarView importantBarView;
     private GarbageBarView garbageBarView;
     private PlannedBarView plannedBarView;
     private DoneBarView doneBarView;
     private SearchBarView searchBarView;
-    private FocusTimerDialogPane dialog;
+    private final FocusTimerDialogPane dialog;
     private FocusTimerModel focusModel;
     private SqliteManager sqliteManager;
 
@@ -91,8 +88,8 @@ public class ToDoController implements Serializable {
         // HowTo Button EventHandling
         this.toDoView.howTo.setOnMouseClicked(this::createHowTo);
 
-
-        Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
+        // Instantiate barchart with utils
+        Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.3), new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 toDoView.serie1.getData().clear();
                 toDoView.serie2.getData().clear();
@@ -355,9 +352,10 @@ public class ToDoController implements Serializable {
         // Otherwise just consume the event
         ae.consume();
     }
-    
-    
-    
+
+    /* Method to update local as well as instantiated sublists
+     * Updates the sublists of the controller, as well as each sublist in the different instantiated views
+     */
     private void updateInstancedSublists() {
 
         // Update current sublists
@@ -493,7 +491,7 @@ public class ToDoController implements Serializable {
 
         String tags = this.toDoView.toDoDialogPane.tagsTextfield.getText();
 
-        // Set default category if none is choosen
+        // Set default category if none is chosen
         // Note that we need to update the stored variable as it is used for the validity check later
         if (category == null) {
             this.toDoView.toDoDialogPane.categoryComboBox.setValue("Geplant");
@@ -561,8 +559,7 @@ public class ToDoController implements Serializable {
         Stage stage = (Stage) toDoView.addToDoDialog.getDialogPane().getScene().getWindow();
 		stage.getIcons().add(new Image(this.getClass().getResource("/icons/doneIcon4.png").toString()));
 		
-        
-        
+
         // Set up event filter on OK-button to prevent dialog from closing when user input is not valid
         Button okButton = (Button) this.toDoView.toDoDialogPane.lookupButton(this.toDoView.toDoDialogPane.okButtonType);
         okButton.addEventFilter(ActionEvent.ACTION,
@@ -642,12 +639,34 @@ public class ToDoController implements Serializable {
      * the ToDo task-view will change.
      */
     private void changeCombo(ActionEvent event) {
+
+        // Update sublists
+        this.updateInstancedSublists();
+
+        // Set items based on selected category
         MainBarView main = (MainBarView) getActiveMidView();
         switch (main.comboBox.getSelectionModel().getSelectedIndex()) {
             case 0: {
-                ObservableList<ToDo> observableListAll = FXCollections.observableArrayList(this.toDoList.getToDoList());
+                String selectedCategory = this.toDoView.listView.getSelectionModel().getSelectedItem();
+                ObservableList<ToDo> resultSet = FXCollections.observableArrayList();
+                switch (selectedCategory) {
+
+                    case "Geplant": {
+                        resultSet = this.toDoList.getToDoListPlanned();
+                        break;
+                    }
+                    case "Wichtig": {
+                        resultSet = this.toDoList.getToDoListImportant();
+                        break;
+                    }
+                    case "Papierkorb": {
+                        resultSet = this.toDoList.getToDoListGarbage();
+                    }
+
+                }
+
                 main.tableView.getItems().clear();
-                main.tableView.getItems().addAll(observableListAll);
+                main.tableView.getItems().addAll(resultSet);
                 break;
             }
             case 1: {
