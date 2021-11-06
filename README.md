@@ -4,9 +4,8 @@
 # How to start
 Since we store data in a local SQLite database, be advised to add the jdbc-sqlite driver to your project classpath
  (eclipse) or your project libraries (IntelliJ). We went ahead and placed the 
-[jdbc-driver from xerial](https://github.com/xerial/sqlite-jdbc) inside the **lib-directory** of the project. Once you have
-added this dependency to (just as you do for JavaFX), you're all set and ready. For a more detailed guide,
-read the chapters below.
+[jdbc-driver from xerial](https://github.com/xerial/sqlite-jdbc) inside the **lib-directory** of the project. 
+Additionally you have to add **javafx.media** in your VM arguments. Once you have added this dependency to (just as you do for JavaFX), you're all set and ready. For a more detailed guide, read the chapters below.
 
 ## Adding the SQLite-JDBC driver in IntelliJ
 1. Open the project in IntelliJ
@@ -18,7 +17,21 @@ src-directory.
 6. Click on **apply** and close the window. You're able to use the jdbc-sqlite driver now.
 
 ## Adding the SQLite-JDBC driver in Eclipse
-- TBD
+1. Open the project in Eclipse
+2. Click with the right side of the mouse on yout project
+3. Click on **Build Path**
+4. Click on **Configure Build Path**
+5. Make sure you are in the Java Build Path Folder
+6. Click on **Modulepath** 
+7. Then **Add JARs...**
+8. Open this path: ToDo-List/scr/lib
+9. Click on the jar file and apply with "ok"
+10. Click on ** Apply and Close** You're able to use the jdbc-sqlite driver now.
+
+## Add VM arguments
+To run the application you have to add your VM arguments as you do for JavaFX. For this project you need to add **javafx.media** at the end of the argument. 
+Example: --module-path C:\Users\xy\Documents\openjfx-17_windows-x64_bin-sdk\javafx-sdk-17\lib --add-modules **javafx.controls,javafx.media**
+It is important to add it without any spacing after the comma. 
 
 # Minimal Requirements
 - The applicaiton implements the data class "ToDo".
