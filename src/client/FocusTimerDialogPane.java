@@ -14,6 +14,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 import model.FocusTimerModel;
 
 public class FocusTimerDialogPane extends DialogPane {
@@ -104,6 +105,7 @@ public class FocusTimerDialogPane extends DialogPane {
 		
 		this.setContent(timerBorderPane);
 		this.setContentText("Fokus Timer");
+		
 		
 		this.getStylesheets().add(getClass().getResource("FocusTimerDialogPaneStyleSheet.css").toExternalForm());
 		this.timerBorderPane.getStyleClass().add("root");

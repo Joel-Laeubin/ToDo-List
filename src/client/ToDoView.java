@@ -19,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.ToDo;
 import model.ToDoList;
@@ -155,6 +156,10 @@ public class ToDoView extends BorderPane {
 			// Create and customize Dialog
 			this.focusDialog = new Dialog<ButtonType>();
 			this.focusDialog.setTitle("Fokus Timer");
+			
+			Stage stage = (Stage) focusDialog.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image(this.getClass().getResource("/icons/timer.png").toString()));
+			
 			ImageView focusImage = new ImageView("/icons/timer.png");
 			this.focusDialog.setGraphic(focusImage);
 			
