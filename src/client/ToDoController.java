@@ -676,13 +676,21 @@ public class ToDoController implements Serializable {
     
     
     // Open a new focus timer window
-    public void createHowTo(MouseEvent e) {
-
+  public void createHowTo(MouseEvent e) {
+    		  
         // show dialog
         this.toDoView.howToDialog.showAndWait();
+        
+    	this.toDoView.howToDialogPane.getMediaPlayer().play();
+    
+        // If ButtonType "beenden" is clicked, stop the Video
+        if (toDoView.howToDialogPane.getCloseButtonType().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+ 		   
+ 		   toDoView.howToDialogPane.getMediaPlayer().stop();
+    
     }
     
-    
+  }
 }
 
 		
