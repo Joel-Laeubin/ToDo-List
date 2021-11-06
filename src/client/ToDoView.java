@@ -52,6 +52,9 @@ public class ToDoView extends BorderPane {
 		protected Dialog<ButtonType> focusDialog;
 		protected FocusTimerDialogPane focusTimerDialog;
 		protected Button openFocusTimer;
+		
+		protected Dialog<ButtonType> howToDialog;
+		protected HowToDialogPane howToDialogPane;
 		protected Button howTo;
 				
 		private HBox hBoxHowTo;
@@ -153,18 +156,25 @@ public class ToDoView extends BorderPane {
 			this.bc.getStylesheets().add(getClass().getResource("BarChartStyleSheet.css").toExternalForm());
 	        
 			
-			// Create and customize Dialog
+			// Create and customize Focus timer - Dialog
 			this.focusDialog = new Dialog<ButtonType>();
 			this.focusDialog.setTitle("Fokus Timer");
 			
 			Stage stage = (Stage) focusDialog.getDialogPane().getScene().getWindow();
 			stage.getIcons().add(new Image(this.getClass().getResource("/icons/timer.png").toString()));
 			
-			ImageView focusImage = new ImageView("/icons/timer.png");
-			this.focusDialog.setGraphic(focusImage);
-			
 			this.focusTimerDialog = new FocusTimerDialogPane();
 			this.focusDialog.setDialogPane(focusTimerDialog);
+			
+			// Create and costumize HowTo Dialog
+			this.howToDialog = new Dialog<ButtonType>();
+			this.howToDialog.setTitle("How-To");
+			Stage stage2 = (Stage) howToDialog.getDialogPane().getScene().getWindow();
+			stage2.getIcons().add(new Image(this.getClass().getResource("/icons/howTo.png").toString()));
+			
+			this.howToDialogPane = new HowToDialogPane();
+			this.howToDialog.setDialogPane(howToDialogPane);
+
 			
 		}
 		
