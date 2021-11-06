@@ -20,6 +20,7 @@ import model.ToDo;
 import model.ToDoList;
 import services.SqliteManager;
 
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class ToDoController {
+public class ToDoController implements Serializable {
 
     // Fields
     private ToDoView toDoView;
@@ -618,9 +619,19 @@ public class ToDoController {
     // Open a new focus timer window
     public void createFocusTimer(MouseEvent e) {
 
-        // show dialog
+        ((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).playButton.setOnAction(a->{
+            this.toDoView.focusTimerDialog.model.start();
+        });
+        ((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).stopButton.setOnAction(a->{
+            this.toDoView.focusTimerDialog.model.stop();
+        });
+        ((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).replayButton.setOnAction(a->{
+            this.toDoView.focusTimerDialog.model.restart();
+        });
+
         this.toDoView.focusDialog.showAndWait();
     }
+    	
 
     /*
      * Depending on which date filter (ComboBox) the user choosed,
@@ -651,22 +662,6 @@ public class ToDoController {
         }
     }
 
-    /*
-     * New Constructor for FocusTimer
-     * EventHandling for the playButton, replayButton and stopButton.
-     * - If the user clicks on the playButton, the timer will start counting from 25 minutes backwards.
-     * - If the user clicks on the replayButton, the timer will go back to 25 minutes and start counting backwards.
-     * - If the user clicks on the stopButton, the timer will stop immediately.
-     */
-    public ToDoController() {
-
-    	FocusTimerDialogPane focusDialog = new FocusTimerDialogPane();
-    	FocusTimerModel model = new FocusTimerModel(focusDialog.counterLabel);
-    	
-    	focusDialog.playButton.setOnMouseClicked(this::playTimer);
-    	focusDialog.stopButton.setOnMouseClicked(this::stopTimer);
-    	focusDialog.replayButton.setOnMouseClicked(this::replayTimer);
-	}
     
     public void playTimer(MouseEvent event) {
     	focusModel.start();
@@ -679,6 +674,8 @@ public class ToDoController {
     public void replayTimer(MouseEvent event) {
     	focusModel.restart();
     }
+    
+    
     
     // Open a new focus timer window
     public void createHowTo(MouseEvent e) {

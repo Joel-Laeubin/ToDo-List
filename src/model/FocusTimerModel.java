@@ -1,6 +1,7 @@
 package model;
 
 import java.io.File;
+import java.io.Serializable;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.Timer;
@@ -17,7 +18,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
-public class FocusTimerModel {
+public class FocusTimerModel implements Serializable {
 	
 		// Elements
 	    private Timeline timeline;
@@ -36,6 +37,7 @@ public class FocusTimerModel {
 	    }
 
 	    public void stop() {
+	    	timeline.getKeyFrames().clear();
 	    	timeline.stop();
 	    }
 	    
@@ -85,7 +87,7 @@ public class FocusTimerModel {
 		  
 		  minute = 25;
 		  second = 0;
-		  
+		  stop();
 		  start();
 		  
 	  }
