@@ -1,24 +1,24 @@
 .list-view {
-  -fx-background-insets: 0;
-  -fx-padding: 0;
+  	-fx-background-insets: 0;
+  	-fx-padding: 0;
 }
 .list-cell {
 	-fx-cell-size: 35;
 }
 .list-cell:even {
-    -fx-background-color: #101b53;
-    -fx-text-fill: white;
-    -fx-border-style: none;
-    -fx-font: 12pt "Verdana";
+    	-fx-background-color: #101b53;
+    	-fx-text-fill: white;
+    	-fx-border-style: none;
+    	-fx-font: 12pt "Verdana";
 }
 .list-cell: odd {
-    -fx-background-color: #101b53;
-    -fx-text-fill: white;
-    -fx-border-style: none;
-    -fx-font: 12pt "Verdana";
+    	-fx-background-color: #101b53;
+    	-fx-text-fill: white;
+    	-fx-border-style: none;
+    	-fx-font: 12pt "Verdana";
 }
 .list-cell:filled:selected {
-    -fx-text-fill: red;
+    	-fx-text-fill: red;
 }
 .list-cell:hover {
 	-fx-text-fill: #1ec4dc;

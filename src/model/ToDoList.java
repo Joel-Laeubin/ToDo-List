@@ -140,11 +140,13 @@ public class ToDoList {
 	public ArrayList<ToDo> searchLocalWeek() {
 		
 		LocalDate now = LocalDate.now();
-		LocalDate inAWeek = LocalDate.now().plusDays(7);
+		int day = now.getDayOfWeek().getValue();
+		int daysTillNextWeek = 7 - day;
+		LocalDate inAWeek = LocalDate.now().plusDays(daysTillNextWeek+1);
 		
 		ArrayList<ToDo> returnWeek = new ArrayList<>();
 		for(ToDo toDo : this.toDoList) {
-			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAWeek) >= 1) {
+			if (toDo.getDueDate().compareTo(inAWeek) == -1) {
 				returnWeek.add(toDo);
 			}
 		}
