@@ -704,7 +704,9 @@ public class ToDoController implements Serializable {
     		  
         // show dialog
         this.toDoView.howToDialog.showAndWait();
-    
+	  	this.toDoView.howToDialogPane.getMediaPlayer().stop();
+        
+        
         // If ButtonType "beenden" is clicked, stop the Video
         if (toDoView.howToDialogPane.getCloseButtonType().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
  		   

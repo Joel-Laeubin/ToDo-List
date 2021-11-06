@@ -1,10 +1,6 @@
 package client;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ResourceBundle;
-
-import javafx.animation.Timeline;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Pos;
@@ -29,8 +25,7 @@ public class HowToDialogPane extends DialogPane {
 	private ImageView playIcon;
 	private ImageView stopIcon;
 	private ImageView replayIcon;
-	
-	private VBox vBoxVideo;
+
 	private HBox hBoxButtons; 
 	
 	private VBox vBoxPlay;
@@ -53,7 +48,6 @@ public class HowToDialogPane extends DialogPane {
 	this.mediaPlayer = new MediaPlayer(media);
 	this.mediaView = new MediaView();
 	this.mediaView.setMediaPlayer(mediaPlayer);
-	this.mediaPlayer.setAutoPlay(true);
 	
 	// Makes Video bigger
 	DoubleProperty width = mediaView.fitWidthProperty();
