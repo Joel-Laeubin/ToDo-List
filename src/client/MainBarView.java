@@ -123,8 +123,6 @@ public abstract class MainBarView extends VBox {
 		this.tableView.getColumns().addAll(this.important, this.task, this.dueDate, this.checkBox, this.garbage);
     	    
 		this.getChildren().addAll(tableView);
-		
-		this.tableView.getSortOrder().add(dueDate);
 						
 		this.setPrefHeight(600);
 	
