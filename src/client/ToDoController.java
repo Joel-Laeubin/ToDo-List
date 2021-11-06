@@ -619,18 +619,20 @@ public class ToDoController implements Serializable {
     // Open a new focus timer window
     public void createFocusTimer(MouseEvent e) {
 
-        ((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).playButton.setOnAction(a->{
-            this.toDoView.focusTimerDialog.model.start();
-        });
-        ((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).stopButton.setOnAction(a->{
-            this.toDoView.focusTimerDialog.model.stop();
-        });
-        ((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).replayButton.setOnAction(a->{
-            this.toDoView.focusTimerDialog.model.restart();
-        });
+    	this.toDoView.focusTimerDialog.model.restart();
+    	this.toDoView.focusTimerDialog.model.stop();
 
-        this.toDoView.focusDialog.showAndWait();
-    }
+    	((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).playButton.setOnAction(a->{
+    	this.toDoView.focusTimerDialog.model.start();
+    	});
+    	((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).stopButton.setOnAction(a->{
+    	this.toDoView.focusTimerDialog.model.stop();
+    	});
+    	((FocusTimerDialogPane) this.toDoView.focusDialog.getDialogPane()).replayButton.setOnAction(a->{
+    	this.toDoView.focusTimerDialog.model.restart();
+    	});
+    	this.toDoView.focusDialog.showAndWait();
+    	}
     	
 
     /*

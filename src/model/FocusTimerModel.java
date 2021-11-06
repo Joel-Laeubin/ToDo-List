@@ -83,14 +83,17 @@ public class FocusTimerModel implements Serializable {
 	    	
 	    }
 	    	
-	  public void restart() {
-		  
-		  minute = 25;
-		  second = 0;
-		  stop();
-		  start();
-		  
-	  }
+	    public void restart() {
+			  
+			  minute = 25;
+			  second = 0;
+			  stop();
+			  secondFormat = fmt.format(second);
+			  minuteFormat = fmt.format(minute);
+			  counterLabel.setText(minuteFormat + ":" + secondFormat);
+			  start();
+			  
+		  }
 	
 
 	    // Getter and Setter
