@@ -44,12 +44,18 @@ public class HowToDialogPane extends DialogPane {
 	public HowToDialogPane() {
 	
 	// Create Media
-	String path = new File("src/icons/focusTimer.mp4").getAbsolutePath();
+	String path = new File("src/icons/howTo.mp4").getAbsolutePath();
 	this.media = new Media(new File(path).toURI().toString());
 	this.mediaPlayer = new MediaPlayer(media);
 	this.mediaView = new MediaView();
 	this.mediaView.setMediaPlayer(mediaPlayer);
-
+	
+	// Vergrössert Video
+	DoubleProperty width = mediaView.fitWidthProperty();
+	DoubleProperty height = mediaView.fitWidthProperty();
+	width.bind(Bindings.selectDouble(mediaView.sceneProperty(), "width"));
+	height.bind(Bindings.selectDouble(mediaView.sceneProperty(), "height"));
+	
 	// BorderPane
 	this.howToBorderPane = new BorderPane();
 	this.howToBorderPane.setCenter(mediaView);
@@ -114,7 +120,7 @@ public class HowToDialogPane extends DialogPane {
 	
 	
 	this.setContent(howToBorderPane);
-	this.setPrefSize(1400, 800);
+	this.setPrefSize(500, 200);
 	
 	//Add css-styling
 	this.getStylesheets().add(getClass().getResource("FocusAndHowToDialogPaneStyleSheet.css").toExternalForm());

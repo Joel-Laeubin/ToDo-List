@@ -137,7 +137,7 @@ public class ToDoView extends BorderPane {
 			this.vBoxBottom = new VBox();
 			
 			this.vBoxBottom.getChildren().addAll(openFocusTimer, howTo);
-			this.vBoxBottom.setPadding(new Insets(0.0, 00.0, 30.0, 950.0));
+			this.vBoxBottom.setPadding(new Insets(50.0, 00.0, 50.0, 50.0));
 			this.vBoxBottom.setSpacing(30);
 			this.vBoxBottom.setAlignment(Pos.CENTER);
 			
