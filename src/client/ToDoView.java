@@ -109,6 +109,7 @@ public class ToDoView extends BorderPane {
 			VBox buffer = new VBox();
 			buffer.setPrefHeight(60.0);
 			this.vBox.getChildren().add(buffer);
+			
 			//Creating the BarChart to show the done and undone ToDo's
 			this.xAxis = new CategoryAxis();
 			this.yAxis = new NumberAxis();

@@ -80,8 +80,7 @@ public abstract class MainBarView extends VBox {
 		 */
 		this.filter = FXCollections.observableArrayList(
 				"Alle",
-				"Heute",
-				"diese Woche"
+				"Heute"
 				);
 		this.comboBox = new ComboBox<>(filter);
 		this.searchBar.getChildren().add(comboBox);		

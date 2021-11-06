@@ -652,14 +652,8 @@ public class ToDoController implements Serializable {
                 ObservableList<ToDo> observableListToday = FXCollections.observableArrayList(arrayListToday);
                 main.tableView.getItems().clear();
                 main.tableView.getItems().addAll(observableListToday);
-                break;
             }
-            case 2: {
-                ArrayList<ToDo> arrayListWeek = this.toDoList.searchLocalWeek();
-                ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
-                main.tableView.getItems().clear();
-                main.tableView.getItems().addAll(observableListWeek);
-            }
+            
         }
     }
 
