@@ -26,7 +26,7 @@ src-directory.
 7. Then **Add JARs...**
 8. Open this path: ToDo-List/scr/lib
 9. Click on the jar file and apply with "ok"
-10. Click on ** Apply and Close** You're able to use the jdbc-sqlite driver now.
+10. Click on **Apply and Close** You're able to use the jdbc-sqlite driver now.
 
 ## Add VM arguments
 To run the application you have to add your VM arguments as you do for JavaFX. For this project you need to add **javafx.media** at the end of the argument. 
@@ -54,6 +54,11 @@ It is important to add it without any spacing after the comma.
     - ToDo-items can be filtered based on their due-date - selecting all items due for today or during the current week.
   - **Bar chart**
     - The application shows a bar chart which states how many toDo's that are open, and how many still need to be done.
+  - **Focus Timer**
+    - With a click on the button **Focus Timer**, the application pops up a window with a timer in it. Click on play,
+      and enter the zone. 
+  - **HowTo Guide**
+    - If you're unsure how to handle the application, have a look at the how-to video guide!
 - **Design**
   - Customized .CSS styling
 
