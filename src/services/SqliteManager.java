@@ -40,7 +40,7 @@ public class SqliteManager {
 
     // Getter & Setter
 
-    // Database functions
+    // Basic database functions
     private void initializeDatabase() throws SQLException {
 
         // Creating new database if it doesn't exist
@@ -73,7 +73,6 @@ public class SqliteManager {
     }
 
     public void writeItem(ToDo toDo) {
-        System.out.println("Writing to db");
 
         try {
 
@@ -86,12 +85,12 @@ public class SqliteManager {
             String categories = toDo.getCategories().size() == 0 ? "N/A" : toDo.getCategories().toString();
             String tags = toDo.getTags().isEmpty() ? "N/A" : toDo.getTags().toString();
             String writeString = "INSERT INTO Items VALUES ("
-                    + Integer.toString(toDo.getID()) + ", '"
+                    + toDo.getID() + ", '"
                     + toDo.getTitle() + "', '"
                     + message + "', '"
                     + toDo.getDateOfCreation().toString() + "', '"
                     + toDo.getDueDate().toString() + "', '"
-                    + categories.toString() + "', '"
+                    + categories + "', '"
                     + tags
                     + "')";
             this.statement.executeUpdate(writeString);
@@ -157,7 +156,6 @@ public class SqliteManager {
                     + "Tags='" + tags + "' "
                     + "WHERE ToDo_ID=" + oldItem.getID();
             this.statement.executeUpdate(updateString);
-            System.out.println("Updated item in db.");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -184,7 +182,6 @@ public class SqliteManager {
             this.statement = connection.createStatement();
             String deleteString = "DELETE FROM Items WHERE ToDo_ID=" + toDo.getID();
             statement.executeUpdate(deleteString);
-            System.out.println("Deleted item from db");
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -287,7 +284,7 @@ public class SqliteManager {
 
         if(this.connection != null) {
             try {
-                this.connection.close();;
+                this.connection.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }

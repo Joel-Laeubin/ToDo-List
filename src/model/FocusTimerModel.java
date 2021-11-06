@@ -21,10 +21,10 @@ import javafx.util.Duration;
 public class FocusTimerModel implements Serializable {
 	
 		// Elements
-	    private Timeline timeline;
-	    private Label counterLabel;
+	    private final Timeline timeline;
+	    private final Label counterLabel;
 	    private int second, minute;
-	    private DecimalFormat fmt;
+	    private final DecimalFormat fmt;
 	    private String secondFormat, minuteFormat;
 	    
 	    // Constructor

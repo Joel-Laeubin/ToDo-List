@@ -44,8 +44,8 @@ public class ToDoView extends BorderPane {
 		final static String done = "Erledigt";
 		final static String undone = "Geplant";
 				
-		private CategoryAxis xAxis;
-		private NumberAxis yAxis;
+		private final CategoryAxis xAxis;
+		private final NumberAxis yAxis;
 		protected BarChart<String, Number> bc;
 		protected XYChart.Series serie1;
 		protected XYChart.Series serie2;
@@ -66,7 +66,6 @@ public class ToDoView extends BorderPane {
 		 * Instantiates all necessary control elements
 		 * and adds them to the container
 		 */
-		
 		public ToDoView(ToDo toDoModel, ToDoList toDoListModel) {
 			
 			// Instantiates our classes
@@ -132,8 +131,6 @@ public class ToDoView extends BorderPane {
 			 * Button Focus timer for a focus timer dialog
 			 * on the right side of the bottom of the BorderPane
 			 */
-		
-			
 			this.openFocusTimer = new Button("Fokus Timer");
 			this.howTo = new Button("How to");
 			
@@ -147,7 +144,6 @@ public class ToDoView extends BorderPane {
 			this.borderPane.setBottom(vBoxBottom);
 		    
 			// Add CSS styling
-			
 			this.getStylesheets().add(getClass().getResource("ToDoViewStyleSheet.css").toExternalForm());
 			this.getStyleClass().add("view");
 			this.listView.getStylesheets().add(getClass().getResource("ListViewStyleSheet.css").toExternalForm());
@@ -182,9 +178,6 @@ public class ToDoView extends BorderPane {
 			
 			this.howToDialog.initModality(Modality.NONE);
 
-			
 		}
-		
-				
 
-		}
+}

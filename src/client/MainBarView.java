@@ -28,7 +28,7 @@ public abstract class MainBarView extends VBox {
 	// control elements for this container
 	protected ObservableList<ToDo> subSet;
 	protected ImageView icon;
-	private ImageView plus;
+	private final ImageView plus;
 	protected Label label;
 	protected ImageView lupe;
 	protected TextField searchField;
