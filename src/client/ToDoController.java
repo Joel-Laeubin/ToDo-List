@@ -10,8 +10,10 @@ import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.FocusTimerModel;
 import model.ToDo;
@@ -75,15 +77,18 @@ public class ToDoController {
         this.linkTableViewListeners(plannedBarView.tableView.getItems());
         toDoView.borderPane.setCenter(plannedBarView);
 
-        // Register buttons
+        // Register buttons EventHandling
         this.toDoView.listView.setOnMouseClicked(this::changeCenterBar);
 
-        // Focus timer button
+        // Focus timer button EventHandling
         this.toDoView.openFocusTimer.setOnMouseClicked(this::createFocusTimer);
 
         // Add focus timer dialog and model 
         this.dialog = new FocusTimerDialogPane();
         this.focusModel = new FocusTimerModel(null);
+        
+        // HowTo Button EventHandling
+        this.toDoView.howTo.setOnMouseClicked(this::createHowTo);
 
 
         Timeline Updater = new Timeline(new KeyFrame(Duration.seconds(0.1), new EventHandler<ActionEvent>() {
@@ -549,6 +554,12 @@ public class ToDoController {
         this.toDoView.toDoDialogPane = new AddToDoDialogPane(this.toDoView.listView.getItems());
         this.toDoView.addToDoDialog.setDialogPane(this.toDoView.toDoDialogPane);
 
+        this.toDoView.addToDoDialog.setTitle("Neue Aufgabe");
+        Stage stage = (Stage) toDoView.addToDoDialog.getDialogPane().getScene().getWindow();
+		stage.getIcons().add(new Image(this.getClass().getResource("/icons/doneIcon4.png").toString()));
+		
+        
+        
         // Set up event filter on OK-button to prevent dialog from closing when user input is not valid
         Button okButton = (Button) this.toDoView.toDoDialogPane.lookupButton(this.toDoView.toDoDialogPane.okButtonType);
         okButton.addEventFilter(ActionEvent.ACTION,
@@ -636,13 +647,6 @@ public class ToDoController {
                 ObservableList<ToDo> observableListWeek = FXCollections.observableArrayList(arrayListWeek);
                 main.tableView.getItems().clear();
                 main.tableView.getItems().addAll(observableListWeek);
-                break;
-            }
-            case 3: {
-                ArrayList<ToDo> arrayListMonth = this.toDoList.searchLocalMonth();
-                ObservableList<ToDo> observableListMonth = FXCollections.observableArrayList(arrayListMonth);
-                main.tableView.getItems().clear();
-                main.tableView.getItems().addAll(observableListMonth);
             }
         }
     }
@@ -676,7 +680,14 @@ public class ToDoController {
     	focusModel.restart();
     }
     
+    // Open a new focus timer window
+    public void createHowTo(MouseEvent e) {
 
+        // show dialog
+        this.toDoView.howToDialog.showAndWait();
+    }
+    
+    
 }
 
 		

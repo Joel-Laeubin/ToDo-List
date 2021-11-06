@@ -81,8 +81,7 @@ public abstract class MainBarView extends VBox {
 		this.filter = FXCollections.observableArrayList(
 				"Alle",
 				"Heute",
-				"diese Woche",
-				"diesen Monat"
+				"diese Woche"
 				);
 		this.comboBox = new ComboBox<>(filter);
 		this.searchBar.getChildren().add(comboBox);		
@@ -129,8 +128,6 @@ public abstract class MainBarView extends VBox {
 		this.tableView.getSortOrder().add(dueDate);
 						
 		this.setPrefHeight(600);
-		
-		
 	
 		
 		// Add CSS styling

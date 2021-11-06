@@ -33,7 +33,6 @@ public class FocusTimerModel {
 			this.fmt = new DecimalFormat("00");
 			this.minute = 25;
 			this.second = 0;
-			
 	    }
 
 	    public void stop() {

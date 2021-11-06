@@ -140,31 +140,15 @@ public class ToDoList {
 	public ArrayList<ToDo> searchLocalWeek() {
 		
 		LocalDate now = LocalDate.now();
-		int day = now.getDayOfWeek().getValue();
-		int daysTillNextWeek = 7 - day;
-		LocalDate inAWeek = LocalDate.now().plusDays(daysTillNextWeek+1);
+		LocalDate inAWeek = LocalDate.now().plusDays(7);
 		
 		ArrayList<ToDo> returnWeek = new ArrayList<>();
 		for(ToDo toDo : this.toDoList) {
-			if (toDo.getDueDate().compareTo(inAWeek) == -1) {
+			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAWeek) == 1) {
 				returnWeek.add(toDo);
 			}
 		}
 		return returnWeek;		
-	}
-	
-	public ArrayList<ToDo> searchLocalMonth() {
-	
-		LocalDate now = LocalDate.now();
-		LocalDate inAMonth = LocalDate.now().plusDays(30);
-		
-		ArrayList<ToDo> returnMonth = new ArrayList<>();
-		for(ToDo toDo : this.toDoList) {
-			if (toDo.getDueDate().compareTo(now) >= 0 && toDo.getDueDate().compareTo(inAMonth) >= 1) {
-				returnMonth.add(toDo);
-			}
-		}
-		return returnMonth;		
 	}
 	
 	public void removeToDo(ToDo toDo) { 

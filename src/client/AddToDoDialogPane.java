@@ -151,6 +151,7 @@ public class AddToDoDialogPane extends DialogPane {
 
         // Set content
         this.setContent(root);
+        this.setContentText("Neue Aufgabe");
 
     }
 

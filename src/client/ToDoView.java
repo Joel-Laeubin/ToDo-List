@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
@@ -18,6 +19,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.ToDo;
 import model.ToDoList;
@@ -50,7 +52,12 @@ public class ToDoView extends BorderPane {
 		protected Dialog<ButtonType> focusDialog;
 		protected FocusTimerDialogPane focusTimerDialog;
 		protected Button openFocusTimer;
+		
+		protected Dialog<ButtonType> howToDialog;
+		protected HowToDialogPane howToDialogPane;
+		protected Button howTo;
 				
+		private HBox hBoxHowTo;
 		protected VBox vBoxBottom;
 		protected HBox hBoxBottom;
 		
@@ -123,14 +130,17 @@ public class ToDoView extends BorderPane {
 			 * Button Focus timer for a focus timer dialog
 			 * on the right side of the bottom of the BorderPane
 			 */
-			this.vBoxBottom = new VBox();
-			this.hBoxBottom = new HBox();
+		
 			
 			this.openFocusTimer = new Button("Fokus Timer");
+			this.howTo = new Button("How to");
 			
-			this.hBoxBottom.getChildren().add(openFocusTimer);
-			this.hBoxBottom.setPadding(new Insets(0.0, 0.0, 40.0, 950.0));
-			this.vBoxBottom.getChildren().add(hBoxBottom);
+			this.vBoxBottom = new VBox();
+			
+			this.vBoxBottom.getChildren().addAll(openFocusTimer, howTo);
+			this.vBoxBottom.setPadding(new Insets(0.0, 00.0, 30.0, 950.0));
+			this.vBoxBottom.setSpacing(30);
+			this.vBoxBottom.setAlignment(Pos.CENTER);
 			
 			this.borderPane.setBottom(vBoxBottom);
 		    
@@ -146,14 +156,25 @@ public class ToDoView extends BorderPane {
 			this.bc.getStylesheets().add(getClass().getResource("BarChartStyleSheet.css").toExternalForm());
 	        
 			
-			// Create and customize Dialog
+			// Create and customize Focus timer - Dialog
 			this.focusDialog = new Dialog<ButtonType>();
 			this.focusDialog.setTitle("Fokus Timer");
-			ImageView focusImage = new ImageView("/icons/timer.png");
-			this.focusDialog.setGraphic(focusImage);
+			
+			Stage stage = (Stage) focusDialog.getDialogPane().getScene().getWindow();
+			stage.getIcons().add(new Image(this.getClass().getResource("/icons/timer.png").toString()));
 			
 			this.focusTimerDialog = new FocusTimerDialogPane();
 			this.focusDialog.setDialogPane(focusTimerDialog);
+			
+			// Create and costumize HowTo Dialog
+			this.howToDialog = new Dialog<ButtonType>();
+			this.howToDialog.setTitle("How-To");
+			Stage stage2 = (Stage) howToDialog.getDialogPane().getScene().getWindow();
+			stage2.getIcons().add(new Image(this.getClass().getResource("/icons/howTo.png").toString()));
+			
+			this.howToDialogPane = new HowToDialogPane();
+			this.howToDialog.setDialogPane(howToDialogPane);
+
 			
 		}
 		
